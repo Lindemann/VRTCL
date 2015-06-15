@@ -34,11 +34,35 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   word-wrap: break-word; }
 
+a {
+  text-decoration: none; }
+
+::selection {
+  background-color: #CDFD70; }
+
+::-moz-selection {
+  background-color: rgba(205, 253, 112, 0.7); }
+
+/*////////////////////////////////////////////////////////////////////////////*/
+/*                                     BUTTON                                 */
+/*////////////////////////////////////////////////////////////////////////////*/
+.button {
+  display: block;
+  width: 400px;
+  border-radius: 50px;
+  padding: 20px 0;
+  text-align: center;
+  transition: color 0.2s, background-color 0.2s; }
+
+.button {
+  font-weight: 400;
+  font-size: 40px; }
+
 /*////////////////////////////////////////////////////////////////////////////*/
 /*                                    HEADER                                  */
 /*////////////////////////////////////////////////////////////////////////////*/
 #header {
-  background-color: RGB(224, 224, 224);
+  background-color: #E0E0E0;
   height: 790px; }
 
 #icon {
@@ -56,13 +80,29 @@ body {
 /*                                   CONTENT                                  */
 /*////////////////////////////////////////////////////////////////////////////*/
 #content {
-  background-color: RGB(51, 51, 51);
-  height: 800px; }
+  background-color: #333333;
+  height: 1500px;
+  text-align: center; }
   #content h1 {
-    text-align: center;
-    padding-top: 350px;
+    padding-top: 320px;
     color: white;
     font-weight: 600;
-    font-size: 200px; }
+    font-size: 190px; }
+  #content h3 {
+    color: white;
+    font-weight: 200;
+    font-size: 50px; }
+    #content h3 b {
+      font-weight: 600; }
+
+.button {
+  color: #996CFB;
+  border: 3px solid #996CFB;
+  display: block;
+  margin: 0 auto;
+  margin-top: 50px; }
+  .button:hover {
+    color: white;
+    background-color: #996CFB; }
 
 /*# sourceMappingURL=screen.css.map */

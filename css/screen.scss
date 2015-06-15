@@ -58,12 +58,52 @@ body {
 	word-wrap: break-word;
 }
 
+a {
+  text-decoration: none;
+}
+
+$neonYellow: #CDFD70;
+::selection { 
+	background-color: $neonYellow;
+}
+::-moz-selection { 
+	background-color: rgba($neonYellow, 0.7); 
+}
+
+/*////////////////////////////////////////////////////////////////////////////*/
+/*                                     BUTTON                                 */
+/*////////////////////////////////////////////////////////////////////////////*/
+
+$duration: 0.2s;
+
+.button {
+	display: block;
+	width: 400px;
+	border-radius: 50px;
+	padding: 20px 0;
+	text-align: center;
+	transition: color $duration, background-color $duration;
+}
+
+@mixin buttonColor($strokeColor, $hoverFillColor, $hoverTextColor) {
+	color: $strokeColor;
+	border: 3px solid $strokeColor;
+	&:hover {
+		color: $hoverTextColor;
+		background-color: $hoverFillColor;
+	}
+}
+
+.button  {
+    font-weight: 400;
+    font-size: 40px;
+}
 /*////////////////////////////////////////////////////////////////////////////*/
 /*                                    HEADER                                  */
 /*////////////////////////////////////////////////////////////////////////////*/
 
 #header {
-  background-color: RGB(224, 224, 224);
+  background-color: #E0E0E0;
   height: 790px;
 }
 
@@ -84,13 +124,28 @@ body {
 /*////////////////////////////////////////////////////////////////////////////*/
 
 #content {
-  background-color: RGB(51, 51, 51);
-  height: 800px;
+  background-color: #333333;
+  height: 1500px;
+  text-align: center;
   h1 {
-    text-align: center;
-    padding-top: 350px;
+    padding-top: 320px;
     color: white;
     font-weight: 600;
-    font-size: 200px;
+    font-size: 190px;
   }
+  h3 {
+    color: white;
+    font-weight: 200;
+    font-size: 50px;
+    b {
+      font-weight: 600;
+    }
+  }
+}
+
+$lila: #996CFB;
+.button {
+		@include buttonColor($lila, $lila, white);
+    @include center;
+    margin-top: 50px;
 }
