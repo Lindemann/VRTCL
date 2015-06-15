@@ -1,23 +1,68 @@
 /*
-Errno::ENOENT: No such file or directory - /Users/Lindemann/Desktop/VRTCL/gh-pages/css/screen.scss
+ ___      ___ ________  _________  ________  ___          
+|\  \    /  /|\   __  \|\___   ___\   ____\|\  \         
+\ \  \  /  / | \  \|\  \|___ \  \_\ \  \___|\ \  \        
+ \ \  \/  / / \ \   _  _\   \ \  \ \ \  \    \ \  \       
+  \ \    / /   \ \  \  \|   \ \  \ \ \  \____\ \  \____  
+   \ \__/ /     \ \__\ _\    \ \__\ \ \_______\ \_______\
+    \|__|/       \|__|\|__|    \|__|  \|_______|\|_______|
 
-Backtrace:
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.14/lib/sass/plugin/compiler.rb:482:in `read'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.14/lib/sass/plugin/compiler.rb:482:in `update_stylesheet'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.14/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.14/lib/sass/plugin/compiler.rb:209:in `each'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.14/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.14/lib/sass/plugin/compiler.rb:293:in `watch'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.14/lib/sass/plugin.rb:108:in `method_missing'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.14/lib/sass/exec/sass_scss.rb:381:in `watch_or_update'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.14/lib/sass/exec/sass_scss.rb:51:in `process_result'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.14/lib/sass/exec/base.rb:52:in `parse'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.14/lib/sass/exec/base.rb:19:in `parse!'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.14/bin/sass:13:in `<top (required)>'
-/usr/bin/sass:23:in `load'
-/usr/bin/sass:23:in `<main>'
 */
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Errno::ENOENT: No such file or directory - /Users/Lindemann/Desktop/VRTCL/gh-pages/css/screen.scss"; }
+/*////////////////////////////////////////////////////////////////////////////*/
+/*                                   IMPORTS                                  */
+/*////////////////////////////////////////////////////////////////////////////*/
+/* Fonts */
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic);
+/*////////////////////////////////////////////////////////////////////////////*/
+/*                       SASS VARS, MIXINS AND FUNCTIONS                      */
+/*////////////////////////////////////////////////////////////////////////////*/
+/*////////////////////////////////////////////////////////////////////////////*/
+/*                                   RESET                                    */
+/*////////////////////////////////////////////////////////////////////////////*/
+* {
+  margin: 0;
+  padding: 0; }
+
+/*////////////////////////////////////////////////////////////////////////////*/
+/*                                    FONT                                    */
+/*////////////////////////////////////////////////////////////////////////////*/
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  word-wrap: break-word; }
+
+/*////////////////////////////////////////////////////////////////////////////*/
+/*                                    HEADER                                  */
+/*////////////////////////////////////////////////////////////////////////////*/
+#header {
+  background-color: RGB(224, 224, 224);
+  height: 790px; }
+
+#icon {
+  height: 100px;
+  margin: 50px;
+  margin-bottom: 100px; }
+
+#iphone {
+  width: 400px;
+  margin-top: 200px;
+  display: block;
+  margin: 0 auto; }
+
+/*////////////////////////////////////////////////////////////////////////////*/
+/*                                   CONTENT                                  */
+/*////////////////////////////////////////////////////////////////////////////*/
+#content {
+  background-color: RGB(51, 51, 51);
+  height: 800px; }
+  #content h1 {
+    text-align: center;
+    padding-top: 350px;
+    color: white;
+    font-weight: 600;
+    font-size: 200px; }
+
+/*# sourceMappingURL=screen.css.map */
