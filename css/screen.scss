@@ -157,6 +157,7 @@ a {
 #content {
   background-color: $veryDarkGray;
   text-align: center;
+  padding-bottom: 200px;
   h1 {
     padding-top: 320px;
     color: white;
@@ -203,8 +204,9 @@ a {
 /*////////////////////////////////////////////////////////////////////////////*/
 
 #footer {
-    background-color: $veryDarkGray;
-    padding-top: 250px;
+    background-color: $lila;
+    padding-top: 40px;
+    padding-bottom: 20px;
 	img {
 		@include center;
     width: 80px;
@@ -216,6 +218,5 @@ a {
     font-weight: 200;
 		font-size: 14pt;
     text-align: center;
-    padding-bottom: 20px;
 	}
 }

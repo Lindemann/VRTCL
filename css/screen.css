@@ -95,7 +95,8 @@ a {
 /*////////////////////////////////////////////////////////////////////////////*/
 #content {
   background-color: #333333;
-  text-align: center; }
+  text-align: center;
+  padding-bottom: 200px; }
   #content h1 {
     padding-top: 320px;
     color: white;
@@ -138,8 +139,9 @@ a {
 /*                                   FOOTER                                   */
 /*////////////////////////////////////////////////////////////////////////////*/
 #footer {
-  background-color: #333333;
-  padding-top: 250px; }
+  background-color: #996CFB;
+  padding-top: 40px;
+  padding-bottom: 20px; }
   #footer img {
     display: block;
     margin: 0 auto;
@@ -153,7 +155,6 @@ a {
     color: white;
     font-weight: 200;
     font-size: 14pt;
-    text-align: center;
-    padding-bottom: 20px; }
+    text-align: center; }
 
 /*# sourceMappingURL=screen.css.map */
