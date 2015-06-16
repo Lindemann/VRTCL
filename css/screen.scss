@@ -25,13 +25,13 @@
 	margin: 0 auto;
 }
 
-/*////////////////////////////////////////////////////////////////////////////*/
-/*                                   RESET                                    */
-/*////////////////////////////////////////////////////////////////////////////*/
-
-* {
-    margin: 0;
-    padding: 0;
+@mixin imageHoverEffect {
+	a img {
+		transition: opacity $duration;
+	}
+	a img:hover {
+		opacity:0.6;
+	}
 }
 
 @mixin font-smoothing($value: on) {
@@ -43,6 +43,20 @@
         -webkit-font-smoothing: subpixel-antialiased;
         -moz-osx-font-smoothing: auto;
     }
+}
+
+$duration: 0.2s;
+$neonYellow: #CDFD70;
+$veryDarkGray: #333333;
+$lila: #996CFB;
+
+/*////////////////////////////////////////////////////////////////////////////*/
+/*                                   RESET                                    */
+/*////////////////////////////////////////////////////////////////////////////*/
+
+* {
+    margin: 0;
+    padding: 0;
 }
 
 /*////////////////////////////////////////////////////////////////////////////*/
@@ -62,7 +76,6 @@ a {
   text-decoration: none;
 }
 
-$neonYellow: #CDFD70;
 ::selection { 
 	background-color: $neonYellow;
 }
@@ -74,11 +87,9 @@ $neonYellow: #CDFD70;
 /*                                     BUTTON                                 */
 /*////////////////////////////////////////////////////////////////////////////*/
 
-$duration: 0.2s;
-
 .button {
 	display: block;
-	width: 400px;
+	width: 330px;
 	border-radius: 50px;
 	padding: 20px 0;
 	text-align: center;
@@ -96,8 +107,26 @@ $duration: 0.2s;
 
 .button  {
     font-weight: 400;
-    font-size: 40px;
+    font-size: 30px;
 }
+
+/*////////////////////////////////////////////////////////////////////////////*/
+/*                                     GRID                                   */
+/*////////////////////////////////////////////////////////////////////////////*/
+
+.grid-3 {
+	.gridMember:nth-child(1) {
+		float: left;
+	}
+	.gridMember:nth-child(2) {
+		float: left;
+	}
+	.gridMember:nth-child(3) {
+		float: left;
+	}
+	overflow: hidden;
+}
+
 /*////////////////////////////////////////////////////////////////////////////*/
 /*                                    HEADER                                  */
 /*////////////////////////////////////////////////////////////////////////////*/
@@ -124,28 +153,67 @@ $duration: 0.2s;
 /*////////////////////////////////////////////////////////////////////////////*/
 
 #content {
-  background-color: #333333;
-  height: 1500px;
+  background-color: $veryDarkGray;
   text-align: center;
   h1 {
     padding-top: 320px;
     color: white;
     font-weight: 600;
-    font-size: 190px;
+    font-size: 180px;
   }
   h3 {
     color: white;
     font-weight: 200;
-    font-size: 50px;
+    font-size: 40px;
     b {
       font-weight: 600;
     }
   }
+  img {
+    width: 100px;
+    margin-bottom: 30px;
+  }
+  p {
+    color: white;
+    font-weight: 200;
+    font-size: 30px;
+  }
 }
 
-$lila: #996CFB;
 .button {
 		@include buttonColor($lila, $lila, white);
     @include center;
     margin-top: 50px;
+}
+
+.grid-3 {
+  @include center;
+  width: 900px;
+  margin-top: 100px;
+}
+
+.gridMember {
+	width: (100% / 3);
+}
+
+/*////////////////////////////////////////////////////////////////////////////*/
+/*                                   FOOTER                                   */
+/*////////////////////////////////////////////////////////////////////////////*/
+
+#footer {
+    background-color: $veryDarkGray;
+    padding-top: 250px;
+	img {
+		@include center;
+    width: 80px;
+    margin-bottom: 20px;
+	}
+	@include imageHoverEffect;
+	p {
+    color: white;
+    font-weight: 200;
+		font-size: 14pt;
+    text-align: center;
+    padding-bottom: 20px;
+	}
 }
