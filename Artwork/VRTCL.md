@@ -7,5 +7,9 @@
 - sessions per week
 - hours per week
 
-# VRTCL FACTS
+# VRTCL FRIENDS
+- Feed
+- Stats
+- Friends
+- Comparison
 
