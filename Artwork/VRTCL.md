@@ -1,4 +1,4 @@
-# VRTCL STATS
+# STATS
 
 - on sight level
 - success rate
@@ -7,9 +7,15 @@
 - sessions per week
 - hours per week
 
-# VRTCL FRIENDS
+# FRIENDS
+- Followers
+- Following
+- Follow
+
 - Feed
 - Stats
-- Friends
-- Comparison
 
+# Settings
+- Private Account
+- Logout
+- Delete Account
