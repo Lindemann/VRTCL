@@ -1,11 +1,11 @@
 /*
- ___      ___ ________  _________  ________  ___          
-|\  \    /  /|\   __  \|\___   ___\\   ____\|\  \         
-\ \  \  /  / | \  \|\  \|___ \  \_\ \  \___|\ \  \        
- \ \  \/  / / \ \   _  _\   \ \  \ \ \  \    \ \  \       
-  \ \    / /   \ \  \\  \|   \ \  \ \ \  \____\ \  \____  
+ ___      ___ ________  _________  ________  ___
+|\  \    /  /|\   __  \|\___   ___\\   ____\|\  \
+\ \  \  /  / | \  \|\  \|___ \  \_\ \  \___|\ \  \
+ \ \  \/  / / \ \   _  _\   \ \  \ \ \  \    \ \  \
+  \ \    / /   \ \  \\  \|   \ \  \ \ \  \____\ \  \____
    \ \__/ /     \ \__\\ _\    \ \__\ \ \_______\ \_______\
-    \|__|/       \|__|\|__|    \|__|  \|_______|\|_______|
+	\|__|/       \|__|\|__|    \|__|  \|_______|\|_______|
 
 */
 
@@ -35,14 +35,14 @@
 }
 
 @mixin font-smoothing($value: on) {
-    @if $value == on {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-    @else {
-        -webkit-font-smoothing: subpixel-antialiased;
-        -moz-osx-font-smoothing: auto;
-    }
+	@if $value == on {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+	@else {
+		-webkit-font-smoothing: subpixel-antialiased;
+		-moz-osx-font-smoothing: auto;
+	}
 }
 
 $duration: 0.2s;
@@ -55,8 +55,8 @@ $lila: #996CFB;
 /*////////////////////////////////////////////////////////////////////////////*/
 
 * {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 /*////////////////////////////////////////////////////////////////////////////*/
@@ -76,11 +76,11 @@ a {
   text-decoration: none;
 }
 
-::selection { 
+::selection {
 	background-color: $neonYellow;
 }
-::-moz-selection { 
-	background-color: rgba($neonYellow, 0.7); 
+::-moz-selection {
+	background-color: rgba($neonYellow, 0.7);
 }
 
 /*////////////////////////////////////////////////////////////////////////////*/
@@ -106,8 +106,8 @@ a {
 }
 
 .button  {
-    font-weight: 400;
-    font-size: 30px;
+	font-weight: 400;
+	font-size: 30px;
 }
 
 /*////////////////////////////////////////////////////////////////////////////*/
@@ -159,34 +159,34 @@ a {
   text-align: center;
   padding-bottom: 200px;
   h1 {
-    padding-top: 320px;
-    color: white;
-    font-weight: 600;
-    font-size: 180px;
+	padding-top: 320px;
+	color: white;
+	font-weight: 600;
+	font-size: 180px;
   }
   h3 {
-    color: white;
-    font-weight: 200;
-    font-size: 40px;
-    b {
-      font-weight: 600;
-    }
+	color: white;
+	font-weight: 200;
+	font-size: 40px;
+	b {
+	  font-weight: 600;
+	}
   }
   img {
-    width: 100px;
-    margin-bottom: 30px;
+	width: 100px;
+	margin-bottom: 30px;
   }
   p {
-    color: white;
-    font-weight: 200;
-    font-size: 30px;
+	color: white;
+	font-weight: 200;
+	font-size: 30px;
   }
 }
 
 .button {
 		@include buttonColor($lila, $lila, white);
-    @include center;
-    margin-top: 100px;
+	@include center;
+	margin-top: 100px;
 }
 
 .grid-3 {
@@ -204,19 +204,19 @@ a {
 /*////////////////////////////////////////////////////////////////////////////*/
 
 #footer {
-    background-color: $lila;
-    padding-top: 40px;
-    padding-bottom: 30px;
+	background-color: $lila;
+	padding-top: 40px;
+	padding-bottom: 30px;
 	img {
 		@include center;
-    width: 80px;
-    margin-bottom: 20px;
+	width: 80px;
+	margin-bottom: 20px;
 	}
 	@include imageHoverEffect;
 	p {
-    color: white;
-    font-weight: 200;
+	color: white;
+	font-weight: 200;
 		font-size: 14pt;
-    text-align: center;
+	text-align: center;
 	}
 }
