@@ -19,9 +19,6 @@ enum System {
     case Hueco
 }
 
-let grade = Grade(system: .UIAA, value: "5", color: Color.BLUE, display: true)
-Grade(system: .UIAA, value: "5-/5+", color: nil, display: false)
-
 struct Climb {
     var style: Style
     var grade: Grade
@@ -42,10 +39,18 @@ enum Kind {
 
 struct Session {
     let kind: Kind
-    var climbs: Array<Climb>
+    var climbs: [Climb]
     var feeling: Feeling
     var location: Location
     var duration: Double
+    let date: Date
+    let likes: Likes
+    let comments: Comments
+}
+
+struct Date {
+    let startDate: NSDate
+    let endDate: NSDate
 }
 
 enum Feeling {
@@ -67,4 +72,42 @@ struct Grades {
     ]
 }
 
-println(Grades.UIAA)
+let grade = Grade(system: .UIAA, value: "5", color: Color.BLUE, display: true)
+
+struct User {
+    var sessions: [Session]
+    let account: Account
+    let statistics: Statistics
+}
+
+struct Account {
+    var userName: String
+    var password: String
+    var mail: String
+    var image: UIImage
+}
+
+struct Statistics {
+    
+}
+
+struct Likes {
+    var users: [User]
+    var count: Int {
+        return users.count
+    }
+}
+
+struct Comment {
+    var text: String
+    var user: User
+    var date: NSDate
+}
+
+struct Comments {
+    var comments: [Comment]
+    var count: Int {
+        return comments.count
+    }
+}
+
