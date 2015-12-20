@@ -26,7 +26,7 @@ class CircleButton: UIButton {
     var color: UIColor?
     var appearanceMode: AppearanceMode?
     var interactionMode: InteractionMode?
-    let presentingViewBackgroundColor = UIColor.whiteColor()
+    let presentingViewBackgroundColor = ColorConstants.DarkGray
     
     override var highlighted: Bool {
         didSet {
@@ -105,6 +105,5 @@ class CircleButton: UIButton {
         self.setTitleColor(self.presentingViewBackgroundColor, forState: UIControlState.Normal)
         self.setTitleColor(self.presentingViewBackgroundColor, forState: UIControlState.Highlighted)
         self.backgroundColor = self.color
-        self.layer.borderColor = UIColor.clearColor().CGColor
     }
 }

@@ -14,7 +14,7 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         
         UITabBar.appearance().tintColor = UIColor.whiteColor()
-        UITabBar.appearance().barTintColor = UIColor.blackColor()
+        UITabBar.appearance().barTintColor = ColorConstants.BarColor
     }
 
     override func didReceiveMemoryWarning() {
