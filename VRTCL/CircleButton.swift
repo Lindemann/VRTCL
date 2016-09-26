@@ -9,46 +9,91 @@
 import UIKit
 
 enum AppearanceMode {
-    case Outlined
-    case Filled
-}
-
-enum InteractionMode {
-    case Activated
-    case Deactivated
+    case outlined
+    case filled
 }
 
 @IBDesignable
 class CircleButton: UIButton {
     
     // MARK: Properties
-    var text: String?
-    var color: UIColor?
-    var appearanceMode: AppearanceMode?
-    var interactionMode: InteractionMode?
-    let presentingViewBackgroundColor = ColorConstants.DarkGray
     
-    override var highlighted: Bool {
-        didSet {
-            if highlighted {
-                if self.interactionMode == .Deactivated { return }
-                    self.isFilled(self.setOutlinedApperance)
-                    self.isOutlined(self.setFilledApperance)
+    private var text: String?
+    private var color: UIColor?
+    
+    // Workaround for this http://stackoverflow.com/questions/25828987/swift-property-getter-ivar
+    private var _presentingViewBackgroundColor: UIColor?
+    private var presentingViewBackgroundColor: UIColor? {
+        set(newValue) {
+            _presentingViewBackgroundColor = newValue
+        }
+        get {
+            if let presentingViewBackgroundColor = _presentingViewBackgroundColor {
+                return presentingViewBackgroundColor
             } else {
-                if self.interactionMode == .Deactivated { return }
-                    self.isFilled(self.setFilledApperance)
-                    self.isOutlined(self.setOutlinedApperance)
+                if let backgroundColor = self.superview?.backgroundColor {
+                    return backgroundColor
+                } else {
+                    return UIColor.red
+                }
+            }
+        }
+    }
+    
+    override var isHighlighted: Bool {
+        didSet {
+            if isSelected {return}
+            if isHighlighted {
+                appearanceMode = .filled
+            } else {
+                appearanceMode = .outlined
+            }
+        }
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                appearanceMode = .filled
+            } else {
+                appearanceMode = .outlined
+            }
+        }
+    }
+    
+    var appearanceMode: AppearanceMode? {
+        didSet {
+            let duration = 0.1
+            if appearanceMode == .outlined {
+                UIView.animate(withDuration: duration) { [weak self] in
+                    self?.setTitleColor(self?.color, for: UIControlState())
+                    self?.setTitleColor(self?.color, for: UIControlState.highlighted)
+                    self?.backgroundColor = UIColor.clear
+                    self?.layer.borderColor = self?.color!.cgColor
+                }
+            }
+            if appearanceMode == .filled {
+                UIView.animate(withDuration: duration) { [weak self] in
+                    self?.setTitleColor(self?.presentingViewBackgroundColor, for: UIControlState())
+                    self?.setTitleColor(self?.presentingViewBackgroundColor, for: UIControlState.highlighted)
+                    self?.backgroundColor = self?.color
+                }
             }
         }
     }
     
     // MARK: Initializer
-    init(frame: CGRect, text: String, color: UIColor, appearanceMode: AppearanceMode, interactionMode: InteractionMode) {
+    
+    init(center: CGPoint, diameter: CGFloat, text: String, color: UIColor, presentingViewBackgroundColor: UIColor? = nil, isSelected: Bool = false, isEnabled: Bool = true) {
+        super.init(frame: CGRect(x: center.x - diameter/2, y: center.y - diameter/2, width: diameter, height: diameter))
         self.text = text
         self.color = color
-        self.appearanceMode = appearanceMode
-        self.interactionMode = interactionMode
-        super.init(frame: frame)
+        self.isEnabled = isEnabled
+        self.presentingViewBackgroundColor = presentingViewBackgroundColor
+        // trigger didSet of propertys http://stackoverflow.com/a/33979852/647644
+        defer {
+            self.isSelected = isSelected
+        }
         setUpButton()
     }
 
@@ -65,45 +110,24 @@ class CircleButton: UIButton {
     }
     
     // MARK: SetUp
+    
     func setUpButton() {
-        setTitle(text, forState: UIControlState.Normal)
-        titleLabel?.font = UIFont.systemFontOfSize(15)
+        setTitle(text, for: UIControlState())
+        titleLabel?.font = UIFont.systemFont(ofSize: 15)
         
         layer.cornerRadius = 0.5 * bounds.size.width
         layer.borderWidth = 1
         
         titleLabel?.adjustsFontSizeToFitWidth = true
-        titleLabel?.textAlignment = NSTextAlignment.Center
-        titleLabel?.baselineAdjustment = UIBaselineAdjustment.AlignCenters
+        titleLabel?.textAlignment = NSTextAlignment.center
+        titleLabel?.baselineAdjustment = UIBaselineAdjustment.alignCenters
         let insets: CGFloat = 1
         titleEdgeInsets = UIEdgeInsets(top: insets, left: insets, bottom: insets, right: insets)
         
-        isFilled(setFilledApperance)
-        isOutlined(setOutlinedApperance)
-    }
-
-    func isOutlined(function: () -> ()) {
-        if self.appearanceMode == .Outlined {
-            function()
-        }
+        addTarget(self, action: #selector(wasTouched), for: .touchUpInside)
     }
     
-    func isFilled(function: () -> ()) {
-        if self.appearanceMode == .Filled {
-            function()
-        }
-    }
-    
-    func setOutlinedApperance() {
-        self.setTitleColor(self.color, forState: UIControlState.Normal)
-        self.setTitleColor(self.color, forState: UIControlState.Highlighted)
-        self.backgroundColor = UIColor.clearColor()
-        self.layer.borderColor = self.color!.CGColor
-    }
-    
-    func setFilledApperance() {
-        self.setTitleColor(self.presentingViewBackgroundColor, forState: UIControlState.Normal)
-        self.setTitleColor(self.presentingViewBackgroundColor, forState: UIControlState.Highlighted)
-        self.backgroundColor = self.color
+    @objc private func wasTouched() {
+        isSelected = isSelected ? false : true
     }
 }

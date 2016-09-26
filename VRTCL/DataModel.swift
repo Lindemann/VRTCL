@@ -20,11 +20,11 @@ struct Color {
 }
 
 enum System {
-    case UIAA
-    case French
-    case YDS
-    case Font
-    case Hueco
+    case uiaa
+    case french
+    case yds
+    case font
+    case hueco
 }
 
 struct Climb {
@@ -33,16 +33,16 @@ struct Climb {
 }
 
 enum Style {
-    case Flash
-    case OnSight
-    case RedPoint
-    case Attempt
-    case Toprope
+    case flash
+    case onSight
+    case redPoint
+    case attempt
+    case toprope
 }
 
 enum Kind {
-    case SportClimbing
-    case Bouldering
+    case sportClimbing
+    case bouldering
 }
 
 struct Session {
@@ -57,15 +57,15 @@ struct Session {
 }
 
 struct Date {
-    let startDate: NSDate
-    let endDate: NSDate
+    let startDate: Foundation.Date
+    let endDate: Foundation.Date
 }
 
 enum Feeling {
-    case Fabolous
-    case OK
-    case Exhausted
-    case Hideous
+    case fabolous
+    case ok
+    case exhausted
+    case hideous
 }
 
 struct Location {
@@ -83,7 +83,7 @@ struct Likes {
 struct Comment {
     var text: String
     var user: User
-    var date: NSDate
+    var date: Foundation.Date
 }
 
 struct Comments {
@@ -95,12 +95,12 @@ struct Comments {
 
 struct Grades {
     static let UIAA: [Grade] = [
-        Grade(system: .UIAA, value: "", color: nil, display: true),
-        Grade(system: .UIAA, value: "", color: nil, display: true)
+        Grade(system: .uiaa, value: "", color: nil, display: true),
+        Grade(system: .uiaa, value: "", color: nil, display: true)
     ]
 }
 
-let grade = Grade(system: .UIAA, value: "5", color: Color.BLUE, display: true)
+let grade = Grade(system: .uiaa, value: "5", color: Color.BLUE, display: true)
 
 struct User {
     var sessions: [Session]

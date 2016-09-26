@@ -15,18 +15,9 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         view.backgroundColor = ColorConstants.DarkGray
-        
-        let size: CGFloat = 60
-        let frame = CGRect(x: view.center.x - size / 2 , y: 200, width: size, height: size)
-        let circleButton = CircleButton(frame: frame, text: "5.15C", color: UIColor(red:0.8, green:1, blue:0.4, alpha:1), appearanceMode: .Outlined, interactionMode: .Activated)
+        let center = CGPoint(x: view.center.x , y: 200)
+        let circleButton = CircleButton(center: center, diameter: 60, text: "5.15C", color: UIColor(red:0.8, green:1, blue:0.4, alpha:1))
         self.view.addSubview(circleButton)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 
