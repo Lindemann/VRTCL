@@ -18,6 +18,9 @@ class ViewController: UIViewController {
         let center = CGPoint(x: view.center.x , y: 200)
         let circleButton = CircleButton(center: center, diameter: 60, text: "5.15C", color: UIColor(red:0.8, green:1, blue:0.4, alpha:1))
         self.view.addSubview(circleButton)
+        
+        let tagButton = TagButton(text: "redpoint")
+        self.view.addSubview(tagButton)
     }
 }
 

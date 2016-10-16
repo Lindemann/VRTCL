@@ -7,20 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		821812181C2461CF004726DC /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821812171C2461CF004726DC /* CircleButton.swift */; };
+		821812181C2461CF004726DC /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821812171C2461CF004726DC /* Buttons.swift */; };
 		82834E341BD002400006793C /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82834E331BD002400006793C /* DataModel.swift */; };
 		829F24761B0021EB00BDF443 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829F24751B0021EB00BDF443 /* AppDelegate.swift */; };
 		829F24781B0021EB00BDF443 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829F24771B0021EB00BDF443 /* ViewController.swift */; };
 		829F247D1B0021EB00BDF443 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 829F247B1B0021EB00BDF443 /* Main.storyboard */; };
 		829F247F1B0021EB00BDF443 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829F247E1B0021EB00BDF443 /* Images.xcassets */; };
 		829F24821B0021EB00BDF443 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 829F24801B0021EB00BDF443 /* LaunchScreen.xib */; };
+		82AD9AA91DACDA22009F88A1 /* ButtonCluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD9AA81DACDA22009F88A1 /* ButtonCluster.swift */; };
 		82C12A7E1C2480F900D9AC45 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C12A7D1C2480F900D9AC45 /* NavigationController.swift */; };
 		82C12A801C24811100D9AC45 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C12A7F1C24811100D9AC45 /* TabBarController.swift */; };
 		82C12A821C24827800D9AC45 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C12A811C24827800D9AC45 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		821812171C2461CF004726DC /* CircleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
+		821812171C2461CF004726DC /* Buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		82834E331BD002400006793C /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		829F24701B0021EB00BDF443 /* VRTCL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VRTCL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		829F24741B0021EB00BDF443 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -29,6 +30,7 @@
 		829F247C1B0021EB00BDF443 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		829F247E1B0021EB00BDF443 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		829F24811B0021EB00BDF443 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		82AD9AA81DACDA22009F88A1 /* ButtonCluster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonCluster.swift; sourceTree = "<group>"; };
 		82C12A7D1C2480F900D9AC45 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		82C12A7F1C24811100D9AC45 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		82C12A811C24827800D9AC45 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -67,7 +69,8 @@
 				82C12A811C24827800D9AC45 /* Constants.swift */,
 				82C12A7D1C2480F900D9AC45 /* NavigationController.swift */,
 				82C12A7F1C24811100D9AC45 /* TabBarController.swift */,
-				821812171C2461CF004726DC /* CircleButton.swift */,
+				821812171C2461CF004726DC /* Buttons.swift */,
+				82AD9AA81DACDA22009F88A1 /* ButtonCluster.swift */,
 				82834E331BD002400006793C /* DataModel.swift */,
 				829F24751B0021EB00BDF443 /* AppDelegate.swift */,
 				829F24771B0021EB00BDF443 /* ViewController.swift */,
@@ -160,10 +163,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				821812181C2461CF004726DC /* CircleButton.swift in Sources */,
+				821812181C2461CF004726DC /* Buttons.swift in Sources */,
 				82834E341BD002400006793C /* DataModel.swift in Sources */,
 				82C12A7E1C2480F900D9AC45 /* NavigationController.swift in Sources */,
 				82C12A801C24811100D9AC45 /* TabBarController.swift in Sources */,
+				82AD9AA91DACDA22009F88A1 /* ButtonCluster.swift in Sources */,
 				82C12A821C24827800D9AC45 /* Constants.swift in Sources */,
 				829F24761B0021EB00BDF443 /* AppDelegate.swift in Sources */,
 				829F24781B0021EB00BDF443 /* ViewController.swift in Sources */,

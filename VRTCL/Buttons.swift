@@ -14,6 +14,35 @@ enum AppearanceMode {
 }
 
 @IBDesignable
+class TagButton: UIButton {
+    
+    init(text: String) {
+        
+        let nsString = text as NSString
+        let font = UIFont.systemFont(ofSize: 16)
+        let insets: CGFloat = 12
+        
+        let stringSize = nsString.size(attributes: [NSFontAttributeName: font])
+        let frame = CGRect(x: 200, y: 300, width: stringSize.width + insets * 2, height: 30)
+        super.init(frame: frame)
+        
+        setTitle("redpoint", for: .normal)
+        titleLabel?.font = font
+        
+        layer.cornerRadius = 14
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.white.cgColor
+        
+        titleEdgeInsets = UIEdgeInsets(top: 0, left: insets, bottom: 0, right: insets)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
+@IBDesignable
 class CircleButton: UIButton {
     
     // MARK: Properties
@@ -99,6 +128,7 @@ class CircleButton: UIButton {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        setUpButton()
     }
     
     override func prepareForInterfaceBuilder() {
