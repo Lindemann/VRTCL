@@ -13,46 +13,15 @@ enum AppearanceMode {
     case filled
 }
 
-@IBDesignable
-class TagButton: UIButton {
-    
-    init(text: String) {
-        
-        let nsString = text as NSString
-        let font = UIFont.systemFont(ofSize: 16)
-        let insets: CGFloat = 12
-        
-        let stringSize = nsString.size(attributes: [NSFontAttributeName: font])
-        let frame = CGRect(x: 200, y: 300, width: stringSize.width + insets * 2, height: 30)
-        super.init(frame: frame)
-        
-        setTitle("redpoint", for: .normal)
-        titleLabel?.font = font
-        
-        layer.cornerRadius = 14
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.white.cgColor
-        
-        titleEdgeInsets = UIEdgeInsets(top: 0, left: insets, bottom: 0, right: insets)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-
-@IBDesignable
-class CircleButton: UIButton {
+internal class Button: UIButton {
     
     // MARK: Properties
     
-    private var text: String?
-    private var color: UIColor?
-    
+    internal var text: String?
+    internal var color: UIColor?
     // Workaround for this http://stackoverflow.com/questions/25828987/swift-property-getter-ivar
-    private var _presentingViewBackgroundColor: UIColor?
-    private var presentingViewBackgroundColor: UIColor? {
+    internal var _presentingViewBackgroundColor: UIColor?
+    internal var presentingViewBackgroundColor: UIColor? {
         set(newValue) {
             _presentingViewBackgroundColor = newValue
         }
@@ -63,19 +32,9 @@ class CircleButton: UIButton {
                 if let backgroundColor = self.superview?.backgroundColor {
                     return backgroundColor
                 } else {
+                    print("🚧 Button has no super view yet. Set the presentingViewBackgroundColor 🎨 in the initializer.")
                     return UIColor.red
                 }
-            }
-        }
-    }
-    
-    override var isHighlighted: Bool {
-        didSet {
-            if isSelected {return}
-            if isHighlighted {
-                appearanceMode = .filled
-            } else {
-                appearanceMode = .outlined
             }
         }
     }
@@ -96,15 +55,13 @@ class CircleButton: UIButton {
             if appearanceMode == .outlined {
                 UIView.animate(withDuration: duration) { [weak self] in
                     self?.setTitleColor(self?.color, for: UIControlState())
-                    self?.setTitleColor(self?.color, for: UIControlState.highlighted)
                     self?.backgroundColor = UIColor.clear
-                    self?.layer.borderColor = self?.color!.cgColor
+                    self?.layer.borderColor = self?.color?.cgColor ?? UIColor.green.cgColor
                 }
             }
             if appearanceMode == .filled {
                 UIView.animate(withDuration: duration) { [weak self] in
                     self?.setTitleColor(self?.presentingViewBackgroundColor, for: UIControlState())
-                    self?.setTitleColor(self?.presentingViewBackgroundColor, for: UIControlState.highlighted)
                     self?.backgroundColor = self?.color
                 }
             }
@@ -113,8 +70,58 @@ class CircleButton: UIButton {
     
     // MARK: Initializer
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addTarget(self, action: #selector(wasTouched), for: .touchUpInside)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    @objc private func wasTouched() {
+        isSelected = isSelected ? false : true
+    }
+
+}
+
+@IBDesignable
+class TagButton: Button {
+    
+    init(text: String) {
+        
+        let nsString = text as NSString
+        let font = UIFont.systemFont(ofSize: 16)
+        let insets: CGFloat = 14
+        
+        let stringSize = nsString.size(attributes: [NSFontAttributeName: font])
+        let frame = CGRect(x: 200, y: 300, width: stringSize.width + insets * 2, height: 30)
+        
+        super.init(frame: frame)
+        color = UIColor.white
+
+        setTitle(text, for: .normal)
+        titleLabel?.font = font
+        
+        layer.cornerRadius = 14
+        layer.borderWidth = 1
+        layer.borderColor = color?.cgColor
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+}
+
+
+@IBDesignable
+class CircleButton: Button {
+    
+    // MARK: Initializer
+    
     init(center: CGPoint, diameter: CGFloat, text: String, color: UIColor, presentingViewBackgroundColor: UIColor? = nil, isSelected: Bool = false, isEnabled: Bool = true) {
         super.init(frame: CGRect(x: center.x - diameter/2, y: center.y - diameter/2, width: diameter, height: diameter))
+        self.frame = CGRect(x: center.x - diameter/2, y: center.y - diameter/2, width: diameter, height: diameter)
         self.text = text
         self.color = color
         self.isEnabled = isEnabled
@@ -149,15 +156,10 @@ class CircleButton: UIButton {
         layer.borderWidth = 1
         
         titleLabel?.adjustsFontSizeToFitWidth = true
-        titleLabel?.textAlignment = NSTextAlignment.center
-        titleLabel?.baselineAdjustment = UIBaselineAdjustment.alignCenters
+        titleLabel?.textAlignment = .center
+        titleLabel?.baselineAdjustment = .alignCenters
         let insets: CGFloat = 1
         titleEdgeInsets = UIEdgeInsets(top: insets, left: insets, bottom: insets, right: insets)
-        
-        addTarget(self, action: #selector(wasTouched), for: .touchUpInside)
     }
-    
-    @objc private func wasTouched() {
-        isSelected = isSelected ? false : true
-    }
+
 }

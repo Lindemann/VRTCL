@@ -47,6 +47,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		826960711E9995860050B663 /* Tabs/Main Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				829F24771B0021EB00BDF443 /* ViewController.swift */,
+				82C12A7D1C2480F900D9AC45 /* NavigationController.swift */,
+				82C12A7F1C24811100D9AC45 /* TabBarController.swift */,
+				829F247B1B0021EB00BDF443 /* Main.storyboard */,
+			);
+			name = "Tabs/Main Controllers";
+			sourceTree = "<group>";
+		};
+		826960721E9995A30050B663 /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				82834E331BD002400006793C /* DataModel.swift */,
+			);
+			name = "Data Models";
+			sourceTree = "<group>";
+		};
+		826960731E9995FC0050B663 /* UI Elements */ = {
+			isa = PBXGroup;
+			children = (
+				821812171C2461CF004726DC /* Buttons.swift */,
+				82AD9AA81DACDA22009F88A1 /* ButtonCluster.swift */,
+			);
+			name = "UI Elements";
+			sourceTree = "<group>";
+		};
 		829F24671B0021EB00BDF443 = {
 			isa = PBXGroup;
 			children = (
@@ -66,15 +94,11 @@
 		829F24721B0021EB00BDF443 /* VRTCL */ = {
 			isa = PBXGroup;
 			children = (
-				82C12A811C24827800D9AC45 /* Constants.swift */,
-				82C12A7D1C2480F900D9AC45 /* NavigationController.swift */,
-				82C12A7F1C24811100D9AC45 /* TabBarController.swift */,
-				821812171C2461CF004726DC /* Buttons.swift */,
-				82AD9AA81DACDA22009F88A1 /* ButtonCluster.swift */,
-				82834E331BD002400006793C /* DataModel.swift */,
 				829F24751B0021EB00BDF443 /* AppDelegate.swift */,
-				829F24771B0021EB00BDF443 /* ViewController.swift */,
-				829F247B1B0021EB00BDF443 /* Main.storyboard */,
+				82C12A811C24827800D9AC45 /* Constants.swift */,
+				826960731E9995FC0050B663 /* UI Elements */,
+				826960721E9995A30050B663 /* Data Models */,
+				826960711E9995860050B663 /* Tabs/Main Controllers */,
 				829F24731B0021EB00BDF443 /* Supporting Files */,
 			);
 			path = VRTCL;
