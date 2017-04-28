@@ -130,25 +130,25 @@ class CircleButton: Button {
         defer {
             self.isSelected = isSelected
         }
-        setUpButton()
+        setup()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setUpButton()
+        setup()
     }
     
     override func prepareForInterfaceBuilder() {
-        setUpButton()
+        setup()
     }
     
     override func awakeFromNib() {
-        setUpButton()
+        setup()
     }
     
     // MARK: SetUp
     
-    func setUpButton() {
+    func setup() {
         setTitle(text, for: UIControlState())
         titleLabel?.font = UIFont.systemFont(ofSize: 15)
         
@@ -163,3 +163,69 @@ class CircleButton: Button {
     }
 
 }
+
+@IBDesignable
+class FatButton: UIButton {
+    
+    @IBInspectable
+    var color: UIColor? = UIColor.gray {
+        didSet {
+            setup()
+        }
+    }
+    
+    override var isHighlighted: Bool {
+        didSet {
+            if isHighlighted {
+                backgroundColor = color?.darker(by: 20)
+            } else {
+                backgroundColor = color
+            }
+        }
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    init(origin: CGPoint, color: UIColor, title: String) {
+        super.init(frame: CGRect.zero)
+        self.frame = CGRect(origin: origin, size: self.intrinsicContentSize)
+        self.color = color
+        self.setTitle(title, for: .normal)
+        setup()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    func setup() {
+        layer.cornerRadius = frame.size.height / CGFloat(2)
+        clipsToBounds = true
+        backgroundColor = color
+        titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        setTitleColor(UIColor.white, for: .normal)
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: 300, height: 60)
+    }
+    
+    override func prepareForInterfaceBuilder() {
+        setup()
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -26,6 +26,9 @@ class ViewController: UIViewController {
         
         let tagButton = TagButton(text: "redpoint")
         self.view.addSubview(tagButton)
+        
+        let fatButton = FatButton(origin: CGPoint(x: 50, y: 500), color: UIColor.blue, title: "Login")
+        self.view.addSubview(fatButton)
     }
 }
 
