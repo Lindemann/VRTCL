@@ -218,14 +218,3 @@ class FatButton: UIButton {
         setup()
     }
 }
-
-
-
-
-
-
-
-
-
-
-
