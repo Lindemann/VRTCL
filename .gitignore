@@ -26,4 +26,4 @@ DerivedData
 # Pods/
 
 #SPM
-./build
+.build/
