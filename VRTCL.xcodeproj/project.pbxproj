@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1BCE6805AF26CBE304D0279C /* Pods_VRTCL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BFE5C1A514C4197E09425F8 /* Pods_VRTCL.framework */; };
 		821812181C2461CF004726DC /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821812171C2461CF004726DC /* Buttons.swift */; };
 		82430AE31EB3DFD300160D15 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82430AE21EB3DFD300160D15 /* Extensions.swift */; };
 		82834E341BD002400006793C /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82834E331BD002400006793C /* DataModel.swift */; };
@@ -23,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0BFE5C1A514C4197E09425F8 /* Pods_VRTCL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VRTCL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C68448ED67250B46169AAB0 /* Pods-VRTCL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VRTCL.release.xcconfig"; path = "Pods/Target Support Files/Pods-VRTCL/Pods-VRTCL.release.xcconfig"; sourceTree = "<group>"; };
 		821812171C2461CF004726DC /* Buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		82430AE21EB3DFD300160D15 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		82834E331BD002400006793C /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
@@ -38,6 +41,7 @@
 		82C12A7D1C2480F900D9AC45 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		82C12A7F1C24811100D9AC45 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		82C12A811C24827800D9AC45 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A15E55CEF4005197D304EF55 /* Pods-VRTCL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VRTCL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VRTCL/Pods-VRTCL.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,12 +49,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BCE6805AF26CBE304D0279C /* Pods_VRTCL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		769C827A37309D5C202D449B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A15E55CEF4005197D304EF55 /* Pods-VRTCL.debug.xcconfig */,
+				3C68448ED67250B46169AAB0 /* Pods-VRTCL.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		826960711E9995860050B663 /* Tabs/Main Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +99,8 @@
 			children = (
 				829F24721B0021EB00BDF443 /* VRTCL */,
 				829F24711B0021EB00BDF443 /* Products */,
+				769C827A37309D5C202D449B /* Pods */,
+				E2A50A2325129DDFE5272BB6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +144,14 @@
 			name = Sessions;
 			sourceTree = "<group>";
 		};
+		E2A50A2325129DDFE5272BB6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0BFE5C1A514C4197E09425F8 /* Pods_VRTCL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +159,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 829F24911B0021EB00BDF443 /* Build configuration list for PBXNativeTarget "VRTCL" */;
 			buildPhases = (
+				BE02F8D243402FB5AF01C28F /* [CP] Check Pods Manifest.lock */,
 				829F246C1B0021EB00BDF443 /* Sources */,
 				829F246D1B0021EB00BDF443 /* Frameworks */,
 				829F246E1B0021EB00BDF443 /* Resources */,
+				49642F15BAEF0B4C97E7E0DA /* [CP] Embed Pods Frameworks */,
+				7F52B1BD190194F68B660459 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -196,6 +223,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		49642F15BAEF0B4C97E7E0DA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VRTCL/Pods-VRTCL-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7F52B1BD190194F68B660459 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VRTCL/Pods-VRTCL-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BE02F8D243402FB5AF01C28F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		829F246C1B0021EB00BDF443 /* Sources */ = {
@@ -327,6 +402,7 @@
 		};
 		829F24921B0021EB00BDF443 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A15E55CEF4005197D304EF55 /* Pods-VRTCL.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -343,6 +419,7 @@
 		};
 		829F24931B0021EB00BDF443 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3C68448ED67250B46169AAB0 /* Pods-VRTCL.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
