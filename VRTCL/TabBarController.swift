@@ -10,32 +10,32 @@ import UIKit
 
 class TabBarController: UITabBarController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        UITabBar.appearance().tintColor = UIColor.white
-        UITabBar.appearance().barTintColor = ColorConstants.BarColor
-        
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		UITabBar.appearance().tintColor = UIColor.white
+		UITabBar.appearance().barTintColor = ColorConstants.BarColor
+
 //        UITabBar.appearance().shadowImage = UIImage()
 //        UITabBar.appearance().backgroundImage = UIImage()
 //        UITabBar.appearance().backgroundColor = ColorConstants.VeryDarkGray
-        
-    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+	}
 
-    /*
-    // MARK: - Navigation
+	override func didReceiveMemoryWarning() {
+		super.didReceiveMemoryWarning()
+		// Dispose of any resources that can be recreated.
+	}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+
+	/*
+	// MARK: - Navigation
+
+	// In a storyboard-based application, you will often want to do a little preparation before navigation
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		// Get the new view controller using segue.destinationViewController.
+		// Pass the selected object to the new view controller.
+	}
+	*/
 
 }
