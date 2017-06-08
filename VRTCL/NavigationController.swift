@@ -19,7 +19,7 @@ class NavigationController: UINavigationController {
 
 		UINavigationBar.appearance().barTintColor = ColorConstants.BarColor
 		UINavigationBar.appearance().tintColor = UIColor.white
-		UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: ColorConstants.LightGray]
+		UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: ColorConstants.LightGray]
 	}
 
 }
