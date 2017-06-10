@@ -4,29 +4,18 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--Sessions Table View Controller-->
         <scene sceneID="oQr-8d-pPF">
             <objects>
-                <tableViewController id="WOu-ZC-QlG" sceneMemberID="viewController">
+                <tableViewController id="WOu-ZC-QlG" customClass="SessionsTableViewController" customModule="VRTCL" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="zFm-5E-cbj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="9T0-oq-eAJ">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9T0-oq-eAJ" id="MVp-OJ-S0v">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="WOu-ZC-QlG" id="hEc-Rl-vCA"/>
                             <outlet property="delegate" destination="WOu-ZC-QlG" id="vgH-yN-Yn2"/>
@@ -38,10 +27,37 @@
             </objects>
             <point key="canvasLocation" x="663.20000000000005" y="157.87106446776613"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="sH2-78-5h8">
+            <objects>
+                <viewController id="Dum-Mt-dLd" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gHE-Zd-kmw"/>
+                        <viewControllerLayoutGuide type="bottom" id="oY9-wW-6wO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WNJ-aI-kMj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCq-VX-UQQ">
+                                <rect key="frame" x="16" y="124" width="336" height="276"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jbh-yf-yGw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1333.5999999999999" y="155.17241379310346"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="crP-vY-uQS">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pwj-wK-ffE" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pwj-wK-ffE" customClass="NavigationController" customModule="VRTCL" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="add" id="nqj-lQ-bIg">
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
