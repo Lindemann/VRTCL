@@ -14,7 +14,7 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 
-		view.backgroundColor = ColorConstants.DarkGray
+		view.backgroundColor = Colors.darkGray
 
 		let center = CGPoint(x: view.center.x , y: 200)
 		let circleButton = CircleButton(center: center, diameter: 60, text: "5.15C", color: UIColor(red:0.8, green:1, blue:0.4, alpha:1))

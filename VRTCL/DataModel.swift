@@ -46,14 +46,18 @@ enum Kind {
 }
 
 struct Session {
-	let kind: Kind
-	var climbs: [Climb]
-	var feeling: Feeling
-	var location: Location
-	var duration: Double
-	let date: Date
-	let likes: Likes
-	let comments: Comments
+	let kind: Kind?
+	var climbs: [Climb]?
+	var feeling: Feeling?
+	var location: Location?
+	var duration: Double?
+	var date: Date?
+	var likes: Likes?
+	var comments: Comments?
+	
+	init(kind: Kind) {
+		self.kind = kind
+	}
 }
 
 struct Date {

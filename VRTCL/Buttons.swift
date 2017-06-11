@@ -175,6 +175,12 @@ class FatButton: UIButton {
 		}
 	}
 	
+	var hasArrow = false {
+		didSet {
+			setup()
+		}
+	}
+	
 	override var isHighlighted: Bool {
 		didSet {
 			if isHighlighted {
@@ -190,11 +196,12 @@ class FatButton: UIButton {
 		setup()
 	}
 	
-	init(origin: CGPoint, color: UIColor, title: String) {
+	init(origin: CGPoint, color: UIColor?, title: String, hasArrow: Bool = false) {
 		super.init(frame: CGRect.zero)
 		self.frame = CGRect(origin: origin, size: self.intrinsicContentSize)
 		self.color = color
 		self.setTitle(title, for: .normal)
+		self.hasArrow = hasArrow
 		setup()
 	}
 	
@@ -207,8 +214,18 @@ class FatButton: UIButton {
 		layer.cornerRadius = frame.size.height / CGFloat(2)
 		clipsToBounds = true
 		backgroundColor = color
-		titleLabel?.font = UIFont.systemFont(ofSize: 18)
+		titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
 		setTitleColor(UIColor.white, for: .normal)
+		setTitleColor(UIColor.white, for: .highlighted)
+		setTitleColor(UIColor.white, for: .selected)
+		
+		if hasArrow {
+			let imageView = UIImageView(image: #imageLiteral(resourceName: "fatButtonArrow"))
+			imageView.tintColor = UIColor.white
+			imageView.center = center
+			imageView.frame.origin.x = frame.width - 40
+			addSubview(imageView)
+		}
 	}
 	
 	override var intrinsicContentSize: CGSize {
