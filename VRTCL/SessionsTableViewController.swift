@@ -42,6 +42,7 @@ class SessionsTableViewController: UITableViewController, SessionsButtonTablevie
 		let cell = SessionsButtonTableviewCell()
 		cell.mode = .bouldering
 		cell.delegate = self
+		cell.button?.hasArrow = viewModel.hasActiveBoulderingSession
 		return cell
 	}
 	
@@ -49,6 +50,7 @@ class SessionsTableViewController: UITableViewController, SessionsButtonTablevie
 		let cell = SessionsButtonTableviewCell()
 		cell.mode = .sportClimbing
 		cell.delegate = self
+		cell.button?.hasArrow = viewModel.hasActivesportClimbingSession
 		return cell
 	}
 	
@@ -60,12 +62,6 @@ class SessionsTableViewController: UITableViewController, SessionsButtonTablevie
 		tableView.backgroundColor = Colors.darkGray
 		tableView.separatorStyle = .none
 		tableView.allowsSelection = false
-		
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
@@ -147,42 +143,21 @@ class SessionsTableViewController: UITableViewController, SessionsButtonTablevie
 
         return UITableViewCell()
     }
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 	
 	// MARK: - SessionsButtonTableviewCellDelegate
 	
 	@objc func sportClimbingButtonWasPressed() {
-		viewModel.sportClimbingSession = Session(kind: .sportClimbing)
-		tableView.reloadData()
+		if !viewModel.hasActivesportClimbingSession {
+			viewModel.sportClimbingSession = Session(kind: .sportClimbing)
+			tableView.reloadData()
+		}
 	}
 	
 	@objc func boulderingButtonWasPressed() {
-		viewModel.boulderSession = Session(kind: .bouldering)
-		tableView.reloadData()
+		if !viewModel.hasActiveBoulderingSession {
+			viewModel.boulderSession = Session(kind: .bouldering)
+			tableView.reloadData()
+		}
 	}
 
 }
@@ -246,10 +221,10 @@ class SessionsButtonTableviewCell: UITableViewCell {
 			guard let mode = self.mode else { return }
 			switch mode {
 			case .sportClimbing:
-				button = FatButton(origin: CGPoint.zero, color: Colors.purple, title: "Sport Climbing", hasArrow: true)
+				button = FatButton(origin: CGPoint.zero, color: Colors.purple, title: "Sport Climbing")
 				button?.addTarget(delegate, action: #selector(delegate?.sportClimbingButtonWasPressed), for: .touchUpInside)
 			case .bouldering:
-				button = FatButton(origin: CGPoint.zero, color: Colors.skyBlue, title: "Bouldering", hasArrow: true)
+				button = FatButton(origin: CGPoint.zero, color: Colors.skyBlue, title: "Bouldering")
 				button?.addTarget(delegate, action: #selector(delegate?.boulderingButtonWasPressed), for: .touchUpInside)
 			}
 		}

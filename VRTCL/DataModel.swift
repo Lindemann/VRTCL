@@ -46,7 +46,7 @@ enum Kind {
 }
 
 struct Session {
-	let kind: Kind?
+	let kind: Kind
 	var climbs: [Climb]?
 	var feeling: Feeling?
 	var location: Location?
