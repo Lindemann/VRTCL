@@ -21,7 +21,7 @@ struct SessionsTableViewControllerViewModel {
 	}
 }
 
-class SessionsTableViewController: UITableViewController, SessionsButtonTableviewCellDelegate {
+class AddSessionTableViewController: UITableViewController, SessionsButtonTableviewCellDelegate {
 	
 	var viewModel = SessionsTableViewControllerViewModel()
 	
@@ -63,12 +63,7 @@ class SessionsTableViewController: UITableViewController, SessionsButtonTablevie
 		tableView.separatorStyle = .none
 		tableView.allowsSelection = false
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+	
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -151,6 +146,9 @@ class SessionsTableViewController: UITableViewController, SessionsButtonTablevie
 			viewModel.sportClimbingSession = Session(kind: .sportClimbing)
 			tableView.reloadData()
 		}
+		let editSessionTableViewController = EditSessionTableViewController()
+		editSessionTableViewController.mode = .sportClimbing
+		navigationController?.pushViewController(editSessionTableViewController, animated: true)
 	}
 	
 	@objc func boulderingButtonWasPressed() {
@@ -158,8 +156,11 @@ class SessionsTableViewController: UITableViewController, SessionsButtonTablevie
 			viewModel.boulderSession = Session(kind: .bouldering)
 			tableView.reloadData()
 		}
+		let editSessionTableViewController = EditSessionTableViewController()
+		editSessionTableViewController.mode = .bouldering
+		navigationController?.pushViewController(editSessionTableViewController, animated: true)
 	}
-
+	
 }
 
 class SessionsHeadingTableviewCell: UITableViewCell {
