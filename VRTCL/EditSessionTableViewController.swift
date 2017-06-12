@@ -24,6 +24,8 @@ class EditSessionTableViewController: UITableViewController {
 		tableView.backgroundColor = Colors.darkGray
 		tableView.separatorStyle = .none
 		tableView.allowsSelection = false
+		
+		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -32,9 +34,11 @@ class EditSessionTableViewController: UITableViewController {
 		guard let mode = self.mode else { return }
 		switch mode {
 		case .sportClimbing:
+			navigationItem.title = "Sport Climbing Session"
 			navigationController?.navigationBar.barTintColor = Colors.purple
 			addButton = FatButton(origin: CGPoint.zero, color: Colors.purple, title: "Add Route")
 		case .bouldering:
+			navigationItem.title = "Bouldering Session"
 			navigationController?.navigationBar.barTintColor = Colors.skyBlue
 			addButton = FatButton(origin: CGPoint.zero, color: Colors.skyBlue, title: "Add Boulder")
 		}
@@ -44,6 +48,12 @@ class EditSessionTableViewController: UITableViewController {
 		super.viewDidAppear(animated)
 		
 		setupAddButton()
+	}
+	
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+		
+		addButton?.removeFromSuperview()
 	}
 	
 	override func willMove(toParentViewController parent: UIViewController?) {
@@ -125,10 +135,31 @@ class EditSessionTableViewController: UITableViewController {
     }
     */
 	
+	@objc func save() {
+		navigationController?.popViewController(animated: true)
+	}
+	
+	@objc func addButtonWasPressed() {
+		guard let mode = self.mode else { return }
+		
+		let addRouteTableViewController = AddRouteTableViewController()
+		let navigationController = NavigationController(rootViewController: addRouteTableViewController)
+		self.navigationController?.present(navigationController, animated: true, completion: {})
+		
+		switch mode {
+		case .sportClimbing:
+			addRouteTableViewController.mode = .sportClimbing
+		case .bouldering:
+			addRouteTableViewController.mode = .bouldering
+		}
+	}
+	
 	func setupAddButton() {
 		guard let navigationController = self.navigationController else { return }
 		guard let tabBar = tabBarController?.tabBar else { return }
 		guard let addButton = addButton else { return }
+		
+		addButton.addTarget(self, action: #selector(addButtonWasPressed), for: .touchUpInside)
 		
 		navigationController.view.addSubview(addButton)
 		

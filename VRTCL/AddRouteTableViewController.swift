@@ -9,15 +9,18 @@
 import UIKit
 
 class AddRouteTableViewController: UITableViewController {
+	
+	enum Mode {
+		case sportClimbing, bouldering
+	}
+	
+	var mode: Mode?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
+		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(save))
     }
 
     override func didReceiveMemoryWarning() {
@@ -91,5 +94,8 @@ class AddRouteTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+	
+	@objc func save() {
+		dismiss(animated: true, completion: nil)
+	}
 }

@@ -19,7 +19,6 @@
 		829EC0B11EEECAF200AB055F /* EditSessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829EC0B01EEECAF200AB055F /* EditSessionTableViewController.swift */; };
 		829EC0B31EEECB1200AB055F /* AddRouteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829EC0B21EEECB1200AB055F /* AddRouteTableViewController.swift */; };
 		829F24761B0021EB00BDF443 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829F24751B0021EB00BDF443 /* AppDelegate.swift */; };
-		829F24781B0021EB00BDF443 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829F24771B0021EB00BDF443 /* ViewController.swift */; };
 		829F247D1B0021EB00BDF443 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 829F247B1B0021EB00BDF443 /* Main.storyboard */; };
 		829F247F1B0021EB00BDF443 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829F247E1B0021EB00BDF443 /* Images.xcassets */; };
 		829F24821B0021EB00BDF443 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 829F24801B0021EB00BDF443 /* LaunchScreen.xib */; };
@@ -47,7 +46,6 @@
 		829F24701B0021EB00BDF443 /* VRTCL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VRTCL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		829F24741B0021EB00BDF443 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		829F24751B0021EB00BDF443 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		829F24771B0021EB00BDF443 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		829F247C1B0021EB00BDF443 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		829F247E1B0021EB00BDF443 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		829F24811B0021EB00BDF443 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -131,7 +129,6 @@
 				8211D5CC1EDA560E00DF3F48 /* Friends */,
 				8211D5CD1EDA561A00DF3F48 /* Settings */,
 				829F247B1B0021EB00BDF443 /* Main.storyboard */,
-				829F24771B0021EB00BDF443 /* ViewController.swift */,
 				82C12A7D1C2480F900D9AC45 /* NavigationController.swift */,
 				82C12A7F1C24811100D9AC45 /* TabBarController.swift */,
 			);
@@ -357,7 +354,6 @@
 				829F24761B0021EB00BDF443 /* AppDelegate.swift in Sources */,
 				829EC0B31EEECB1200AB055F /* AddRouteTableViewController.swift in Sources */,
 				829EC0B11EEECAF200AB055F /* EditSessionTableViewController.swift in Sources */,
-				829F24781B0021EB00BDF443 /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
