@@ -55,8 +55,7 @@ class CircleButtonWithText: UIView {
 		circleButton.translatesAutoresizingMaskIntoConstraints = false
 		circleButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
 		circleButton.topAnchor.constraint(equalTo: topAnchor).isActive = true
-//		circleButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-//		circleButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+		
 		// Label
 	}
 }

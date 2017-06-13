@@ -75,7 +75,7 @@ class TagButton: Button {
 	
 	init(text: String, presentingViewBackgroundColor: UIColor?) {
 		let nsString = text as NSString
-		let font = UIFont.systemFont(ofSize: 16)
+		let font = UIFont.systemFont(ofSize: 16, weight: .medium)
 		let insets: CGFloat = 14
 		
 		let stringSize = nsString.size(withAttributes: [NSAttributedStringKey.font: font])
@@ -86,10 +86,11 @@ class TagButton: Button {
 		self.presentingViewBackgroundColor = presentingViewBackgroundColor
 		
 		setTitle(text, for: .normal)
+		setTitleColor(color, for: UIControlState())
 		titleLabel?.font = font
 		
 		layer.cornerRadius = 14
-		layer.borderWidth = 1
+		layer.borderWidth = 2
 		layer.borderColor = color?.cgColor
 	}
 	
@@ -135,10 +136,10 @@ class CircleButton: Button {
 	
 	func setup() {
 		setTitle(text, for: UIControlState())
-		titleLabel?.font = UIFont.systemFont(ofSize: 15)
+		titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
 		
 		layer.cornerRadius = 0.5 * bounds.size.width
-		layer.borderWidth = 1
+		layer.borderWidth = 2
 		layer.borderColor = self.color?.cgColor ?? UIColor.green.cgColor
 		
 		titleLabel?.adjustsFontSizeToFitWidth = true
