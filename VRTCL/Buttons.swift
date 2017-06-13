@@ -73,7 +73,7 @@ internal class Button: UIButton {
 @IBDesignable
 class TagButton: Button {
 	
-	init(text: String, presentingViewBackgroundColor: UIColor?) {
+	init(text: String, presentingViewBackgroundColor: UIColor? = Colors.darkGray) {
 		let nsString = text as NSString
 		let font = UIFont.systemFont(ofSize: 16, weight: .medium)
 		let insets: CGFloat = 14
@@ -99,13 +99,12 @@ class TagButton: Button {
 	}
 }
 
-
 @IBDesignable
 class CircleButton: Button {
 	
 	// MARK: Initializer
 	
-	init(center: CGPoint, diameter: CGFloat, text: String, color: UIColor, presentingViewBackgroundColor: UIColor?, isSelected: Bool = false, isEnabled: Bool = true) {
+	init(center: CGPoint, diameter: CGFloat, text: String, color: UIColor, presentingViewBackgroundColor: UIColor? = Colors.darkGray, isSelected: Bool = false, isEnabled: Bool = true) {
 		super.init(frame: CGRect(x: center.x - diameter/2, y: center.y - diameter/2, width: diameter, height: diameter))
 		self.frame = CGRect(x: center.x - diameter/2, y: center.y - diameter/2, width: diameter, height: diameter)
 		self.text = text
@@ -145,7 +144,7 @@ class CircleButton: Button {
 		titleLabel?.adjustsFontSizeToFitWidth = true
 		titleLabel?.textAlignment = .center
 		titleLabel?.baselineAdjustment = .alignCenters
-		let insets: CGFloat = 1
+		let insets: CGFloat = 5
 		titleEdgeInsets = UIEdgeInsets(top: insets, left: insets, bottom: insets, right: insets)
 	}
 	
