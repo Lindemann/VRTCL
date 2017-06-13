@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 
 enum AppearanceMode {
 	case outlined
@@ -20,25 +19,7 @@ internal class Button: UIButton {
 	
 	internal var text: String?
 	internal var color: UIColor?
-	// Workaround for this http://stackoverflow.com/questions/25828987/swift-property-getter-ivar
-	internal var _presentingViewBackgroundColor: UIColor?
-	internal var presentingViewBackgroundColor: UIColor? {
-		set(newValue) {
-			_presentingViewBackgroundColor = newValue
-		}
-		get {
-			if let presentingViewBackgroundColor = _presentingViewBackgroundColor {
-				return presentingViewBackgroundColor
-			} else {
-				if let backgroundColor = self.superview?.backgroundColor {
-					return backgroundColor
-				} else {
-					print("🚧 Button has no super view yet. Set the presentingViewBackgroundColor 🎨 in the initializer.")
-					return UIColor.red
-				}
-			}
-		}
-	}
+	internal var presentingViewBackgroundColor: UIColor?
 	
 	override var isSelected: Bool {
 		didSet {
@@ -74,6 +55,9 @@ internal class Button: UIButton {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		addTarget(self, action: #selector(wasTouched), for: .touchUpInside)
+		
+		widthAnchor.constraint(equalToConstant: frame.size.width).isActive = true
+		heightAnchor.constraint(equalToConstant: frame.size.height).isActive = true
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -89,8 +73,7 @@ internal class Button: UIButton {
 @IBDesignable
 class TagButton: Button {
 	
-	init(text: String) {
-		
+	init(text: String, presentingViewBackgroundColor: UIColor?) {
 		let nsString = text as NSString
 		let font = UIFont.systemFont(ofSize: 16)
 		let insets: CGFloat = 14
@@ -99,7 +82,8 @@ class TagButton: Button {
 		let frame = CGRect(x: 200, y: 300, width: stringSize.width + insets * 2, height: 30)
 		
 		super.init(frame: frame)
-		color = UIColor.white
+		self.color = Colors.lightGray
+		self.presentingViewBackgroundColor = presentingViewBackgroundColor
 		
 		setTitle(text, for: .normal)
 		titleLabel?.font = font
@@ -120,7 +104,7 @@ class CircleButton: Button {
 	
 	// MARK: Initializer
 	
-	init(center: CGPoint, diameter: CGFloat, text: String, color: UIColor, presentingViewBackgroundColor: UIColor? = nil, isSelected: Bool = false, isEnabled: Bool = true) {
+	init(center: CGPoint, diameter: CGFloat, text: String, color: UIColor, presentingViewBackgroundColor: UIColor?, isSelected: Bool = false, isEnabled: Bool = true) {
 		super.init(frame: CGRect(x: center.x - diameter/2, y: center.y - diameter/2, width: diameter, height: diameter))
 		self.frame = CGRect(x: center.x - diameter/2, y: center.y - diameter/2, width: diameter, height: diameter)
 		self.text = text
@@ -155,6 +139,7 @@ class CircleButton: Button {
 		
 		layer.cornerRadius = 0.5 * bounds.size.width
 		layer.borderWidth = 1
+		layer.borderColor = self.color?.cgColor ?? UIColor.green.cgColor
 		
 		titleLabel?.adjustsFontSizeToFitWidth = true
 		titleLabel?.textAlignment = .center
@@ -175,7 +160,7 @@ class FatButton: UIButton {
 		}
 	}
 	
-	var hasArrow = false {
+	var hasArrow: Bool = false {
 		didSet {
 			setup()
 		}

@@ -22,6 +22,8 @@
 		829F247D1B0021EB00BDF443 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 829F247B1B0021EB00BDF443 /* Main.storyboard */; };
 		829F247F1B0021EB00BDF443 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829F247E1B0021EB00BDF443 /* Images.xcassets */; };
 		829F24821B0021EB00BDF443 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 829F24801B0021EB00BDF443 /* LaunchScreen.xib */; };
+		82AAC0C51EEF5C9E00B7E6A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AAC0C41EEF5C9E00B7E6A3 /* ViewController.swift */; };
+		82AAC0C71EEF5ED800B7E6A3 /* CircleButtonWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AAC0C61EEF5ED800B7E6A3 /* CircleButtonWithText.swift */; };
 		82AD9AA91DACDA22009F88A1 /* ButtonCluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD9AA81DACDA22009F88A1 /* ButtonCluster.swift */; };
 		82B3033F1EB6F7F6001DD730 /* Sessions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82B3033E1EB6F7F6001DD730 /* Sessions.storyboard */; };
 		82BAE5E91EEA49BB00383585 /* AddSessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BAE5E81EEA49BB00383585 /* AddSessionTableViewController.swift */; };
@@ -49,6 +51,8 @@
 		829F247C1B0021EB00BDF443 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		829F247E1B0021EB00BDF443 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		829F24811B0021EB00BDF443 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		82AAC0C41EEF5C9E00B7E6A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		82AAC0C61EEF5ED800B7E6A3 /* CircleButtonWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButtonWithText.swift; sourceTree = "<group>"; };
 		82AD9AA81DACDA22009F88A1 /* ButtonCluster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonCluster.swift; sourceTree = "<group>"; };
 		82B3033E1EB6F7F6001DD730 /* Sessions.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Sessions.storyboard; sourceTree = "<group>"; };
 		82BAE5E81EEA49BB00383585 /* AddSessionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSessionTableViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +134,7 @@
 				8211D5CD1EDA561A00DF3F48 /* Settings */,
 				829F247B1B0021EB00BDF443 /* Main.storyboard */,
 				82C12A7D1C2480F900D9AC45 /* NavigationController.swift */,
+				82AAC0C41EEF5C9E00B7E6A3 /* ViewController.swift */,
 				82C12A7F1C24811100D9AC45 /* TabBarController.swift */,
 			);
 			name = "Tabs/Main Controllers";
@@ -148,6 +153,7 @@
 			children = (
 				821812171C2461CF004726DC /* Buttons.swift */,
 				82AD9AA81DACDA22009F88A1 /* ButtonCluster.swift */,
+				82AAC0C61EEF5ED800B7E6A3 /* CircleButtonWithText.swift */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -349,6 +355,8 @@
 				82C12A7E1C2480F900D9AC45 /* NavigationController.swift in Sources */,
 				82BAE5E91EEA49BB00383585 /* AddSessionTableViewController.swift in Sources */,
 				82C12A801C24811100D9AC45 /* TabBarController.swift in Sources */,
+				82AAC0C71EEF5ED800B7E6A3 /* CircleButtonWithText.swift in Sources */,
+				82AAC0C51EEF5C9E00B7E6A3 /* ViewController.swift in Sources */,
 				82AD9AA91DACDA22009F88A1 /* ButtonCluster.swift in Sources */,
 				82C12A821C24827800D9AC45 /* Constants.swift in Sources */,
 				829F24761B0021EB00BDF443 /* AppDelegate.swift in Sources */,
