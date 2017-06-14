@@ -79,9 +79,9 @@ class CircleButtonWithText: UIView {
 		// Button
 		switch mode {
 		case .outlineSmall:
-			circleButton = CircleButton(center: CGPoint.zero, diameter: buttonSizeSmall, text: buttonText, color: Colors.lightGray, isSelected: false, isEnabled: true)
+			circleButton = CircleButton(center: CGPoint.zero, diameter: buttonSizeSmall, text: buttonText, color: Colors.lightGray, appearanceMode: .outlined, interactionMode: .highlightable)
 		case .filledMedium:
-			circleButton = CircleButton(center: CGPoint.zero, diameter: buttonSizeMedium, text: buttonText, color: color, isSelected: true, isEnabled: true)
+			circleButton = CircleButton(center: CGPoint.zero, diameter: buttonSizeMedium, text: buttonText, color: color, appearanceMode: .filled, interactionMode: .highlightable)
 		}
 		
 		guard let circleButton = circleButton else { return }

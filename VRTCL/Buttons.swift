@@ -8,14 +8,17 @@
 
 import UIKit
 
-enum AppearanceMode {
-	case outlined
-	case filled
-}
-
 internal class Button: UIButton {
 	
-	// MARK: Properties
+	enum AppearanceMode {
+		case outlined
+		case filled
+	}
+	
+	enum InteractionMode {
+		case highlightable
+		case selectable
+	}
 	
 	internal var text: String?
 	internal var color: UIColor?
@@ -23,11 +26,19 @@ internal class Button: UIButton {
 	
 	override var isSelected: Bool {
 		didSet {
+			guard interactionMode == .selectable else { return }
 			if isSelected {
 				appearanceMode = .filled
 			} else {
 				appearanceMode = .outlined
 			}
+		}
+	}
+	
+	override var isHighlighted: Bool {
+		didSet {
+			guard interactionMode == .highlightable else { return }
+			appearanceMode = appearanceMode == .filled ? .outlined : .filled
 		}
 	}
 	
@@ -50,7 +61,13 @@ internal class Button: UIButton {
 		}
 	}
 	
-	// MARK: Initializer
+	var interactionMode: InteractionMode? {
+		didSet {
+			if interactionMode == .selectable && appearanceMode == .filled {
+				isSelected = true
+			}
+		}
+	}
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -67,13 +84,11 @@ internal class Button: UIButton {
 	@objc private func wasTouched() {
 		isSelected = isSelected ? false : true
 	}
-	
 }
 
-@IBDesignable
 class TagButton: Button {
 	
-	init(text: String, presentingViewBackgroundColor: UIColor? = Colors.darkGray) {
+	init(text: String, presentingViewBackgroundColor: UIColor? = Colors.darkGray, appearanceMode: AppearanceMode = .outlined, interactionMode: InteractionMode = .selectable) {
 		let nsString = text as NSString
 		let font = UIFont.systemFont(ofSize: 16, weight: .medium)
 		let insets: CGFloat = 14
@@ -84,9 +99,12 @@ class TagButton: Button {
 		super.init(frame: frame)
 		self.color = Colors.lightGray
 		self.presentingViewBackgroundColor = presentingViewBackgroundColor
+		defer {
+			self.appearanceMode = appearanceMode
+			self.interactionMode = interactionMode
+		}
 		
 		setTitle(text, for: .normal)
-		setTitleColor(color, for: UIControlState())
 		titleLabel?.font = font
 		
 		layer.cornerRadius = 14
@@ -99,39 +117,27 @@ class TagButton: Button {
 	}
 }
 
-@IBDesignable
 class CircleButton: Button {
 	
 	// MARK: Initializer
 	
-	init(center: CGPoint, diameter: CGFloat, text: String, color: UIColor, presentingViewBackgroundColor: UIColor? = Colors.darkGray, isSelected: Bool = false, isEnabled: Bool = true) {
+	init(center: CGPoint, diameter: CGFloat, text: String, color: UIColor, presentingViewBackgroundColor: UIColor? = Colors.darkGray, appearanceMode: AppearanceMode = .filled, interactionMode: InteractionMode = .selectable) {
 		super.init(frame: CGRect(x: center.x - diameter/2, y: center.y - diameter/2, width: diameter, height: diameter))
 		self.frame = CGRect(x: center.x - diameter/2, y: center.y - diameter/2, width: diameter, height: diameter)
 		self.text = text
 		self.color = color
-		self.isEnabled = isEnabled
 		self.presentingViewBackgroundColor = presentingViewBackgroundColor
 		// trigger didSet of propertys http://stackoverflow.com/a/33979852/647644
 		defer {
-			self.isSelected = isSelected
+			self.appearanceMode = appearanceMode
+			self.interactionMode = interactionMode
 		}
 		setup()
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		setup()
 	}
-	
-	override func prepareForInterfaceBuilder() {
-		setup()
-	}
-	
-	override func awakeFromNib() {
-		setup()
-	}
-	
-	// MARK: SetUp
 	
 	func setup() {
 		setTitle(text, for: UIControlState())
@@ -147,7 +153,6 @@ class CircleButton: Button {
 		let insets: CGFloat = 5
 		titleEdgeInsets = UIEdgeInsets(top: insets, left: insets, bottom: insets, right: insets)
 	}
-	
 }
 
 @IBDesignable
