@@ -38,9 +38,18 @@ internal class Button: UIButton {
 	override var isHighlighted: Bool {
 		didSet {
 			guard interactionMode == .highlightable else { return }
-			appearanceMode = appearanceMode == .filled ? .outlined : .filled
+			if isHighlighted {
+				appearanceMode = initialAppearanceMode == .filled ? .outlined : .filled
+			} else {
+				appearanceMode = initialAppearanceMode
+			}
 		}
 	}
+	
+	// Super anoying property, but it is needed to fix a bug with isHighlighted
+	// isHighlighted is called all the time at long presses and the colors are flickering with ternary "outlined/filled" switches
+	// initialAppearanceMode is used to reset the original setting after highlighting
+	internal var initialAppearanceMode: AppearanceMode?
 	
 	var appearanceMode: AppearanceMode? {
 		didSet {
@@ -127,6 +136,7 @@ class CircleButton: Button {
 		self.text = text
 		self.color = color
 		self.presentingViewBackgroundColor = presentingViewBackgroundColor
+		self.initialAppearanceMode = appearanceMode
 		// trigger didSet of propertys http://stackoverflow.com/a/33979852/647644
 		defer {
 			self.appearanceMode = appearanceMode

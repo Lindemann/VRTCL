@@ -30,7 +30,7 @@
         <!--Navigation Controller-->
         <scene sceneID="SWm-13-ihX">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bHe-3G-w4K" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bHe-3G-w4K" customClass="NavigationController" customModule="VRTCL" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="timeline" id="yCx-fN-dvy">
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>

@@ -46,7 +46,6 @@ class CircleButtonWithText: UIView {
 	}
 	
 	func setup() {
-		//backgroundColor = UIColor.yellow
 		
 		// Frame
 		switch mode {
