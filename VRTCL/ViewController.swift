@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ViewController: UIViewController {
 	
 	var collectionView: UICollectionView!
 	
@@ -37,7 +37,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 //		let circleButtonWithText2 = CircleButtonWithText(mode: .outlineSmall, center: CGPoint(x: 60, y: 250), buttonText: "12a+", labelText: "Red Point")
 //		view.addSubview(circleButtonWithText2)
 		
-		setupCollectionView()
+		let buttonGrid = ButtonGrid(origin: CGPoint(x: 60, y: 100), itemsPerRow: 3, items: data(), spaceing: 20)
+		buttonGrid.center = view.center
+		view.addSubview(buttonGrid)
 	}
 	
 	func data() -> [CircleButtonWithText] {
@@ -48,44 +50,5 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 		}
 		return data
 	}
-	
-	func setupCollectionView() {
-		let itemSize: CGFloat = 90
-		let margin: CGFloat = 20
-		
-		let flowLayout = UICollectionViewFlowLayout()
-		flowLayout.minimumLineSpacing = margin
-		flowLayout.minimumInteritemSpacing = margin
-		flowLayout.itemSize = CGSize(width: itemSize, height: itemSize)
-		let frame = CGRect(x: 40, y: 100, width: itemSize * 3 + margin * 3, height: itemSize * 4 + margin * 4)
-		collectionView = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
-		collectionView.delegate = self
-		collectionView.dataSource = self
-		//collectionView.backgroundColor = UIColor.yellow
-		collectionView.backgroundColor = UIColor.clear
-		view.addSubview(collectionView)
-		collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.nibAndReuseIdentifier)
-	}
-	
-	func numberOfSections(in collectionView: UICollectionView) -> Int {
-		return 1
-	}
-	
-	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return data().count
-	}
-	
-	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.nibAndReuseIdentifier, for: indexPath) as! CollectionViewCell
-		//cell.backgroundColor = UIColor.brown
-		data()[indexPath.row].center = cell.contentView.center
-		cell.contentView.addSubview(data()[indexPath.row])
-		return cell
-	}
-	
-}
-
-class CollectionViewCell: UICollectionViewCell {
-	static let nibAndReuseIdentifier = String(describing: CollectionViewCell.self)
 }
 

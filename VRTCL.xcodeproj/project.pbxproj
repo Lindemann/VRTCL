@@ -15,6 +15,7 @@
 		8211D5D81EDA580200DF3F48 /* LoginSignup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8211D5D71EDA580200DF3F48 /* LoginSignup.storyboard */; };
 		821812181C2461CF004726DC /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821812171C2461CF004726DC /* Buttons.swift */; };
 		82430AE31EB3DFD300160D15 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82430AE21EB3DFD300160D15 /* Extensions.swift */; };
+		82541A311EF265D10020032C /* ButtonGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82541A301EF265D10020032C /* ButtonGrid.swift */; };
 		82834E341BD002400006793C /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82834E331BD002400006793C /* DataModel.swift */; };
 		829EC0B11EEECAF200AB055F /* EditSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829EC0B01EEECAF200AB055F /* EditSessionViewController.swift */; };
 		829EC0B31EEECB1200AB055F /* AddRouteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829EC0B21EEECB1200AB055F /* AddRouteTableViewController.swift */; };
@@ -24,7 +25,6 @@
 		829F24821B0021EB00BDF443 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 829F24801B0021EB00BDF443 /* LaunchScreen.xib */; };
 		82AAC0C51EEF5C9E00B7E6A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AAC0C41EEF5C9E00B7E6A3 /* ViewController.swift */; };
 		82AAC0C71EEF5ED800B7E6A3 /* CircleButtonWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AAC0C61EEF5ED800B7E6A3 /* CircleButtonWithText.swift */; };
-		82AD9AA91DACDA22009F88A1 /* ButtonCluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD9AA81DACDA22009F88A1 /* ButtonCluster.swift */; };
 		82B3033F1EB6F7F6001DD730 /* Sessions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82B3033E1EB6F7F6001DD730 /* Sessions.storyboard */; };
 		82BAE5E91EEA49BB00383585 /* AddSessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BAE5E81EEA49BB00383585 /* AddSessionTableViewController.swift */; };
 		82C12A7E1C2480F900D9AC45 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C12A7D1C2480F900D9AC45 /* NavigationController.swift */; };
@@ -42,6 +42,7 @@
 		8211D5D71EDA580200DF3F48 /* LoginSignup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginSignup.storyboard; sourceTree = "<group>"; };
 		821812171C2461CF004726DC /* Buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		82430AE21EB3DFD300160D15 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		82541A301EF265D10020032C /* ButtonGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonGrid.swift; sourceTree = "<group>"; };
 		82834E331BD002400006793C /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		829EC0B01EEECAF200AB055F /* EditSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSessionViewController.swift; sourceTree = "<group>"; };
 		829EC0B21EEECB1200AB055F /* AddRouteTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRouteTableViewController.swift; sourceTree = "<group>"; };
@@ -53,7 +54,6 @@
 		829F24811B0021EB00BDF443 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		82AAC0C41EEF5C9E00B7E6A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		82AAC0C61EEF5ED800B7E6A3 /* CircleButtonWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButtonWithText.swift; sourceTree = "<group>"; };
-		82AD9AA81DACDA22009F88A1 /* ButtonCluster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonCluster.swift; sourceTree = "<group>"; };
 		82B3033E1EB6F7F6001DD730 /* Sessions.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Sessions.storyboard; sourceTree = "<group>"; };
 		82BAE5E81EEA49BB00383585 /* AddSessionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSessionTableViewController.swift; sourceTree = "<group>"; };
 		82C12A7D1C2480F900D9AC45 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -152,8 +152,8 @@
 			isa = PBXGroup;
 			children = (
 				821812171C2461CF004726DC /* Buttons.swift */,
-				82AD9AA81DACDA22009F88A1 /* ButtonCluster.swift */,
 				82AAC0C61EEF5ED800B7E6A3 /* CircleButtonWithText.swift */,
+				82541A301EF265D10020032C /* ButtonGrid.swift */,
 			);
 			name = "UI Elements";
 			sourceTree = "<group>";
@@ -354,10 +354,10 @@
 				82834E341BD002400006793C /* DataModel.swift in Sources */,
 				82C12A7E1C2480F900D9AC45 /* NavigationController.swift in Sources */,
 				82BAE5E91EEA49BB00383585 /* AddSessionTableViewController.swift in Sources */,
+				82541A311EF265D10020032C /* ButtonGrid.swift in Sources */,
 				82C12A801C24811100D9AC45 /* TabBarController.swift in Sources */,
 				82AAC0C71EEF5ED800B7E6A3 /* CircleButtonWithText.swift in Sources */,
 				82AAC0C51EEF5C9E00B7E6A3 /* ViewController.swift in Sources */,
-				82AD9AA91DACDA22009F88A1 /* ButtonCluster.swift in Sources */,
 				82C12A821C24827800D9AC45 /* Constants.swift in Sources */,
 				829F24761B0021EB00BDF443 /* AppDelegate.swift in Sources */,
 				829EC0B31EEECB1200AB055F /* AddRouteTableViewController.swift in Sources */,
