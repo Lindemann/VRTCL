@@ -37,9 +37,20 @@ class ViewController: UIViewController {
 //		let circleButtonWithText2 = CircleButtonWithText(mode: .outlineSmall, center: CGPoint(x: 60, y: 250), buttonText: "12a+", labelText: "Red Point")
 //		view.addSubview(circleButtonWithText2)
 		
-		let buttonGrid = ButtonGrid(origin: CGPoint(x: 60, y: 100), itemsPerRow: 3, items: data(), spaceing: 20)
-		buttonGrid.center = view.center
-		view.addSubview(buttonGrid)
+//		let buttonGrid = ButtonGrid(origin: CGPoint(x: 60, y: 100), itemsPerRow: 3, items: data(), spaceing: 20)
+//		buttonGrid.center = view.center
+//		view.addSubview(buttonGrid)
+		
+		let tag1 = TagButton(text: "Flash")
+		let tag2 = TagButton(text: "On Sight")
+		let tag3 = TagButton(text: "Red Point")
+		let tag4 = TagButton(text: "Attempt")
+		let tag5 = TagButton(text: "Toprope")
+		let tagButtons = [tag1, tag2, tag3, tag4, tag5]
+		let frame = CGRect(x: 60, y: 100, width: 300, height: 300)
+		let tagButtonGrid = TagButtonGrid(frame: frame, items: tagButtons)
+		view.addSubview(tagButtonGrid)
+		
 	}
 	
 	func data() -> [CircleButtonWithText] {

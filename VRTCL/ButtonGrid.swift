@@ -14,7 +14,7 @@ class ButtonGrid: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 	var items: [UIView]!
 	var spaceing: CGFloat!
 	
-	private var collectionView: UICollectionView!
+	internal var collectionView: UICollectionView!
 	
 	init(origin: CGPoint, itemsPerRow: Int, items: [UIView], spaceing: CGFloat) {
 		self.itemsPerRow = itemsPerRow
@@ -23,6 +23,12 @@ class ButtonGrid: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 		super.init(frame: CGRect(origin: origin, size: size(itemsPerRow: itemsPerRow, spaceing: spaceing, items: items)))
 		setupCollectionView()
 	}
+	
+	internal init(frame: CGRect, items: [UIView]) {
+		self.items = items
+		super.init(frame: frame)
+	}
+	
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -58,5 +64,115 @@ class ButtonGrid: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 		item.center = cell.contentView.center
 		cell.contentView.addSubview(item)
 		return cell
+	}
+}
+
+class TagButtonGrid: ButtonGrid, UICollectionViewDelegateFlowLayout {
+	
+	override init(frame: CGRect, items: [UIView]) {
+		super.init(frame: frame, items: items)
+
+		setupCollectionView()
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	private func setupCollectionView() {
+		let flowLayout = CenterAlignedCollectionViewFlowLayout()
+		let itemSize: CGFloat = items[0].frame.size.width
+		let spacing: CGFloat = 14
+		flowLayout.minimumLineSpacing = spacing
+		flowLayout.minimumInteritemSpacing = spacing
+		flowLayout.interItemSpacing = spacing
+		flowLayout.itemSize = CGSize(width: itemSize, height: itemSize)
+		collectionView = UICollectionView(frame: bounds, collectionViewLayout: flowLayout)
+		collectionView.delegate = self
+		collectionView.dataSource = self
+		collectionView.backgroundColor = UIColor.clear
+		collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: String(describing: UICollectionViewCell.self))
+		addSubview(collectionView)
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		return CGSize(width: items[indexPath.row].frame.size.width, height: items[indexPath.row].frame.size.height)
+	}
+}
+
+// Source: https://stackoverflow.com/a/38254368/647644
+class CenterAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
+	
+	var interItemSpacing: CGFloat = 10
+	
+	override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+		
+		let attributes = super.layoutAttributesForElements(in: rect)
+		
+		// Constants
+		let leftPadding: CGFloat = 0
+		let interItemSpacing: CGFloat = self.interItemSpacing
+		
+		// Tracking values
+		var leftMargin: CGFloat = leftPadding // Modified to determine origin.x for each item
+		var maxY: CGFloat = -1.0 // Modified to determine origin.y for each item
+		var rowSizes: [[CGFloat]] = [] // Tracks the starting and ending x-values for the first and last item in the row
+		var currentRow: Int = 0 // Tracks the current row
+		attributes?.forEach { layoutAttribute in
+			
+			// Each layoutAttribute represents its own item
+			if layoutAttribute.frame.origin.y >= maxY {
+				
+				// This layoutAttribute represents the left-most item in the row
+				leftMargin = leftPadding
+				
+				// Register its origin.x in rowSizes for use later
+				if rowSizes.count == 0 {
+					// Add to first row
+					rowSizes = [[leftMargin, 0]]
+				} else {
+					// Append a new row
+					rowSizes.append([leftMargin, 0])
+					currentRow += 1
+				}
+			}
+			
+			layoutAttribute.frame.origin.x = leftMargin
+			
+			leftMargin += layoutAttribute.frame.width + interItemSpacing
+			maxY = max(layoutAttribute.frame.maxY, maxY)
+			
+			// Add right-most x value for last item in the row
+			rowSizes[currentRow][1] = leftMargin - interItemSpacing
+		}
+		
+		// At this point, all cells are left aligned
+		// Reset tracking values and add extra left padding to center align entire row
+		leftMargin = leftPadding
+		maxY = -1.0
+		currentRow = 0
+		attributes?.forEach { layoutAttribute in
+			
+			// Each layoutAttribute is its own item
+			if layoutAttribute.frame.origin.y >= maxY {
+				
+				// This layoutAttribute represents the left-most item in the row
+				leftMargin = leftPadding
+				
+				// Need to bump it up by an appended margin
+				let rowWidth = rowSizes[currentRow][1] - rowSizes[currentRow][0] // last.x - first.x
+				let appendedMargin = (collectionView!.frame.width - leftPadding  - rowWidth - leftPadding) / 2
+				leftMargin += appendedMargin
+				
+				currentRow += 1
+			}
+			
+			layoutAttribute.frame.origin.x = leftMargin
+			
+			leftMargin += layoutAttribute.frame.width + interItemSpacing
+			maxY = max(layoutAttribute.frame.maxY, maxY)
+		}
+		
+		return attributes
 	}
 }

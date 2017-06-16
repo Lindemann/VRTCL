@@ -97,13 +97,13 @@ internal class Button: UIButton {
 
 class TagButton: Button {
 	
-	init(text: String, presentingViewBackgroundColor: UIColor? = Colors.darkGray, appearanceMode: AppearanceMode = .outlined, interactionMode: InteractionMode = .selectable) {
+	init(text: String, presentingViewBackgroundColor: UIColor? = Colors.darkGray, appearanceMode: AppearanceMode = .outlined, interactionMode: InteractionMode = .selectable, origin: CGPoint = CGPoint.zero) {
 		let nsString = text as NSString
 		let font = UIFont.systemFont(ofSize: 16, weight: .medium)
 		let insets: CGFloat = 14
 		
 		let stringSize = nsString.size(withAttributes: [NSAttributedStringKey.font: font])
-		let frame = CGRect(x: 200, y: 300, width: stringSize.width + insets * 2, height: 30)
+		let frame = CGRect(x: origin.x, y: origin.y, width: stringSize.width + insets * 2, height: 30)
 		
 		super.init(frame: frame)
 		self.color = Colors.lightGray
