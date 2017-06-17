@@ -97,7 +97,7 @@ struct Comments {
 	}
 }
 
-struct Grades {
+struct GradeScales {
 	static let UIAA: [Grade] = [
 		Grade(system: .uiaa, value: "", color: nil, display: true),
 		Grade(system: .uiaa, value: "", color: nil, display: true)

@@ -8,24 +8,45 @@
 
 import UIKit
 
+protocol ButtonGridDelegate {
+	func buttonGridButtonWasPressed(sender: UIButton)
+}
+
 class ButtonGrid: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 	
 	var itemsPerRow: Int!
-	var items: [UIView]!
 	var spaceing: CGFloat!
+	var items: [UIView]! {
+		didSet {
+			guard let items = items else { return }
+			for item in items {
+				if let button = item as? UIButton {
+					button.addTarget(self, action: #selector(buttonWasPressed), for: .touchUpInside)
+				} else if let circleButton = (item as? CircleButtonWithText)?.circleButton {
+					circleButton.addTarget(self, action: #selector(buttonWasPressed), for: .touchUpInside)
+				}
+			}
+		}
+	}
+	
+	var delegate: ButtonGridDelegate?
 	
 	internal var collectionView: UICollectionView!
 	
 	init(origin: CGPoint, itemsPerRow: Int, items: [UIView], spaceing: CGFloat) {
 		self.itemsPerRow = itemsPerRow
-		self.items = items
 		self.spaceing = spaceing
+		defer {
+			self.items = items
+		}
 		super.init(frame: CGRect(origin: origin, size: size(itemsPerRow: itemsPerRow, spaceing: spaceing, items: items)))
 		setupCollectionView()
 	}
 	
 	internal init(frame: CGRect, items: [UIView]) {
-		self.items = items
+		defer {
+			self.items = items
+		}
 		super.init(frame: frame)
 	}
 	
@@ -65,13 +86,26 @@ class ButtonGrid: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 		cell.contentView.addSubview(item)
 		return cell
 	}
+	
+	@objc func buttonWasPressed(sender: UIButton) {
+		let tmpSelectionState = sender.isSelected
+		guard let items = items else { return }
+		for item in items {
+			if let button = item as? UIButton {
+				button.isSelected = false
+			} else if let circleButton = (item as? CircleButtonWithText)?.circleButton {
+				circleButton.isSelected = false
+			}
+		}
+		sender.isSelected = tmpSelectionState
+		delegate?.buttonGridButtonWasPressed(sender: sender)
+	}
 }
 
 class TagButtonGrid: ButtonGrid, UICollectionViewDelegateFlowLayout {
 	
 	override init(frame: CGRect, items: [UIView]) {
 		super.init(frame: frame, items: items)
-
 		setupCollectionView()
 	}
 	

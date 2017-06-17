@@ -8,9 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ButtonGridDelegate {
 	
 	var collectionView: UICollectionView!
+	
+	var tagButtons: [TagButton]!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -46,11 +48,11 @@ class ViewController: UIViewController {
 		let tag3 = TagButton(text: "Red Point")
 		let tag4 = TagButton(text: "Attempt")
 		let tag5 = TagButton(text: "Toprope")
-		let tagButtons = [tag1, tag2, tag3, tag4, tag5]
+		tagButtons = [tag1, tag2, tag3, tag4, tag5]
 		let frame = CGRect(x: 60, y: 100, width: 300, height: 300)
 		let tagButtonGrid = TagButtonGrid(frame: frame, items: tagButtons)
+		tagButtonGrid.delegate = self
 		view.addSubview(tagButtonGrid)
-		
 	}
 	
 	func data() -> [CircleButtonWithText] {
@@ -60,6 +62,10 @@ class ViewController: UIViewController {
 			data.append(circleButtonWithText)
 		}
 		return data
+	}
+	
+	func buttonGridButtonWasPressed(sender: UIButton) {
+		print("🐹🐹🐰🐼")
 	}
 }
 
