@@ -108,6 +108,7 @@ class TagButton: Button {
 		super.init(frame: frame)
 		self.color = Colors.lightGray
 		self.presentingViewBackgroundColor = presentingViewBackgroundColor
+		self.initialAppearanceMode = appearanceMode
 		defer {
 			self.appearanceMode = appearanceMode
 			self.interactionMode = interactionMode
