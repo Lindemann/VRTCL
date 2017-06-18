@@ -87,6 +87,17 @@ class ButtonGrid: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 		return cell
 	}
 	
+	func selectButtonWith(title: String) {
+		guard let items = items else { return }
+		for item in items {
+			if let button = item as? UIButton {
+				button.isSelected = button.titleLabel?.text == title ? true : false
+			} else if let circleButton = (item as? CircleButtonWithText)?.circleButton {
+				circleButton.isSelected = circleButton.titleLabel?.text == title ? true : false
+			}
+		}
+	}
+	
 	@objc func buttonWasPressed(sender: UIButton) {
 		let tmpSelectionState = sender.isSelected
 		guard let items = items else { return }

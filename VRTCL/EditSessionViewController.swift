@@ -86,7 +86,7 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		let addRouteTableViewController = AddRouteTableViewController()
 		let navigationController = NavigationController(rootViewController: addRouteTableViewController)
 		present(navigationController, animated: true, completion: nil)
-		addRouteTableViewController.viewModel.session = viewModel.session
+		addRouteTableViewController.session = viewModel.session
 	}
 	
 	func setupAddButton() {

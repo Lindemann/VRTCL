@@ -29,12 +29,12 @@ struct Climb {
 	var grade: Grade
 }
 
-enum Style {
-	case flash
-	case onsight
-	case redpoint
-	case attempt
-	case toprope
+enum Style: String {
+	case flash = "Flash"
+	case onsight = "On Sight"
+	case redpoint = "Redpoint"
+	case attempt = "Attempt"
+	case toprope = "Toprope"
 }
 
 enum Kind {
@@ -136,7 +136,7 @@ struct User {
 	let ud_defaultSportClimbingGradeSystem = "ud_defaultSportClimbingGradeSystem"
 	var defaultBoulderingGradeSystem: System? {
 		set {
-			UserDefaults().set(newValue, forKey: ud_defaultBoulderingGradeSystem)
+			UserDefaults().set(newValue?.rawValue, forKey: ud_defaultBoulderingGradeSystem)
 		}
 		get {
 			let rawValue = UserDefaults().string(forKey: ud_defaultBoulderingGradeSystem)
@@ -145,7 +145,7 @@ struct User {
 	}
 	var defaultSportClimbingGradeSystem: System? {
 		set {
-			UserDefaults().set(newValue, forKey: ud_defaultSportClimbingGradeSystem)
+			UserDefaults().set(newValue?.rawValue, forKey: ud_defaultSportClimbingGradeSystem)
 		}
 		get {
 			let rawValue = UserDefaults().string(forKey: ud_defaultSportClimbingGradeSystem)
