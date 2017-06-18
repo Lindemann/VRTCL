@@ -87,7 +87,7 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		
 		let addRouteTableViewController = AddRouteTableViewController()
 		let navigationController = NavigationController(rootViewController: addRouteTableViewController)
-		self.navigationController?.present(navigationController, animated: true, completion: {})
+		present(navigationController, animated: true, completion: nil)
 		
 		switch kind {
 		case .sportClimbing:

@@ -40,7 +40,7 @@ class AddSessionTableViewController: UITableViewController, SessionsButtonTablev
 	
 	var boulderingButtonCell: SessionsButtonTableviewCell {
 		let cell = SessionsButtonTableviewCell()
-		cell.mode = .bouldering
+		cell.kind = .bouldering
 		cell.delegate = self
 		cell.button?.hasArrow = viewModel.hasActiveBoulderingSession
 		return cell
@@ -48,7 +48,7 @@ class AddSessionTableViewController: UITableViewController, SessionsButtonTablev
 	
 	var sportClimbingButtonCell: SessionsButtonTableviewCell {
 		let cell = SessionsButtonTableviewCell()
-		cell.mode = .sportClimbing
+		cell.kind = .sportClimbing
 		cell.delegate = self
 		cell.button?.hasArrow = viewModel.hasActivesportClimbingSession
 		return cell
@@ -201,10 +201,6 @@ class SessionsButtonTableviewCell: UITableViewCell {
 	
 	var delegate: SessionsButtonTableviewCellDelegate?
 	
-	enum Mode {
-		case sportClimbing, bouldering
-	}
-	
 	var button: FatButton? {
 		didSet {
 			guard let button = self.button else { return }
@@ -217,10 +213,10 @@ class SessionsButtonTableviewCell: UITableViewCell {
 		}
 	}
 	
-	var mode: Mode? {
+	var kind: Kind? {
 		didSet {
-			guard let mode = self.mode else { return }
-			switch mode {
+			guard let kind = self.kind else { return }
+			switch kind {
 			case .sportClimbing:
 				button = FatButton(origin: CGPoint.zero, color: Colors.purple, title: "Sport Climbing")
 				button?.addTarget(delegate, action: #selector(delegate?.sportClimbingButtonWasPressed), for: .touchUpInside)

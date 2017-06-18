@@ -84,7 +84,7 @@ class AddRouteTableViewController: UITableViewController {
 	}
 }
 
-extension AddRouteTableViewController: ButtonGridDelegate {
+extension AddRouteTableViewController: ButtonGridDelegate, UIPopoverPresentationControllerDelegate {
 	
 	var styleTableViewCell: SessionsTableViewCell {
 		let cell = SessionsTableViewCell()
@@ -114,14 +114,59 @@ extension AddRouteTableViewController: ButtonGridDelegate {
 		cell.content = view
 		
 		let tagButton = TagButton(text: "Grade System: UIAA", interactionMode: .highlightable)
+		tagButton.addTarget(self, action: #selector(gradeSystemButtonWasPressed), for: .touchUpInside)
 		tagButton.center = CGPoint(x: view.center.x, y: tagButton.frame.height/2)
 		view.addSubview(tagButton)
-		
 		
 		return cell
 	}
 	
 	func buttonGridButtonWasPressed(sender: UIButton) {
 		print("🐹🐹🐰🐼")
+	}
+	
+	@objc func gradeSystemButtonWasPressed(sender: UIButton) {
+		let gradeSystemViewController = GradeSystemViewController()
+		gradeSystemViewController.modalPresentationStyle = .popover
+		gradeSystemViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
+		gradeSystemViewController.popoverPresentationController?.delegate = self
+		gradeSystemViewController.popoverPresentationController?.sourceView = sender
+		gradeSystemViewController.popoverPresentationController?.sourceRect = sender.bounds
+		gradeSystemViewController.preferredContentSize = CGSize(width: 320, height: 100)
+		gradeSystemViewController.popoverPresentationController?.backgroundColor = Colors.barColor
+		present(gradeSystemViewController, animated: true, completion: nil)
+	}
+	
+	func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+		return UIModalPresentationStyle.none
+	}
+	
+}
+
+class GradeSystemViewController: UIViewController, ButtonGridDelegate {
+	
+	var tagButtonGrid: TagButtonGrid?
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		let tag1 = TagButton(text: "UIAA", presentingViewBackgroundColor: Colors.barColor)
+		let tag2 = TagButton(text: "French", presentingViewBackgroundColor: Colors.barColor)
+		let tag3 = TagButton(text: "YDS", presentingViewBackgroundColor: Colors.barColor)
+		let tagButtons = [tag1, tag2, tag3]
+		let frame = CGRect(x: 0, y: 0, width: 250, height: 40)
+		tagButtonGrid = TagButtonGrid(frame: frame, items: tagButtons)
+		tagButtonGrid?.delegate = self
+		guard let tagButtonGrid = tagButtonGrid else { return }
+		view.addSubview(tagButtonGrid)
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		tagButtonGrid?.center = view.center
+	}
+	
+	func buttonGridButtonWasPressed(sender: UIButton) {
+		print("🐹🐹🐰🐼")
+		dismiss(animated: true, completion: nil)
 	}
 }
