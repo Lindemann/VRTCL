@@ -8,14 +8,14 @@
 
 import UIKit
 
+struct EditSessionViewControllerViewModel {
+	var session: Session?
+}
+
 class EditSessionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	
-	enum Mode {
-		case sportClimbing, bouldering
-	}
-	
+	var viewModel = EditSessionViewControllerViewModel()
 	var tableView: UITableView!
-	var mode: Mode?
 	var addButton: FatButton?
 	
     override func viewDidLoad() {
@@ -65,8 +65,8 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 	// MARK: - Helper
 	
 	func setupModeDependentStuff() {
-		guard let mode = self.mode else { return }
-		switch mode {
+		guard let kind = viewModel.session?.kind else { return }
+		switch kind {
 		case .sportClimbing:
 			navigationItem.title = "Sport Climbing Session"
 			navigationController?.navigationBar.barTintColor = Colors.purple
@@ -83,13 +83,13 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 	}
 	
 	@objc func addButtonWasPressed() {
-		guard let mode = self.mode else { return }
+		guard let kind = viewModel.session?.kind else { return }
 		
 		let addRouteTableViewController = AddRouteTableViewController()
 		let navigationController = NavigationController(rootViewController: addRouteTableViewController)
 		self.navigationController?.present(navigationController, animated: true, completion: {})
 		
-		switch mode {
+		switch kind {
 		case .sportClimbing:
 			addRouteTableViewController.mode = .sportClimbing
 		case .bouldering:

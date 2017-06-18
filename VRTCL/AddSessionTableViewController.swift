@@ -147,7 +147,7 @@ class AddSessionTableViewController: UITableViewController, SessionsButtonTablev
 			tableView.reloadData()
 		}
 		let editSessionTableViewController = EditSessionViewController()
-		editSessionTableViewController.mode = .sportClimbing
+		editSessionTableViewController.viewModel.session = viewModel.sportClimbingSession
 		navigationController?.pushViewController(editSessionTableViewController, animated: true)
 	}
 	
@@ -157,7 +157,7 @@ class AddSessionTableViewController: UITableViewController, SessionsButtonTablev
 			tableView.reloadData()
 		}
 		let editSessionTableViewController = EditSessionViewController()
-		editSessionTableViewController.mode = .bouldering
+		editSessionTableViewController.viewModel.session = viewModel.boulderSession
 		navigationController?.pushViewController(editSessionTableViewController, animated: true)
 	}
 	

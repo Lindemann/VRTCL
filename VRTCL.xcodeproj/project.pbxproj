@@ -125,7 +125,7 @@
 			name = Login/Signup;
 			sourceTree = "<group>";
 		};
-		826960711E9995860050B663 /* Tabs/Main Controllers */ = {
+		826960711E9995860050B663 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
 				8211D5D61EDA57AD00DF3F48 /* Login/Signup */,
@@ -139,7 +139,7 @@
 				82AAC0C41EEF5C9E00B7E6A3 /* ViewController.swift */,
 				82C12A7F1C24811100D9AC45 /* TabBarController.swift */,
 			);
-			name = "Tabs/Main Controllers";
+			name = Tabs;
 			sourceTree = "<group>";
 		};
 		826960721E9995A30050B663 /* Data Models */ = {
@@ -186,7 +186,7 @@
 				82430AE21EB3DFD300160D15 /* Extensions.swift */,
 				826960731E9995FC0050B663 /* UI Elements */,
 				826960721E9995A30050B663 /* Data Models */,
-				826960711E9995860050B663 /* Tabs/Main Controllers */,
+				826960711E9995860050B663 /* Tabs */,
 				829F24731B0021EB00BDF443 /* Supporting Files */,
 			);
 			path = VRTCL;

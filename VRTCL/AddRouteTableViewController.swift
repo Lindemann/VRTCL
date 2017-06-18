@@ -8,6 +8,10 @@
 
 import UIKit
 
+struct AddRouteTableViewControllerViewModel {
+	
+}
+
 class AddRouteTableViewController: UITableViewController {
 	
 	enum Mode {
