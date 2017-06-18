@@ -34,8 +34,8 @@ struct Climb {
 
 enum Style {
 	case flash
-	case onSight
-	case redPoint
+	case onsight
+	case redpoint
 	case attempt
 	case toprope
 }

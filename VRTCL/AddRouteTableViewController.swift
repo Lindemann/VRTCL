@@ -19,9 +19,8 @@ class AddRouteTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		// Style tableview
 		tableView.backgroundColor = Colors.darkGray
-		//tableView.separatorStyle = .none
+		tableView.separatorStyle = .none
 		tableView.allowsSelection = false
 		
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
@@ -37,13 +36,15 @@ class AddRouteTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
 	
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch indexPath.row {
 		case 0:
 			return styleTableViewCell
+		case 1:
+			return gradesTableViewCell
 		default:
 			return UITableViewCell()
 		}
@@ -53,6 +54,8 @@ class AddRouteTableViewController: UITableViewController {
 		switch indexPath.row {
 		case 0:
 			return styleTableViewCell.height
+		case 1:
+			return gradesTableViewCell.height + gradesTableViewCell.spacing
 		default:
 			return 0
 		}
@@ -85,7 +88,7 @@ extension AddRouteTableViewController: ButtonGridDelegate {
 		
 		let tag1 = TagButton(text: "Flash")
 		let tag2 = TagButton(text: "On Sight")
-		let tag3 = TagButton(text: "Red Point")
+		let tag3 = TagButton(text: "Redpoint")
 		let tag4 = TagButton(text: "Attempt")
 		let tag5 = TagButton(text: "Toprope")
 		let tagButtons = [tag1, tag2, tag3, tag4, tag5]
@@ -93,6 +96,23 @@ extension AddRouteTableViewController: ButtonGridDelegate {
 		let tagButtonGrid = TagButtonGrid(frame: frame, items: tagButtons)
 		tagButtonGrid.delegate = self
 		cell.content = tagButtonGrid
+		
+		return cell
+	}
+	
+	var gradesTableViewCell: SessionsTableViewCell {
+		let cell = SessionsTableViewCell()
+		cell.heading = "Grades"
+		
+		let frame = CGRect(x: 0, y: 0, width: 300, height: 300)
+		let view = UIView(frame: frame)
+		//view.backgroundColor = UIColor.green
+		cell.content = view
+		
+		let tagButton = TagButton(text: "Grade System: UIAA", interactionMode: .highlightable)
+		tagButton.center = CGPoint(x: view.center.x, y: tagButton.frame.height/2)
+		view.addSubview(tagButton)
+		
 		
 		return cell
 	}

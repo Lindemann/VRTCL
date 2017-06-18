@@ -12,7 +12,7 @@ class SessionsTableViewCell: UITableViewCell {
 	
 	static let nibAndReuseIdentifier = String(describing: SessionsTableViewCell.self)
 	
-	private let spacing: CGFloat = 50
+	let spacing: CGFloat = 50
 	private let labelHeight: CGFloat = 40
 	
 	var heading: String? {
@@ -47,7 +47,7 @@ class SessionsTableViewCell: UITableViewCell {
 	}
 	
 	var height: CGFloat {
-		return spacing + labelHeight + spacing + (content?.frame.size.height ?? 0) + spacing
+		return spacing + labelHeight + spacing + (content?.frame.size.height ?? 0)
 	}
 	
 	init() {
