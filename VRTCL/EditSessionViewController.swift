@@ -38,7 +38,7 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
 		
-		setupModeDependentStuff()
+		setupSessionKindDependentStuff()
 		setupAddButton()
     }
 	
@@ -64,7 +64,7 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 	
 	// MARK: - Helper
 	
-	func setupModeDependentStuff() {
+	func setupSessionKindDependentStuff() {
 		guard let kind = viewModel.session?.kind else { return }
 		switch kind {
 		case .sportClimbing:
@@ -83,18 +83,10 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 	}
 	
 	@objc func addButtonWasPressed() {
-		guard let kind = viewModel.session?.kind else { return }
-		
 		let addRouteTableViewController = AddRouteTableViewController()
 		let navigationController = NavigationController(rootViewController: addRouteTableViewController)
 		present(navigationController, animated: true, completion: nil)
-		
-		switch kind {
-		case .sportClimbing:
-			addRouteTableViewController.mode = .sportClimbing
-		case .bouldering:
-			addRouteTableViewController.mode = .bouldering
-		}
+		addRouteTableViewController.viewModel.session = viewModel.session
 	}
 	
 	func setupAddButton() {

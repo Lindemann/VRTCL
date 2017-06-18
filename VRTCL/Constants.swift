@@ -22,7 +22,6 @@ struct Colors {
 	static let mint = #colorLiteral(red:0.62, green:1.00, blue:0.80, alpha:1.00)
 	static let orange = #colorLiteral(red:0.99, green:0.51, blue:0.51, alpha:1.00)
 	static let mauve = #colorLiteral(red:0.85, green:0.73, blue:0.99, alpha:1.00)
-	static let red = #colorLiteral(red:0.99, green:0.22, blue:0.37, alpha:1.00)
 	static let hardPurple = #colorLiteral(red:0.40, green:0.14, blue:0.98, alpha:1.00)
 	static let pink = #colorLiteral(red:0.99, green:0.14, blue:0.87, alpha:1.00)
 }

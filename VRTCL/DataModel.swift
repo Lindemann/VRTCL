@@ -10,21 +10,18 @@ import UIKit
 
 struct Grade {
 	let system: System
-	let value: String
+	let value: String?
 	let color: UIColor?
 	let display: Bool
 }
 
-struct Color {
-	static let BLUE = UIColor(red:0, green:0.97, blue:0.77, alpha:1)
-}
-
-enum System {
-	case uiaa
-	case french
-	case yds
-	case font
-	case hueco
+enum System: String {
+	case uiaa = "UIAA"
+	case french = "French"
+	case yds = "YDS"
+	case font = "Font"
+	case hueco = "Hueco"
+	case subjective = "Subjective"
 }
 
 struct Climb {
@@ -99,17 +96,62 @@ struct Comments {
 
 struct GradeScales {
 	static let uiaa: [Grade] = [
-		Grade(system: .uiaa, value: "", color: nil, display: true),
-		Grade(system: .uiaa, value: "", color: nil, display: true)
+		Grade(system: .uiaa, value: "3-", color: Colors.mauve, display: true),
+		Grade(system: .uiaa, value: "3", color: Colors.mauve, display: true),
+		Grade(system: .uiaa, value: "3+", color: Colors.mauve, display: true),
+		
+		Grade(system: .uiaa, value: "4-", color: Colors.discoBlue, display: true),
+		Grade(system: .uiaa, value: "4", color: Colors.discoBlue, display: true),
+		Grade(system: .uiaa, value: "4+", color: Colors.discoBlue, display: true),
+		
+		Grade(system: .uiaa, value: "5-", color: Colors.neonGreen, display: true),
+		Grade(system: .uiaa, value: "5", color: Colors.neonGreen, display: true),
+		Grade(system: .uiaa, value: "5+", color: Colors.neonGreen, display: true),
+		Grade(system: .uiaa, value: nil, color: nil, display: false)
+	]
+	
+	static let french: [Grade] = [
+		Grade(system: .french, value: "3a", color: Colors.neonGreen, display: true),
+		Grade(system: .french, value: "3b", color: Colors.neonGreen, display: true),
+		Grade(system: .french, value: "3b", color: Colors.neonGreen, display: true),
+		Grade(system: .french, value: "4a", color: Colors.neonGreen, display: true),
+		Grade(system: .french, value: "4b", color: Colors.neonGreen, display: true),
+		Grade(system: .french, value: "4c", color: Colors.neonGreen, display: true)
+	]
+	
+	static let yds: [Grade] = [
+		Grade(system: .yds, value: "5.2", color: Colors.discoBlue, display: true),
+		Grade(system: .yds, value: "5.3", color: Colors.discoBlue, display: true),
+		Grade(system: .yds, value: "5.4", color: Colors.discoBlue, display: true),
+		Grade(system: .yds, value: "5.5", color: Colors.discoBlue, display: true),
+		Grade(system: .yds, value: "5.6", color: Colors.discoBlue, display: true),
+		Grade(system: .yds, value: nil, color: nil, display: false)
 	]
 }
 
-let grade = Grade(system: .uiaa, value: "5", color: Color.BLUE, display: true)
-
 struct User {
-	var sessions: [Session]
-	let account: Account
-	let statistics: Statistics
+	var sessions: [Session]?
+	
+	let ud_defaultBoulderingGradeSystem = "ud_defaultBoulderingGradeSystem"
+	let ud_defaultSportClimbingGradeSystem = "ud_defaultSportClimbingGradeSystem"
+	var defaultBoulderingGradeSystem: System? {
+		set {
+			UserDefaults().set(newValue, forKey: ud_defaultBoulderingGradeSystem)
+		}
+		get {
+			let rawValue = UserDefaults().string(forKey: ud_defaultBoulderingGradeSystem)
+			return System(rawValue: rawValue ?? "Font")
+		}
+	}
+	var defaultSportClimbingGradeSystem: System? {
+		set {
+			UserDefaults().set(newValue, forKey: ud_defaultSportClimbingGradeSystem)
+		}
+		get {
+			let rawValue = UserDefaults().string(forKey: ud_defaultSportClimbingGradeSystem)
+			return System(rawValue: rawValue ?? "UIAA")
+		}
+	}
 }
 
 struct Account {

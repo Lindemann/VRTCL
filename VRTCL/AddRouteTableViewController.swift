@@ -9,16 +9,12 @@
 import UIKit
 
 struct AddRouteTableViewControllerViewModel {
-	
+	var session: Session?
 }
 
 class AddRouteTableViewController: UITableViewController {
 	
-	enum Mode {
-		case sportClimbing, bouldering
-	}
-	
-	var mode: Mode? = .sportClimbing
+	var viewModel = AddRouteTableViewControllerViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +26,7 @@ class AddRouteTableViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
 		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(save))
 		
-		setupModeDependentStuff()
+		setupSessionKindDependentStuff()
     }
 
     // MARK: - Table view data source
@@ -67,9 +63,9 @@ class AddRouteTableViewController: UITableViewController {
 	
 	// MARK: - Helper
 	
-	func setupModeDependentStuff() {
-		guard let mode = self.mode else { return }
-		switch mode {
+	private func setupSessionKindDependentStuff() {
+		guard let kind = viewModel.session?.kind else { return }
+		switch kind {
 		case .sportClimbing:
 			navigationItem.title = "Add Route"
 			navigationController?.navigationBar.barTintColor = Colors.purple
@@ -86,7 +82,7 @@ class AddRouteTableViewController: UITableViewController {
 
 extension AddRouteTableViewController: ButtonGridDelegate, UIPopoverPresentationControllerDelegate {
 	
-	var styleTableViewCell: SessionsTableViewCell {
+	private var styleTableViewCell: SessionsTableViewCell {
 		let cell = SessionsTableViewCell()
 		cell.heading = "Style"
 		
@@ -95,7 +91,15 @@ extension AddRouteTableViewController: ButtonGridDelegate, UIPopoverPresentation
 		let tag3 = TagButton(text: "Redpoint")
 		let tag4 = TagButton(text: "Attempt")
 		let tag5 = TagButton(text: "Toprope")
-		let tagButtons = [tag1, tag2, tag3, tag4, tag5]
+		
+		guard let kind = viewModel.session?.kind else { return cell }
+		var tagButtons: [TagButton]
+		switch kind {
+		case .sportClimbing:
+			tagButtons = [tag1, tag2, tag3, tag4, tag5]
+		case .bouldering:
+			tagButtons = [tag1, tag2, tag3, tag4]
+		}
 		let frame = CGRect(x: 0, y: 0, width: 300, height: 80)
 		let tagButtonGrid = TagButtonGrid(frame: frame, items: tagButtons)
 		tagButtonGrid.delegate = self
@@ -104,7 +108,7 @@ extension AddRouteTableViewController: ButtonGridDelegate, UIPopoverPresentation
 		return cell
 	}
 	
-	var gradesTableViewCell: SessionsTableViewCell {
+	private var gradesTableViewCell: SessionsTableViewCell {
 		let cell = SessionsTableViewCell()
 		cell.heading = "Grades"
 		
@@ -113,7 +117,15 @@ extension AddRouteTableViewController: ButtonGridDelegate, UIPopoverPresentation
 		//view.backgroundColor = UIColor.green
 		cell.content = view
 		
-		let tagButton = TagButton(text: "Grade System: UIAA", interactionMode: .highlightable)
+		guard let kind = viewModel.session?.kind else { return cell }
+		var text: String
+		switch kind {
+		case .sportClimbing:
+			text = AppDelegate.shared.user.defaultSportClimbingGradeSystem?.rawValue ?? ""
+		case .bouldering:
+			text = AppDelegate.shared.user.defaultBoulderingGradeSystem?.rawValue ?? ""
+		}
+		let tagButton = TagButton(text: "Grade System: \(text)", interactionMode: .highlightable)
 		tagButton.addTarget(self, action: #selector(gradeSystemButtonWasPressed), for: .touchUpInside)
 		tagButton.center = CGPoint(x: view.center.x, y: tagButton.frame.height/2)
 		view.addSubview(tagButton)
@@ -121,11 +133,15 @@ extension AddRouteTableViewController: ButtonGridDelegate, UIPopoverPresentation
 		return cell
 	}
 	
-	func buttonGridButtonWasPressed(sender: UIButton) {
+//	private func buttonGridFrom(gradeScale: [Grade]) -> ButtonGrid {
+//
+//	}
+	
+	internal func buttonGridButtonWasPressed(sender: UIButton) {
 		print("🐹🐹🐰🐼")
 	}
 	
-	@objc func gradeSystemButtonWasPressed(sender: UIButton) {
+	@objc private func gradeSystemButtonWasPressed(sender: UIButton) {
 		let gradeSystemViewController = GradeSystemViewController()
 		gradeSystemViewController.modalPresentationStyle = .popover
 		gradeSystemViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
@@ -140,12 +156,11 @@ extension AddRouteTableViewController: ButtonGridDelegate, UIPopoverPresentation
 	func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
 		return UIModalPresentationStyle.none
 	}
-	
 }
 
 class GradeSystemViewController: UIViewController, ButtonGridDelegate {
 	
-	var tagButtonGrid: TagButtonGrid?
+	private var tagButtonGrid: TagButtonGrid?
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -165,7 +180,7 @@ class GradeSystemViewController: UIViewController, ButtonGridDelegate {
 		tagButtonGrid?.center = view.center
 	}
 	
-	func buttonGridButtonWasPressed(sender: UIButton) {
+	internal func buttonGridButtonWasPressed(sender: UIButton) {
 		print("🐹🐹🐰🐼")
 		dismiss(animated: true, completion: nil)
 	}
