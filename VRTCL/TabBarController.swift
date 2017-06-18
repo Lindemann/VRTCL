@@ -14,7 +14,7 @@ class TabBarController: UITabBarController {
 		super.viewDidLoad()
 
 		tabBar.tintColor = UIColor.white
-		tabBar.barTintColor = Colors.barColor
+		tabBar.barTintColor = Colors.bar
 
 //        UITabBar.appearance().shadowImage = UIImage()
 //        UITabBar.appearance().backgroundImage = UIImage()

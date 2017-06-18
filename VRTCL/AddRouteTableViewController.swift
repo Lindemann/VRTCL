@@ -75,7 +75,7 @@ class AddRouteTableViewController: UITableViewController {
 			navigationController?.navigationBar.barTintColor = Colors.purple
 		case .bouldering:
 			navigationItem.title = "Add Boulder"
-			navigationController?.navigationBar.barTintColor = Colors.skyBlue
+			navigationController?.navigationBar.barTintColor = Colors.discoBlue
 		}
 	}
 	
@@ -133,7 +133,7 @@ extension AddRouteTableViewController: ButtonGridDelegate, UIPopoverPresentation
 		gradeSystemViewController.popoverPresentationController?.sourceView = sender
 		gradeSystemViewController.popoverPresentationController?.sourceRect = sender.bounds
 		gradeSystemViewController.preferredContentSize = CGSize(width: 320, height: 100)
-		gradeSystemViewController.popoverPresentationController?.backgroundColor = Colors.barColor
+		gradeSystemViewController.popoverPresentationController?.backgroundColor = Colors.popover
 		present(gradeSystemViewController, animated: true, completion: nil)
 	}
 	
@@ -150,9 +150,9 @@ class GradeSystemViewController: UIViewController, ButtonGridDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		let tag1 = TagButton(text: "UIAA", presentingViewBackgroundColor: Colors.barColor)
-		let tag2 = TagButton(text: "French", presentingViewBackgroundColor: Colors.barColor)
-		let tag3 = TagButton(text: "YDS", presentingViewBackgroundColor: Colors.barColor)
+		let tag1 = TagButton(text: "UIAA", presentingViewBackgroundColor: popoverPresentationController?.backgroundColor)
+		let tag2 = TagButton(text: "French", presentingViewBackgroundColor: popoverPresentationController?.backgroundColor)
+		let tag3 = TagButton(text: "YDS", presentingViewBackgroundColor: popoverPresentationController?.backgroundColor)
 		let tagButtons = [tag1, tag2, tag3]
 		let frame = CGRect(x: 0, y: 0, width: 250, height: 40)
 		tagButtonGrid = TagButtonGrid(frame: frame, items: tagButtons)

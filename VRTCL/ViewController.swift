@@ -36,7 +36,7 @@ class ViewController: UIViewController, ButtonGridDelegate {
 		let fatButton = FatButton(origin: CGPoint(x: 50, y: 500), color: UIColor.blue, title: "Login")
 		view.addSubview(fatButton)
 		
-		let circleButtonWithText = CircleButtonWithText(mode: .filledMedium, center: CGPoint(x: 60, y: 100), buttonText: "12a+", labelText: "Red Point", color: Colors.skyBlue)
+		let circleButtonWithText = CircleButtonWithText(mode: .filledMedium, center: CGPoint(x: 60, y: 100), buttonText: "12a+", labelText: "Red Point", color: Colors.discoBlue)
 		view.addSubview(circleButtonWithText)
 		
 		let circleButtonWithText2 = CircleButtonWithText(mode: .outlineSmall, center: CGPoint(x: 60, y: 250), buttonText: "12a+", labelText: "Red Point")
@@ -61,7 +61,7 @@ class ViewController: UIViewController, ButtonGridDelegate {
 	func data() -> [CircleButtonWithText] {
 		var data: [CircleButtonWithText] = []
 		for _ in 0...9 {
-			let circleButtonWithText = CircleButtonWithText(mode: .filledMedium, center: CGPoint.zero, buttonText: "12a+", labelText: "Red Point", color: Colors.skyBlue)
+			let circleButtonWithText = CircleButtonWithText(mode: .filledMedium, center: CGPoint.zero, buttonText: "12a+", labelText: "Red Point", color: Colors.discoBlue)
 			data.append(circleButtonWithText)
 		}
 		return data

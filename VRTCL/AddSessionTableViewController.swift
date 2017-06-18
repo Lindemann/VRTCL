@@ -221,7 +221,7 @@ class SessionsButtonTableviewCell: UITableViewCell {
 				button = FatButton(origin: CGPoint.zero, color: Colors.purple, title: "Sport Climbing")
 				button?.addTarget(delegate, action: #selector(delegate?.sportClimbingButtonWasPressed), for: .touchUpInside)
 			case .bouldering:
-				button = FatButton(origin: CGPoint.zero, color: Colors.skyBlue, title: "Bouldering")
+				button = FatButton(origin: CGPoint.zero, color: Colors.discoBlue, title: "Bouldering")
 				button?.addTarget(delegate, action: #selector(delegate?.boulderingButtonWasPressed), for: .touchUpInside)
 			}
 		}

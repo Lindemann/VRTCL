@@ -44,7 +44,7 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 	
 	override func willMove(toParentViewController parent: UIViewController?) {
 		super.willMove(toParentViewController: parent)
-		self.navigationController?.navigationBar.barTintColor = Colors.barColor
+		self.navigationController?.navigationBar.barTintColor = Colors.bar
 	}
 	
     // MARK: - Table view data source
@@ -73,8 +73,8 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 			addButton = FatButton(origin: CGPoint.zero, color: Colors.purple, title: "Add Route")
 		case .bouldering:
 			navigationItem.title = "Bouldering Session"
-			navigationController?.navigationBar.barTintColor = Colors.skyBlue
-			addButton = FatButton(origin: CGPoint.zero, color: Colors.skyBlue, title: "Add Boulder")
+			navigationController?.navigationBar.barTintColor = Colors.discoBlue
+			addButton = FatButton(origin: CGPoint.zero, color: Colors.discoBlue, title: "Add Boulder")
 		}
 	}
 	
