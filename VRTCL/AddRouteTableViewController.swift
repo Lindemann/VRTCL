@@ -98,6 +98,8 @@ extension AddRouteTableViewController: ButtonGridDelegate {
 		let tag3 = TagButton(text: Style.redpoint.rawValue)
 		let tag4 = TagButton(text: Style.attempt.rawValue)
 		let tag5 = TagButton(text: Style.toprope.rawValue)
+		let tag666 = TagButton(text: "                             ")
+		tag666.isHidden = true
 		
 		guard let kind = session?.kind else { return cell }
 		var tagButtons: [TagButton]
@@ -105,7 +107,7 @@ extension AddRouteTableViewController: ButtonGridDelegate {
 		case .sportClimbing:
 			tagButtons = [tag1, tag2, tag3, tag4, tag5]
 		case .bouldering:
-			tagButtons = [tag1, tag2, tag3, tag4]
+			tagButtons = [tag1, tag2, tag3, tag4, tag666]
 		}
 		let frame = CGRect(x: 0, y: 0, width: 300, height: 80)
 		let tagButtonGrid = TagButtonGrid(frame: frame, items: tagButtons)
@@ -229,6 +231,7 @@ class GradeSystemViewController: UIViewController, ButtonGridDelegate {
 		let tag4 = TagButton(text: System.font.rawValue, presentingViewBackgroundColor: popoverPresentationController?.backgroundColor)
 		let tag5 = TagButton(text: System.hueco.rawValue, presentingViewBackgroundColor: popoverPresentationController?.backgroundColor)
 		let tag6 = TagButton(text: System.subjective.rawValue, presentingViewBackgroundColor: popoverPresentationController?.backgroundColor)
+		
 		guard let kind = session?.kind else { return }
 		var tagButtons: [TagButton]
 		var frame: CGRect
