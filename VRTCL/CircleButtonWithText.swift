@@ -31,7 +31,7 @@ class CircleButtonWithText: UIView {
 	let labelText: String
 	let color: UIColor
 	
-	init(mode: Mode, center: CGPoint, buttonText: String, labelText: String, color: UIColor = UIColor.gray) {
+	init(mode: Mode, center: CGPoint = CGPoint.zero, buttonText: String, labelText: String, color: UIColor = UIColor.gray) {
 		self.mode = mode
 		self.buttonText = buttonText
 		self.labelText = labelText

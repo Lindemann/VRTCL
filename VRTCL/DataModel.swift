@@ -42,21 +42,6 @@ enum Kind {
 	case bouldering
 }
 
-struct Session {
-	let kind: Kind
-	var climbs: [Climb]?
-	var feeling: Feeling?
-	var location: Location?
-	var duration: Double?
-	var date: Date?
-	var likes: Likes?
-	var comments: Comments?
-	
-	init(kind: Kind) {
-		self.kind = kind
-	}
-}
-
 struct Date {
 	let startDate: Foundation.Date
 	let endDate: Foundation.Date
@@ -92,6 +77,17 @@ struct Comments {
 	var count: Int {
 		return comments.count
 	}
+}
+
+struct Account {
+	var userName: String
+	var password: String
+	var mail: String
+	var image: UIImage
+}
+
+struct Statistics {
+	
 }
 
 struct GradeScales {
@@ -203,7 +199,22 @@ struct GradeScales {
 	]
 }
 
-struct User {
+class Session {
+	let kind: Kind
+	var climbs: [Climb]? = []
+	var feeling: Feeling?
+	var location: Location?
+	var duration: Double?
+	var date: Date?
+	var likes: Likes?
+	var comments: Comments?
+	
+	init(kind: Kind) {
+		self.kind = kind
+	}
+}
+
+class User {
 	var sessions: [Session]?
 	
 	let ud_boulderingGradeSystem = "ud_boulderingGradeSystem"
@@ -226,15 +237,4 @@ struct User {
 			return System(rawValue: rawValue ?? "UIAA")
 		}
 	}
-}
-
-struct Account {
-	var userName: String
-	var password: String
-	var mail: String
-	var image: UIImage
-}
-
-struct Statistics {
-
 }

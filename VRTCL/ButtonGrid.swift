@@ -33,7 +33,7 @@ class ButtonGrid: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 	
 	internal var collectionView: UICollectionView!
 	
-	init(origin: CGPoint, itemsPerRow: Int, items: [UIView], spaceing: CGFloat) {
+	init(origin: CGPoint = CGPoint.zero, itemsPerRow: Int, items: [UIView], spaceing: CGFloat) {
 		self.itemsPerRow = itemsPerRow
 		self.spaceing = spaceing
 		self.items = items

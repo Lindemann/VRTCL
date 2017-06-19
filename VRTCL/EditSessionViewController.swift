@@ -10,6 +10,28 @@ import UIKit
 
 struct EditSessionViewControllerViewModel {
 	var session: Session?
+	
+	var kind: Kind {
+		return session?.kind ?? .sportClimbing
+	}
+	
+	var climbsTableViewCellHeading: String {
+		return kind == .sportClimbing ? "Routes" : "Boulder"
+	}
+	
+	var climbsButtonGrid: ButtonGrid? {
+		guard let climbs = session?.climbs, climbs.count > 0 else { return nil }
+		var items: [CircleButtonWithText] = []
+		for climb in climbs {
+			let circleButtonWithText = CircleButtonWithText(mode: .filledMedium, buttonText: climb.grade?.value ?? "", labelText: climb.style?.rawValue ?? Style.toprope.rawValue, color: climb.grade?.color ?? UIColor.white)
+			if climb.style == .attempt || climb.style == .toprope {
+				circleButtonWithText.circleButton?.alpha = 0.4
+			}
+			items.append(circleButtonWithText)
+		}
+		let buttonGrid = ButtonGrid(itemsPerRow: 3, items: items, spaceing: 30)
+		return buttonGrid
+	}
 }
 
 class EditSessionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -42,9 +64,9 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		setupAddButton()
     }
 	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		dump(viewModel.session)
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		tableView.reloadData()
 	}
 	
 	override func willMove(toParentViewController parent: UIViewController?) {
@@ -53,25 +75,23 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 	}
 	
     // MARK: - Table view data source
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 0
-    }
-
+	
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return 1
     }
 	
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        return cell
+        return climbsTableViewCell
     }
+	
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return climbsTableViewCell.height
+	}
 	
 	// MARK: - Helper
 	
 	func setupSessionKindDependentStuff() {
-		guard let kind = viewModel.session?.kind else { return }
-		switch kind {
+		switch viewModel.kind {
 		case .sportClimbing:
 			navigationItem.title = "Sport Climbing Session"
 			navigationController?.navigationBar.barTintColor = Colors.purple
@@ -88,7 +108,6 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		let navigationController = NavigationController(rootViewController: addRouteTableViewController)
 		present(navigationController, animated: true, completion: nil)
 		addRouteTableViewController.session = viewModel.session
-		viewModel.session?.climbs = []
 		addRouteTableViewController.climb = Climb()
 	}
 	
@@ -109,4 +128,20 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 	@objc private func save() {
 		navigationController?.popViewController(animated: true)
 	}
+}
+
+extension EditSessionViewController: ButtonGridDelegate {
+	
+	var climbsTableViewCell: SessionsTableViewCell {
+		let cell = SessionsTableViewCell()
+		cell.heading = viewModel.climbsTableViewCellHeading
+		let buttonGrid = viewModel.climbsButtonGrid
+		buttonGrid?.delegate = self
+		cell.content = buttonGrid
+		return cell
+	}
+	
+	func buttonGridButtonWasPressed(sender: UIButton) {
+	}
+		
 }

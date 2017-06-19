@@ -73,8 +73,13 @@ class AddRouteTableViewController: UITableViewController {
 	}
 	
 	@objc func save() {
-		session?.climbs?.append(climb)
-		dismiss(animated: true, completion: nil)
+		if let _ = climb.style, let _ = climb.grade {
+			session?.climbs?.append(climb)
+			dismiss(animated: true, completion: nil)
+		} else {
+			let generator = UIImpactFeedbackGenerator(style: .heavy)
+			generator.impactOccurred()
+		}
 	}
 	
 	@objc func cancel() {
@@ -155,8 +160,8 @@ extension AddRouteTableViewController: ButtonGridDelegate {
 				items.append(circleButton)
 			}
 		}
-		let tagButtonGrid = ButtonGrid(origin: CGPoint.zero, itemsPerRow: 3, items: items, spaceing: 30)
-		return tagButtonGrid
+		let buttonGrid = ButtonGrid(itemsPerRow: 3, items: items, spaceing: 40)
+		return buttonGrid
 	}
 	
 	internal func buttonGridButtonWasPressed(sender: UIButton) {
@@ -250,8 +255,8 @@ class GradeSystemViewController: UIViewController, ButtonGridDelegate {
 			AppDelegate.shared.user.boulderingGradeSystem = System(rawValue: sender.titleLabel?.text ?? "")
 		}
 		
-		dismiss(animated: true) {
-			self.tableView?.reloadData()
+		dismiss(animated: true) { [weak self] in
+			self?.tableView?.reloadData()
 		}
 	}
 }
