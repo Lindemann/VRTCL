@@ -42,6 +42,11 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		setupAddButton()
     }
 	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		dump(viewModel.session)
+	}
+	
 	override func willMove(toParentViewController parent: UIViewController?) {
 		super.willMove(toParentViewController: parent)
 		self.navigationController?.navigationBar.barTintColor = Colors.bar
@@ -78,18 +83,16 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		}
 	}
 	
-	@objc func save() {
-		navigationController?.popViewController(animated: true)
-	}
-	
-	@objc func addButtonWasPressed() {
+	@objc private func addButtonWasPressed() {
 		let addRouteTableViewController = AddRouteTableViewController()
 		let navigationController = NavigationController(rootViewController: addRouteTableViewController)
 		present(navigationController, animated: true, completion: nil)
 		addRouteTableViewController.session = viewModel.session
+		viewModel.session?.climbs = []
+		addRouteTableViewController.climb = Climb()
 	}
 	
-	func setupAddButton() {
+	private func setupAddButton() {
 		guard let tabBar = tabBarController?.tabBar else { return }
 		guard let addButton = addButton else { return }
 		
@@ -101,5 +104,9 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 		addButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(tabBar.frame.size.height + space)).isActive = true
 		addButton.widthAnchor.constraint(greaterThanOrEqualToConstant: view.frame.width - space * 2).isActive = true
+	}
+	
+	@objc private func save() {
+		navigationController?.popViewController(animated: true)
 	}
 }

@@ -131,7 +131,7 @@ class CircleButton: Button {
 	
 	// MARK: Initializer
 	
-	init(center: CGPoint, diameter: CGFloat, text: String, color: UIColor, presentingViewBackgroundColor: UIColor? = Colors.darkGray, appearanceMode: AppearanceMode = .filled, interactionMode: InteractionMode = .selectable) {
+	init(center: CGPoint = CGPoint.zero, diameter: CGFloat = 60, text: String, color: UIColor, presentingViewBackgroundColor: UIColor? = Colors.darkGray, appearanceMode: AppearanceMode = .filled, interactionMode: InteractionMode = .selectable) {
 		super.init(frame: CGRect(x: center.x - diameter/2, y: center.y - diameter/2, width: diameter, height: diameter))
 		self.frame = CGRect(x: center.x - diameter/2, y: center.y - diameter/2, width: diameter, height: diameter)
 		self.text = text
@@ -152,7 +152,7 @@ class CircleButton: Button {
 	
 	func setup() {
 		setTitle(text, for: UIControlState())
-		titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+		titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
 		
 		layer.cornerRadius = 0.5 * bounds.size.width
 		layer.borderWidth = 2

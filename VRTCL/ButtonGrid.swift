@@ -36,11 +36,13 @@ class ButtonGrid: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 	init(origin: CGPoint, itemsPerRow: Int, items: [UIView], spaceing: CGFloat) {
 		self.itemsPerRow = itemsPerRow
 		self.spaceing = spaceing
+		self.items = items
+		super.init(frame: CGRect(origin: origin, size: size(itemsPerRow: itemsPerRow, spaceing: spaceing, items: items)))
+		setupCollectionView()
+		// TODO: Fix me!
 		defer {
 			self.items = items
 		}
-		super.init(frame: CGRect(origin: origin, size: size(itemsPerRow: itemsPerRow, spaceing: spaceing, items: items)))
-		setupCollectionView()
 	}
 	
 	internal init(frame: CGRect, items: [UIView]) {

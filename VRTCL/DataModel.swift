@@ -12,7 +12,7 @@ struct Grade {
 	let system: System
 	let value: String?
 	let color: UIColor?
-	let display: Bool
+	let isRealGrade: Bool
 }
 
 enum System: String {
@@ -25,8 +25,8 @@ enum System: String {
 }
 
 struct Climb {
-	var style: Style
-	var grade: Grade
+	var style: Style?
+	var grade: Grade?
 }
 
 enum Style: String {
@@ -95,60 +95,134 @@ struct Comments {
 }
 
 struct GradeScales {
+	
+	static func gradeScaleFor(system: System) -> [Grade] {
+		switch system {
+		case .uiaa:
+			return GradeScales.uiaa
+		case .french:
+			return GradeScales.french
+		case .yds:
+			return GradeScales.yds
+		case .font:
+			return GradeScales.font
+		case .hueco:
+			return GradeScales.hueco
+		case .subjective:
+			return GradeScales.subjective
+		}
+	}
+	
+	static func gradeFor(system: System, value: String) -> Grade? {
+		for grade in GradeScales.gradeScaleFor(system: system) {
+			if grade.value == value {
+				return grade
+			}
+		}
+		return nil
+	}
+	
 	static let uiaa: [Grade] = [
-		Grade(system: .uiaa, value: "3-", color: Colors.mauve, display: true),
-		Grade(system: .uiaa, value: "3", color: Colors.mauve, display: true),
-		Grade(system: .uiaa, value: "3+", color: Colors.mauve, display: true),
+		Grade(system: .uiaa, value: "3-", color: Colors.mauve, isRealGrade: true),
+		Grade(system: .uiaa, value: "3", color: Colors.mauve, isRealGrade: true),
+		Grade(system: .uiaa, value: "3+", color: Colors.mauve, isRealGrade: true),
 		
-		Grade(system: .uiaa, value: "4-", color: Colors.discoBlue, display: true),
-		Grade(system: .uiaa, value: "4", color: Colors.discoBlue, display: true),
-		Grade(system: .uiaa, value: "4+", color: Colors.discoBlue, display: true),
+		Grade(system: .uiaa, value: "4-", color: Colors.discoBlue, isRealGrade: true),
+		Grade(system: .uiaa, value: "4", color: Colors.discoBlue, isRealGrade: true),
+		Grade(system: .uiaa, value: "4+", color: Colors.discoBlue, isRealGrade: true),
 		
-		Grade(system: .uiaa, value: "5-", color: Colors.neonGreen, display: true),
-		Grade(system: .uiaa, value: "5", color: Colors.neonGreen, display: true),
-		Grade(system: .uiaa, value: "5+", color: Colors.neonGreen, display: true),
-		Grade(system: .uiaa, value: nil, color: nil, display: false)
+		Grade(system: .uiaa, value: "5-", color: Colors.neonGreen, isRealGrade: true),
+		Grade(system: .uiaa, value: "5", color: Colors.neonGreen, isRealGrade: true),
+		Grade(system: .uiaa, value: "5+", color: Colors.neonGreen, isRealGrade: true),
+		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: false),
+		
+		Grade(system: .uiaa, value: "6-", color: Colors.purple, isRealGrade: true),
+		Grade(system: .uiaa, value: "6", color: Colors.purple, isRealGrade: true),
+		Grade(system: .uiaa, value: "6+", color: Colors.purple, isRealGrade: true),
+		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: false),
+		
+		Grade(system: .uiaa, value: "7-", color: Colors.babyBlue, isRealGrade: true),
+		Grade(system: .uiaa, value: "7", color: Colors.babyBlue, isRealGrade: true),
+		Grade(system: .uiaa, value: "7+", color: Colors.babyBlue, isRealGrade: true),
+		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: false),
+		
+		Grade(system: .uiaa, value: "8-", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .uiaa, value: "8", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .uiaa, value: "8+", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: false),
+		
+		Grade(system: .uiaa, value: "9-", color: Colors.mint, isRealGrade: true),
+		Grade(system: .uiaa, value: "9", color: Colors.mint, isRealGrade: true),
+		Grade(system: .uiaa, value: "9+", color: Colors.mint, isRealGrade: true),
+		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: false),
+		
+		Grade(system: .uiaa, value: "10-", color: Colors.orange, isRealGrade: true),
+		Grade(system: .uiaa, value: "10", color: Colors.orange, isRealGrade: true),
+		Grade(system: .uiaa, value: "10+", color: Colors.orange, isRealGrade: true),
+		
+		Grade(system: .uiaa, value: "11-", color: Colors.hardPurple, isRealGrade: true),
+		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .uiaa, value: "11", color: Colors.hardPurple, isRealGrade: true),
+		Grade(system: .uiaa, value: "11+", color: Colors.hardPurple, isRealGrade: true),
+		
+		Grade(system: .uiaa, value: "12-", color: Colors.pink, isRealGrade: true),
+		Grade(system: .uiaa, value: "12", color: Colors.pink, isRealGrade: true),
 	]
 	
 	static let french: [Grade] = [
-		Grade(system: .french, value: "3a", color: Colors.neonGreen, display: true),
-		Grade(system: .french, value: "3b", color: Colors.neonGreen, display: true),
-		Grade(system: .french, value: "3b", color: Colors.neonGreen, display: true),
-		Grade(system: .french, value: "4a", color: Colors.neonGreen, display: true),
-		Grade(system: .french, value: "4b", color: Colors.neonGreen, display: true),
-		Grade(system: .french, value: "4c", color: Colors.neonGreen, display: true)
+		Grade(system: .french, value: "3a", color: Colors.neonGreen, isRealGrade: true),
+		Grade(system: .french, value: "3b", color: Colors.neonGreen, isRealGrade: true),
+		Grade(system: .french, value: "3b", color: Colors.neonGreen, isRealGrade: true),
+		Grade(system: .french, value: "4a", color: Colors.neonGreen, isRealGrade: true),
+		Grade(system: .french, value: "4b", color: Colors.neonGreen, isRealGrade: true),
+		Grade(system: .french, value: "4c", color: Colors.neonGreen, isRealGrade: true)
 	]
 	
 	static let yds: [Grade] = [
-		Grade(system: .yds, value: "5.2", color: Colors.discoBlue, display: true),
-		Grade(system: .yds, value: "5.3", color: Colors.discoBlue, display: true),
-		Grade(system: .yds, value: "5.4", color: Colors.discoBlue, display: true),
-		Grade(system: .yds, value: "5.5", color: Colors.discoBlue, display: true),
-		Grade(system: .yds, value: "5.6", color: Colors.discoBlue, display: true),
-		Grade(system: .yds, value: nil, color: nil, display: false)
+		Grade(system: .yds, value: "5.2", color: Colors.discoBlue, isRealGrade: true),
+		Grade(system: .yds, value: "5.3", color: Colors.discoBlue, isRealGrade: true),
+		Grade(system: .yds, value: "5.4", color: Colors.discoBlue, isRealGrade: true),
+		Grade(system: .yds, value: "5.5", color: Colors.discoBlue, isRealGrade: true),
+		Grade(system: .yds, value: "5.6", color: Colors.discoBlue, isRealGrade: true),
+		Grade(system: .yds, value: nil, color: nil, isRealGrade: false)
+	]
+	
+	static let font: [Grade] = [
+		Grade(system: .font, value: "?", color: Colors.discoBlue, isRealGrade: true)
+	]
+	
+	static let hueco: [Grade] = [
+		Grade(system: .hueco, value: "?", color: Colors.discoBlue, isRealGrade: true)
+	]
+	
+	static let subjective: [Grade] = [
+		Grade(system: .subjective, value: "easy", color: Colors.neonGreen, isRealGrade: true),
+		Grade(system: .subjective, value: "medium", color: Colors.purple, isRealGrade: true),
+		Grade(system: .subjective, value: "hard", color: Colors.mint, isRealGrade: true),
+		Grade(system: .subjective, value: "extreme", color: Colors.orange, isRealGrade: true)
 	]
 }
 
 struct User {
 	var sessions: [Session]?
 	
-	let ud_defaultBoulderingGradeSystem = "ud_defaultBoulderingGradeSystem"
-	let ud_defaultSportClimbingGradeSystem = "ud_defaultSportClimbingGradeSystem"
-	var defaultBoulderingGradeSystem: System? {
+	let ud_boulderingGradeSystem = "ud_boulderingGradeSystem"
+	let ud_sportClimbingGradeSystem = "ud_sportClimbingGradeSystem"
+	var boulderingGradeSystem: System? {
 		set {
-			UserDefaults().set(newValue?.rawValue, forKey: ud_defaultBoulderingGradeSystem)
+			UserDefaults().set(newValue?.rawValue, forKey: ud_boulderingGradeSystem)
 		}
 		get {
-			let rawValue = UserDefaults().string(forKey: ud_defaultBoulderingGradeSystem)
+			let rawValue = UserDefaults().string(forKey: ud_boulderingGradeSystem)
 			return System(rawValue: rawValue ?? "Font")
 		}
 	}
-	var defaultSportClimbingGradeSystem: System? {
+	var sportClimbingGradeSystem: System? {
 		set {
-			UserDefaults().set(newValue?.rawValue, forKey: ud_defaultSportClimbingGradeSystem)
+			UserDefaults().set(newValue?.rawValue, forKey: ud_sportClimbingGradeSystem)
 		}
 		get {
-			let rawValue = UserDefaults().string(forKey: ud_defaultSportClimbingGradeSystem)
+			let rawValue = UserDefaults().string(forKey: ud_sportClimbingGradeSystem)
 			return System(rawValue: rawValue ?? "UIAA")
 		}
 	}
