@@ -171,7 +171,41 @@ struct GradeScales {
 		Grade(system: .french, value: "3b", color: Colors.neonGreen, isRealGrade: true),
 		Grade(system: .french, value: "4a", color: Colors.neonGreen, isRealGrade: true),
 		Grade(system: .french, value: "4b", color: Colors.neonGreen, isRealGrade: true),
-		Grade(system: .french, value: "4c", color: Colors.neonGreen, isRealGrade: true)
+		Grade(system: .french, value: "4c", color: Colors.neonGreen, isRealGrade: true),
+		
+		Grade(system: .french, value: "5a", color: Colors.purple, isRealGrade: true),
+		Grade(system: .french, value: "5a+", color: Colors.purple, isRealGrade: true),
+		Grade(system: .french, value: "5b", color: Colors.purple, isRealGrade: true),
+		Grade(system: .french, value: "5b+", color: Colors.purple, isRealGrade: true),
+		Grade(system: .french, value: "5c", color: Colors.purple, isRealGrade: true),
+		Grade(system: .french, value: "5c+", color: Colors.purple, isRealGrade: true),
+		
+		Grade(system: .french, value: "6a", color: Colors.babyBlue, isRealGrade: true),
+		Grade(system: .french, value: "6a+", color: Colors.babyBlue, isRealGrade: true),
+		Grade(system: .french, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .french, value: "6b", color: Colors.babyBlue, isRealGrade: true),
+		Grade(system: .french, value: "6b+", color: Colors.babyBlue, isRealGrade: true),
+		Grade(system: .french, value: "6c", color: Colors.babyBlue, isRealGrade: true),
+		Grade(system: .french, value: "6c+", color: Colors.babyBlue, isRealGrade: true),
+		
+		Grade(system: .french, value: "7a", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .french, value: "7a+", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .french, value: "7b", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .french, value: "7b+", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .french, value: "7c", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .french, value: "7c+", color: Colors.magenta, isRealGrade: true),
+		
+		Grade(system: .french, value: "8a", color: Colors.mint, isRealGrade: true),
+		Grade(system: .french, value: "8a+", color: Colors.mint, isRealGrade: true),
+		Grade(system: .french, value: "8b", color: Colors.mint, isRealGrade: true),
+		Grade(system: .french, value: "8b+", color: Colors.mint, isRealGrade: true),
+		Grade(system: .french, value: "8c", color: Colors.mint, isRealGrade: true),
+		Grade(system: .french, value: "8c+", color: Colors.mint, isRealGrade: true),
+		
+		Grade(system: .french, value: "9a", color: Colors.orange, isRealGrade: true),
+		Grade(system: .french, value: "9a+", color: Colors.orange, isRealGrade: true),
+		Grade(system: .french, value: "9b", color: Colors.orange, isRealGrade: true),
+		Grade(system: .french, value: "9b+", color: Colors.orange, isRealGrade: true)
 	]
 	
 	static let yds: [Grade] = [
@@ -179,12 +213,78 @@ struct GradeScales {
 		Grade(system: .yds, value: "5.3", color: Colors.discoBlue, isRealGrade: true),
 		Grade(system: .yds, value: "5.4", color: Colors.discoBlue, isRealGrade: true),
 		Grade(system: .yds, value: "5.5", color: Colors.discoBlue, isRealGrade: true),
-		Grade(system: .yds, value: "5.6", color: Colors.discoBlue, isRealGrade: true),
-		Grade(system: .yds, value: nil, color: nil, isRealGrade: false)
+		
+		Grade(system: .yds, value: "5.6", color: Colors.neonGreen, isRealGrade: true),
+		Grade(system: .yds, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .yds, value: "5.7", color: Colors.neonGreen, isRealGrade: true),
+		Grade(system: .yds, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .yds, value: "5.8", color: Colors.neonGreen, isRealGrade: true),
+		Grade(system: .yds, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .yds, value: "5.9", color: Colors.neonGreen, isRealGrade: true),
+		Grade(system: .yds, value: nil, color: nil, isRealGrade: false),
+		
+		Grade(system: .yds, value: "5.10a", color: Colors.purple, isRealGrade: true),
+		Grade(system: .yds, value: "5.10b", color: Colors.purple, isRealGrade: true),
+		Grade(system: .yds, value: "5.10c", color: Colors.purple, isRealGrade: true),
+		Grade(system: .yds, value: "5.10d", color: Colors.purple, isRealGrade: true),
+		
+		Grade(system: .yds, value: "5.11a", color: Colors.babyBlue, isRealGrade: true),
+		Grade(system: .yds, value: "5.11b", color: Colors.babyBlue, isRealGrade: true),
+		Grade(system: .yds, value: "5.11c", color: Colors.babyBlue, isRealGrade: true),
+		Grade(system: .yds, value: "5.11d", color: Colors.babyBlue, isRealGrade: true),
+		
+		Grade(system: .yds, value: "5.12a", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .yds, value: "5.12b", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .yds, value: "5.12c", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .yds, value: "5.12d", color: Colors.magenta, isRealGrade: true),
+		
+		Grade(system: .yds, value: "5.13a", color: Colors.mint, isRealGrade: true),
+		Grade(system: .yds, value: "5.13b", color: Colors.mint, isRealGrade: true),
+		Grade(system: .yds, value: "5.13c", color: Colors.mint, isRealGrade: true),
+		Grade(system: .yds, value: "5.13d", color: Colors.mint, isRealGrade: true),
+		
+		Grade(system: .yds, value: "5.14a", color: Colors.orange, isRealGrade: true),
+		Grade(system: .yds, value: "5.14b", color: Colors.orange, isRealGrade: true),
+		Grade(system: .yds, value: "5.14c", color: Colors.orange, isRealGrade: true),
+		Grade(system: .yds, value: "5.14d", color: Colors.orange, isRealGrade: true),
+		
+		Grade(system: .yds, value: "5.15a", color: Colors.hardPurple, isRealGrade: true),
+		Grade(system: .yds, value: "5.15b", color: Colors.hardPurple, isRealGrade: true),
+		Grade(system: .yds, value: "5.15c", color: Colors.hardPurple, isRealGrade: true)
 	]
 	
 	static let font: [Grade] = [
-		Grade(system: .font, value: "?", color: Colors.discoBlue, isRealGrade: true)
+		Grade(system: .font, value: "3", color: Colors.neonGreen, isRealGrade: true),
+		
+		Grade(system: .font, value: "4-", color: Colors.purple, isRealGrade: true),
+		Grade(system: .font, value: "4", color: Colors.purple, isRealGrade: true),
+		Grade(system: .font, value: "4+", color: Colors.purple, isRealGrade: true),
+		
+		Grade(system: .font, value: "5-", color: Colors.purple, isRealGrade: true),
+		Grade(system: .font, value: "5", color: Colors.purple, isRealGrade: true),
+		Grade(system: .font, value: "5+", color: Colors.purple, isRealGrade: true),
+		Grade(system: .font, value: nil, color: nil, isRealGrade: false),
+		
+		Grade(system: .font, value: "6A", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .font, value: "6A+", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .font, value: "6B", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .font, value: "6B+", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .font, value: "6C", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .font, value: "6C+", color: Colors.magenta, isRealGrade: true),
+		
+		Grade(system: .font, value: "7A", color: Colors.mint, isRealGrade: true),
+		Grade(system: .font, value: "7A+", color: Colors.mint, isRealGrade: true),
+		Grade(system: .font, value: "7B", color: Colors.mint, isRealGrade: true),
+		Grade(system: .font, value: "7B+", color: Colors.mint, isRealGrade: true),
+		Grade(system: .font, value: "7C", color: Colors.mint, isRealGrade: true),
+		Grade(system: .font, value: "7C+", color: Colors.mint, isRealGrade: true),
+		
+		Grade(system: .font, value: "8A", color: Colors.orange, isRealGrade: true),
+		Grade(system: .font, value: "8A+", color: Colors.orange, isRealGrade: true),
+		Grade(system: .font, value: "8B", color: Colors.orange, isRealGrade: true),
+		Grade(system: .font, value: "8B+", color: Colors.orange, isRealGrade: true),
+		Grade(system: .font, value: "8C", color: Colors.orange, isRealGrade: true),
+		Grade(system: .font, value: "8C+", color: Colors.orange, isRealGrade: true),
 	]
 	
 	static let hueco: [Grade] = [

@@ -85,7 +85,7 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
     }
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return climbsTableViewCell.height
+		return climbsTableViewCell.height + 120
 	}
 	
 	// MARK: - Helper

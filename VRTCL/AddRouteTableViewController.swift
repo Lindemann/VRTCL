@@ -153,14 +153,24 @@ extension AddRouteTableViewController: ButtonGridDelegate {
 	
 	private func gradesButtonGrid() -> ButtonGrid? {
 		let scale = GradeScales.gradeScaleFor(system: currentSystem())
-		var items: [CircleButton] = []
+		var items: [UIView] = []
 		for grade in scale {
 			if grade.isRealGrade == true {
 				let circleButton = CircleButton(text: grade.value ?? "", color: grade.color ?? UIColor.white, appearanceMode: .outlined)
 				items.append(circleButton)
+				
+				if currentSystem() == .subjective {
+					circleButton.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+				}
 			}
 		}
-		let buttonGrid = ButtonGrid(itemsPerRow: 3, items: items, spaceing: 40)
+		let itemsPerRow = currentSystem() == .yds ? 4 : 3
+		let spacing: CGFloat = currentSystem() == .yds ? 20 : 40
+		if currentSystem() == .font {
+			items.insert(UIView(), at: 1)
+			items.insert(UIView(), at: 1)
+		}
+		let buttonGrid = ButtonGrid(itemsPerRow: itemsPerRow, items: items, spaceing: spacing)
 		return buttonGrid
 	}
 	
