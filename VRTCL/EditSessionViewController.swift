@@ -32,6 +32,23 @@ struct EditSessionViewControllerViewModel {
 		let buttonGrid = ButtonGrid(itemsPerRow: 3, items: items, spaceing: 30)
 		return buttonGrid
 	}
+	
+	var navigationBarTitle: String {
+		return kind == .sportClimbing ? "Sport Climbing Session" : "Bouldering Session"
+	}
+	
+	var navigationBarColor: UIColor {
+		return kind == .sportClimbing ? Colors.purple : Colors.discoBlue
+	}
+	
+	var addButton: FatButton {
+		switch kind {
+		case .sportClimbing:
+			return FatButton(origin: CGPoint.zero, color: Colors.purple, title: "Add Route")
+		case .bouldering:
+			return FatButton(origin: CGPoint.zero, color: Colors.discoBlue, title: "Add Boulder")
+		}
+	}
 }
 
 class EditSessionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -48,7 +65,6 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		let displayWidth: CGFloat = self.view.frame.width
 		let displayHeight: CGFloat = self.view.frame.height
 		tableView = UITableView(frame: CGRect(x: 0, y: statusBarHeight, width: displayWidth, height: displayHeight - statusBarHeight))
-		//tableView.contentInset = UIEdgeInsets(top: (navigationController?.navigationBar.frame.height)!, left: 0, bottom: 0, right: 0)
 		tableView.dataSource = self
 		tableView.delegate = self
 		view.addSubview(tableView)
@@ -58,9 +74,10 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		tableView.separatorStyle = .none
 		tableView.allowsSelection = false
 		
+		// Style controller
+		navigationItem.title = viewModel.navigationBarTitle
+		navigationController?.navigationBar.barTintColor = viewModel.navigationBarColor
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
-		
-		setupSessionKindDependentStuff()
 		setupAddButton()
     }
 	
@@ -74,7 +91,7 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		self.navigationController?.navigationBar.barTintColor = Colors.bar
 	}
 	
-    // MARK: - Table view data source
+    // MARK: - Table view data source + delegate
 	
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -90,28 +107,18 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 	
 	// MARK: - Helper
 	
-	func setupSessionKindDependentStuff() {
-		switch viewModel.kind {
-		case .sportClimbing:
-			navigationItem.title = "Sport Climbing Session"
-			navigationController?.navigationBar.barTintColor = Colors.purple
-			addButton = FatButton(origin: CGPoint.zero, color: Colors.purple, title: "Add Route")
-		case .bouldering:
-			navigationItem.title = "Bouldering Session"
-			navigationController?.navigationBar.barTintColor = Colors.discoBlue
-			addButton = FatButton(origin: CGPoint.zero, color: Colors.discoBlue, title: "Add Boulder")
-		}
+	@objc private func save() {
+		navigationController?.popViewController(animated: true)
 	}
+}
+
+extension EditSessionViewController {
 	
-	@objc private func addButtonWasPressed() {
-		let addRouteTableViewController = AddRouteTableViewController()
-		let navigationController = NavigationController(rootViewController: addRouteTableViewController)
-		present(navigationController, animated: true, completion: nil)
-		addRouteTableViewController.session = viewModel.session
-		addRouteTableViewController.climb = Climb()
-	}
+	// MARK: - Add Button
 	
 	private func setupAddButton() {
+		addButton = viewModel.addButton
+		
 		guard let tabBar = tabBarController?.tabBar else { return }
 		guard let addButton = addButton else { return }
 		
@@ -125,12 +132,18 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		addButton.widthAnchor.constraint(greaterThanOrEqualToConstant: view.frame.width - space * 2).isActive = true
 	}
 	
-	@objc private func save() {
-		navigationController?.popViewController(animated: true)
+	@objc private func addButtonWasPressed() {
+		let addRouteTableViewController = AddRouteTableViewController()
+		let navigationController = NavigationController(rootViewController: addRouteTableViewController)
+		present(navigationController, animated: true, completion: nil)
+		addRouteTableViewController.session = viewModel.session
+		addRouteTableViewController.climb = Climb()
 	}
 }
 
 extension EditSessionViewController: ButtonGridDelegate {
+	
+	// MARK: - Cells
 	
 	var climbsTableViewCell: SessionsTableViewCell {
 		let cell = SessionsTableViewCell()
@@ -143,5 +156,4 @@ extension EditSessionViewController: ButtonGridDelegate {
 	
 	func buttonGridButtonWasPressed(sender: UIButton) {
 	}
-		
 }
