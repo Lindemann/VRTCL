@@ -141,7 +141,7 @@ extension AddRouteTableViewControllerViewModel {
 		}
 		let itemsPerRow = system == .yds ? 4 : 3
 		let spacing: CGFloat = system == .yds ? 20 : 40
-		if system == .font {
+		if system == .font || system == .hueco {
 			items.insert(UIView(), at: 1)
 			items.insert(UIView(), at: 1)
 		}
