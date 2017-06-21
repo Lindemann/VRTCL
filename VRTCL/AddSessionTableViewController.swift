@@ -21,48 +21,19 @@ struct SessionsTableViewControllerViewModel {
 	}
 }
 
-class AddSessionTableViewController: UITableViewController, SessionsButtonTableviewCellDelegate {
+class AddSessionTableViewController: UITableViewController {
 	
 	var viewModel = SessionsTableViewControllerViewModel()
 	
-	// Cells
-	var startSessionCell: SessionsHeadingTableviewCell {
-		let cell = SessionsHeadingTableviewCell()
-		cell.mode = .startSession
-		return cell
-	}
-	
-	var activeSessionCell: SessionsHeadingTableviewCell {
-		let cell = SessionsHeadingTableviewCell()
-		cell.mode = .activeSession
-		return cell
-	}
-	
-	var boulderingButtonCell: SessionsButtonTableviewCell {
-		let cell = SessionsButtonTableviewCell()
-		cell.kind = .bouldering
-		cell.delegate = self
-		cell.button?.hasArrow = viewModel.hasActiveBoulderingSession
-		return cell
-	}
-	
-	var sportClimbingButtonCell: SessionsButtonTableviewCell {
-		let cell = SessionsButtonTableviewCell()
-		cell.kind = .sportClimbing
-		cell.delegate = self
-		cell.button?.hasArrow = viewModel.hasActivesportClimbingSession
-		return cell
-	}
-	
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		
 		tableView.rowHeight = 100
 		tableView.bounces = false
 		tableView.backgroundColor = Colors.darkGray
 		tableView.separatorStyle = .none
 		tableView.allowsSelection = false
-    }
+	}
 	
     // MARK: - Table view data source
 
@@ -138,6 +109,37 @@ class AddSessionTableViewController: UITableViewController, SessionsButtonTablev
 
         return UITableViewCell()
     }
+}
+
+extension AddSessionTableViewController: SessionsButtonTableviewCellDelegate {
+	// Cells
+	var startSessionCell: SessionsHeadingTableviewCell {
+		let cell = SessionsHeadingTableviewCell()
+		cell.mode = .startSession
+		return cell
+	}
+	
+	var activeSessionCell: SessionsHeadingTableviewCell {
+		let cell = SessionsHeadingTableviewCell()
+		cell.mode = .activeSession
+		return cell
+	}
+	
+	var boulderingButtonCell: SessionsButtonTableviewCell {
+		let cell = SessionsButtonTableviewCell()
+		cell.kind = .bouldering
+		cell.delegate = self
+		cell.button?.hasArrow = viewModel.hasActiveBoulderingSession
+		return cell
+	}
+	
+	var sportClimbingButtonCell: SessionsButtonTableviewCell {
+		let cell = SessionsButtonTableviewCell()
+		cell.kind = .sportClimbing
+		cell.delegate = self
+		cell.button?.hasArrow = viewModel.hasActivesportClimbingSession
+		return cell
+	}
 	
 	// MARK: - SessionsButtonTableviewCellDelegate
 	
@@ -160,7 +162,6 @@ class AddSessionTableViewController: UITableViewController, SessionsButtonTablev
 		editSessionTableViewController.viewModel.session = viewModel.boulderSession
 		navigationController?.pushViewController(editSessionTableViewController, animated: true)
 	}
-	
 }
 
 class SessionsHeadingTableviewCell: UITableViewCell {
