@@ -9,12 +9,12 @@
 import UIKit
 
 // MARK: - View model
-struct SessionsTableViewControllerViewModel {
-	var boulderSession: Session?
+internal struct SessionsTableViewControllerViewModel {
+	var boulderingSession: Session?
 	var sportClimbingSession: Session?
 	
 	var hasActiveBoulderingSession: Bool {
-		return boulderSession != nil
+		return boulderingSession != nil
 	}
 	
 	var hasActivesportClimbingSession: Bool {
@@ -151,18 +151,20 @@ extension AddSessionTableViewController: SessionsButtonTableviewCellDelegate {
 			viewModel.sportClimbingSession = Session(kind: .sportClimbing)
 			tableView.reloadData()
 		}
+		guard let sportClimbingSession =  viewModel.sportClimbingSession else { return }
 		let editSessionTableViewController = EditSessionViewController()
-		editSessionTableViewController.viewModel.session = viewModel.sportClimbingSession
+		editSessionTableViewController.viewModel.session = sportClimbingSession
 		navigationController?.pushViewController(editSessionTableViewController, animated: true)
 	}
 	
 	@objc func boulderingButtonWasPressed() {
 		if !viewModel.hasActiveBoulderingSession {
-			viewModel.boulderSession = Session(kind: .bouldering)
+			viewModel.boulderingSession = Session(kind: .bouldering)
 			tableView.reloadData()
 		}
+		guard let boulderingSession =  viewModel.boulderingSession else { return }
 		let editSessionTableViewController = EditSessionViewController()
-		editSessionTableViewController.viewModel.session = viewModel.boulderSession
+		editSessionTableViewController.viewModel.session = boulderingSession
 		navigationController?.pushViewController(editSessionTableViewController, animated: true)
 	}
 }

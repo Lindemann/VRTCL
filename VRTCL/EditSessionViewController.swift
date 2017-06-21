@@ -10,18 +10,15 @@ import UIKit
 
 // MARK: - View model
 struct EditSessionViewControllerViewModel {
-	var session: Session?
+	var session: Session = Session(kind: .sportClimbing)
+	internal var kind: Kind { return session.kind }
 	
-	var kind: Kind {
-		return session?.kind ?? .sportClimbing
-	}
-	
-	var climbsTableViewCellHeading: String {
+	internal var climbsTableViewCellHeading: String {
 		return kind == .sportClimbing ? "Routes" : "Boulder"
 	}
 	
-	var climbsButtonGrid: ButtonGrid? {
-		guard let climbs = session?.climbs, climbs.count > 0 else { return nil }
+	internal var climbsButtonGrid: ButtonGrid? {
+		guard let climbs = session.climbs, climbs.count > 0 else { return nil }
 		var items: [CircleButtonWithText] = []
 		for climb in climbs {
 			let circleButtonWithText = CircleButtonWithText(mode: .filledMedium, buttonText: climb.grade?.value ?? "", labelText: climb.style?.rawValue ?? Style.toprope.rawValue, color: climb.grade?.color ?? UIColor.white)
@@ -34,15 +31,15 @@ struct EditSessionViewControllerViewModel {
 		return buttonGrid
 	}
 	
-	var navigationBarTitle: String {
+	internal var navigationBarTitle: String {
 		return kind == .sportClimbing ? "Sport Climbing Session" : "Bouldering Session"
 	}
 	
-	var navigationBarColor: UIColor {
+	internal var navigationBarColor: UIColor {
 		return kind == .sportClimbing ? Colors.purple : Colors.discoBlue
 	}
 	
-	var addButton: FatButton {
+	internal var addButton: FatButton {
 		switch kind {
 		case .sportClimbing:
 			return FatButton(origin: CGPoint.zero, color: Colors.purple, title: "Add Route")
@@ -137,8 +134,7 @@ extension EditSessionViewController {
 		let addRouteTableViewController = AddRouteTableViewController()
 		let navigationController = NavigationController(rootViewController: addRouteTableViewController)
 		present(navigationController, animated: true, completion: nil)
-		addRouteTableViewController.session = viewModel.session
-		addRouteTableViewController.climb = Climb()
+		addRouteTableViewController.viewModel.session = viewModel.session
 	}
 }
 

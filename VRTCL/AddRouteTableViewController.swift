@@ -10,14 +10,15 @@ import UIKit
 
 // MARK: - View model
 struct AddRouteTableViewControllerViewModel {
-	
+	var session: Session = Session(kind: .sportClimbing)
+	var climb: Climb = Climb()
+	var kind: Kind { return session.kind }
 }
 
 // MARK: - Controller
 class AddRouteTableViewController: UITableViewController {
 	
-	var session: Session? = Session(kind: .sportClimbing)
-	var climb: Climb = Climb()
+	var viewModel = AddRouteTableViewControllerViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,8 +68,7 @@ class AddRouteTableViewController: UITableViewController {
 	// MARK: Helper
 	
 	private func setupSessionKindDependentStuff() {
-		guard let kind = session?.kind else { return }
-		switch kind {
+		switch viewModel.kind {
 		case .sportClimbing:
 			navigationItem.title = "Add Route"
 			navigationController?.navigationBar.barTintColor = Colors.purple
@@ -79,8 +79,8 @@ class AddRouteTableViewController: UITableViewController {
 	}
 	
 	@objc func save() {
-		if let _ = climb.style, let _ = climb.grade {
-			session?.climbs?.append(climb)
+		if let _ = viewModel.climb.style, let _ = viewModel.climb.grade {
+			viewModel.session.climbs?.append(viewModel.climb)
 			dismiss(animated: true, completion: nil)
 		} else {
 			let generator = UIImpactFeedbackGenerator(style: .heavy)
@@ -108,9 +108,8 @@ extension AddRouteTableViewController: ButtonGridDelegate {
 		let tag666 = TagButton(text: "                             ")
 		tag666.isHidden = true
 		
-		guard let kind = session?.kind else { return cell }
 		var tagButtons: [TagButton]
-		switch kind {
+		switch viewModel.kind {
 		case .sportClimbing:
 			tagButtons = [tag1, tag2, tag3, tag4, tag5]
 		case .bouldering:
@@ -121,7 +120,7 @@ extension AddRouteTableViewController: ButtonGridDelegate {
 		tagButtonGrid.delegate = self
 		cell.content = tagButtonGrid
 		
-		if let style = climb.style {
+		if let style = viewModel.climb.style {
 			tagButtonGrid.selectButtonWith(title: style.rawValue)
 		}
 		
@@ -132,9 +131,8 @@ extension AddRouteTableViewController: ButtonGridDelegate {
 		let cell = SessionsTableViewCell()
 		cell.heading = "Grades"
 		
-		guard let kind = session?.kind else { return cell }
 		var text: String
-		switch kind {
+		switch viewModel.kind {
 		case .sportClimbing:
 			text = AppDelegate.shared.user.sportClimbingGradeSystem?.rawValue ?? ""
 		case .bouldering:
@@ -185,16 +183,15 @@ extension AddRouteTableViewController: ButtonGridDelegate {
 	
 	internal func buttonGridButtonWasPressed(sender: UIButton) {
 		if let style = Style(rawValue: sender.titleLabel?.text ?? "") {
-			climb.style = style
+			viewModel.climb.style = style
 		}
 		if let grade = GradeScales.gradeFor(system: currentSystem(), value: sender.titleLabel?.text ?? "") {
-			climb.grade = grade
+			viewModel.climb.grade = grade
 		}
 	}
 	
 	private func currentSystem() -> System {
-		guard let kind = session?.kind else { return .uiaa }
-		switch kind {
+		switch viewModel.kind {
 		case .sportClimbing:
 			return AppDelegate.shared.user.sportClimbingGradeSystem ?? .uiaa
 		case .bouldering:
@@ -215,7 +212,7 @@ extension AddRouteTableViewController: UIPopoverPresentationControllerDelegate {
 		gradeSystemViewController.preferredContentSize = CGSize(width: 320, height: 100)
 		gradeSystemViewController.popoverPresentationController?.backgroundColor = Colors.popover
 		gradeSystemViewController.tableView = tableView
-		gradeSystemViewController.session = session
+		gradeSystemViewController.session = viewModel.session
 		present(gradeSystemViewController, animated: true, completion: nil)
 	}
 	
