@@ -13,6 +13,14 @@ struct AddRouteTableViewControllerViewModel {
 	var session: Session = Session(kind: .sportClimbing)
 	var climb: Climb = Climb()
 	var kind: Kind { return session.kind }
+	
+	internal var navigationBarTitle: String {
+		return kind == .sportClimbing ? "Add Route" : "Add Boulder"
+	}
+	
+	internal var navigationBarColor: UIColor {
+		return kind == .sportClimbing ? Colors.purple : Colors.discoBlue
+	}
 }
 
 // MARK: - Controller
@@ -29,8 +37,8 @@ class AddRouteTableViewController: UITableViewController {
 		
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
 		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
-		
-		setupSessionKindDependentStuff()
+		navigationItem.title = viewModel.navigationBarTitle
+		navigationController?.navigationBar.barTintColor = viewModel.navigationBarColor
     }
 
     // MARK: Table view data source + delegate
@@ -67,17 +75,6 @@ class AddRouteTableViewController: UITableViewController {
 	
 	// MARK: Helper
 	
-	private func setupSessionKindDependentStuff() {
-		switch viewModel.kind {
-		case .sportClimbing:
-			navigationItem.title = "Add Route"
-			navigationController?.navigationBar.barTintColor = Colors.purple
-		case .bouldering:
-			navigationItem.title = "Add Boulder"
-			navigationController?.navigationBar.barTintColor = Colors.discoBlue
-		}
-	}
-	
 	@objc func save() {
 		if let _ = viewModel.climb.style, let _ = viewModel.climb.grade {
 			viewModel.session.climbs?.append(viewModel.climb)
@@ -94,22 +91,28 @@ class AddRouteTableViewController: UITableViewController {
 }
 
 // MARK: - Cells + Header
-extension AddRouteTableViewController: ButtonGridDelegate {
+extension AddRouteTableViewControllerViewModel {
 	
-	private var styleTableViewCell: SessionsTableViewCell {
-		let cell = SessionsTableViewCell()
-		cell.heading = "Style"
-		
+	internal var system: System {
+		switch kind {
+		case .sportClimbing:
+			return AppDelegate.shared.user.sportClimbingGradeSystem ?? .uiaa
+		case .bouldering:
+			return AppDelegate.shared.user.boulderingGradeSystem ?? .font
+		}
+	}
+	
+	internal var styleTagButtonGrid: TagButtonGrid {
 		let tag1 = TagButton(text: Style.flash.rawValue)
 		let tag2 = TagButton(text: Style.onsight.rawValue)
 		let tag3 = TagButton(text: Style.redpoint.rawValue)
 		let tag4 = TagButton(text: Style.attempt.rawValue)
 		let tag5 = TagButton(text: Style.toprope.rawValue)
+		// Invisible spacing helper: pushes attempt button to the left
 		let tag666 = TagButton(text: "                             ")
 		tag666.isHidden = true
-		
 		var tagButtons: [TagButton]
-		switch viewModel.kind {
+		switch kind {
 		case .sportClimbing:
 			tagButtons = [tag1, tag2, tag3, tag4, tag5]
 		case .bouldering:
@@ -117,12 +120,57 @@ extension AddRouteTableViewController: ButtonGridDelegate {
 		}
 		let frame = CGRect(x: 0, y: 0, width: 300, height: 80)
 		let tagButtonGrid = TagButtonGrid(frame: frame, items: tagButtons)
-		tagButtonGrid.delegate = self
-		cell.content = tagButtonGrid
-		
-		if let style = viewModel.climb.style {
+		if let style = climb.style {
 			tagButtonGrid.selectButtonWith(title: style.rawValue)
 		}
+		return tagButtonGrid
+	}
+	
+	internal var gradesButtonGrid: ButtonGrid {
+		let scale = GradeScales.gradeScaleFor(system: system)
+		var items: [UIView] = []
+		for grade in scale {
+			if grade.isRealGrade == true {
+				let circleButton = CircleButton(text: grade.value ?? "", color: grade.color ?? UIColor.white, appearanceMode: .outlined)
+				items.append(circleButton)
+				
+				if system == .subjective {
+					circleButton.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+				}
+			}
+		}
+		let itemsPerRow = system == .yds ? 4 : 3
+		let spacing: CGFloat = system == .yds ? 20 : 40
+		if system == .font {
+			items.insert(UIView(), at: 1)
+			items.insert(UIView(), at: 1)
+		}
+		let buttonGrid = ButtonGrid(itemsPerRow: itemsPerRow, items: items, spaceing: spacing)
+		return buttonGrid
+	}
+	
+	var gradeSystemTagButton: TagButton {
+		var text: String
+		switch kind {
+		case .sportClimbing:
+			text = AppDelegate.shared.user.sportClimbingGradeSystem?.rawValue ?? ""
+		case .bouldering:
+			text = AppDelegate.shared.user.boulderingGradeSystem?.rawValue ?? ""
+		}
+		let tagButton = TagButton(text: "Grade System: \(text)", interactionMode: .highlightable)
+		return tagButton
+	}
+}
+
+extension AddRouteTableViewController: ButtonGridDelegate {
+	
+	private var styleTableViewCell: SessionsTableViewCell {
+		let cell = SessionsTableViewCell()
+		cell.heading = "Style"
+		
+		let tagButtonGrid = viewModel.styleTagButtonGrid
+		tagButtonGrid.delegate = self
+		cell.content = tagButtonGrid
 		
 		return cell
 	}
@@ -131,71 +179,30 @@ extension AddRouteTableViewController: ButtonGridDelegate {
 		let cell = SessionsTableViewCell()
 		cell.heading = "Grades"
 		
-		var text: String
-		switch viewModel.kind {
-		case .sportClimbing:
-			text = AppDelegate.shared.user.sportClimbingGradeSystem?.rawValue ?? ""
-		case .bouldering:
-			text = AppDelegate.shared.user.boulderingGradeSystem?.rawValue ?? ""
-		}
-		let tagButton = TagButton(text: "Grade System: \(text)", interactionMode: .highlightable)
+		let tagButton = viewModel.gradeSystemTagButton
 		tagButton.addTarget(self, action: #selector(gradeSystemButtonWasPressed), for: .touchUpInside)
+		let gradesButtonGrid = viewModel.gradesButtonGrid
+		gradesButtonGrid.delegate = self
 		
-		let gradesButtonGrid = self.gradesButtonGrid()
-		gradesButtonGrid?.delegate = self
-		
-		let frame = CGRect(x: 0, y: 0, width: 300, height: 80 + (gradesButtonGrid?.frame.size.height ?? 0))
+		let frame = CGRect(x: 0, y: 0, width: 300, height: 80 + gradesButtonGrid.frame.size.height)
 		let view = UIView(frame: frame)
 		tagButton.center = CGPoint(x: view.center.x, y: tagButton.frame.height/2)
 		view.addSubview(tagButton)
-		if let gradesButtonGrid = gradesButtonGrid {
-			gradesButtonGrid.frame.origin.y = 80
-			gradesButtonGrid.center.x = view.center.x
-			view.addSubview(gradesButtonGrid)
-		}
+		gradesButtonGrid.frame.origin.y = 80
+		gradesButtonGrid.center.x = view.center.x
+		view.addSubview(gradesButtonGrid)
+		
 		cell.content = view
 		
 		return cell
-	}
-	
-	private func gradesButtonGrid() -> ButtonGrid? {
-		let scale = GradeScales.gradeScaleFor(system: currentSystem())
-		var items: [UIView] = []
-		for grade in scale {
-			if grade.isRealGrade == true {
-				let circleButton = CircleButton(text: grade.value ?? "", color: grade.color ?? UIColor.white, appearanceMode: .outlined)
-				items.append(circleButton)
-				
-				if currentSystem() == .subjective {
-					circleButton.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-				}
-			}
-		}
-		let itemsPerRow = currentSystem() == .yds ? 4 : 3
-		let spacing: CGFloat = currentSystem() == .yds ? 20 : 40
-		if currentSystem() == .font {
-			items.insert(UIView(), at: 1)
-			items.insert(UIView(), at: 1)
-		}
-		let buttonGrid = ButtonGrid(itemsPerRow: itemsPerRow, items: items, spaceing: spacing)
-		return buttonGrid
 	}
 	
 	internal func buttonGridButtonWasPressed(sender: UIButton) {
 		if let style = Style(rawValue: sender.titleLabel?.text ?? "") {
 			viewModel.climb.style = style
 		}
-		if let grade = GradeScales.gradeFor(system: currentSystem(), value: sender.titleLabel?.text ?? "") {
+		if let grade = GradeScales.gradeFor(system: viewModel.system, value: sender.titleLabel?.text ?? "") {
 			viewModel.climb.grade = grade
-		}
-	}
-	
-	private func currentSystem() -> System {
-		switch viewModel.kind {
-		case .sportClimbing:
-			return AppDelegate.shared.user.sportClimbingGradeSystem ?? .uiaa
-		case .bouldering:
-			return AppDelegate.shared.user.boulderingGradeSystem ?? .font
 		}
 	}
 }
@@ -203,7 +210,7 @@ extension AddRouteTableViewController: ButtonGridDelegate {
 // MARK: - Popover
 extension AddRouteTableViewController: UIPopoverPresentationControllerDelegate {
 	@objc private func gradeSystemButtonWasPressed(sender: UIButton) {
-		let gradeSystemViewController = GradeSystemViewController()
+		let gradeSystemViewController = GradeSystemPopoverViewController()
 		gradeSystemViewController.modalPresentationStyle = .popover
 		gradeSystemViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
 		gradeSystemViewController.popoverPresentationController?.delegate = self
@@ -221,15 +228,12 @@ extension AddRouteTableViewController: UIPopoverPresentationControllerDelegate {
 	}
 }
 
-class GradeSystemViewController: UIViewController, ButtonGridDelegate {
+class GradeSystemPopoverViewController: UIViewController, ButtonGridDelegate {
 	
-	private var tagButtonGrid: TagButtonGrid?
 	var tableView: UITableView?
-	var session: Session? = Session(kind: .sportClimbing)
+	var session: Session = Session(kind: .sportClimbing)
 	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		
+	private var tagButtonGrid: TagButtonGrid {
 		let tag1 = TagButton(text: System.uiaa.rawValue, presentingViewBackgroundColor: popoverPresentationController?.backgroundColor)
 		let tag2 = TagButton(text: System.french.rawValue, presentingViewBackgroundColor: popoverPresentationController?.backgroundColor)
 		let tag3 = TagButton(text: System.yds.rawValue, presentingViewBackgroundColor: popoverPresentationController?.backgroundColor)
@@ -237,11 +241,10 @@ class GradeSystemViewController: UIViewController, ButtonGridDelegate {
 		let tag5 = TagButton(text: System.hueco.rawValue, presentingViewBackgroundColor: popoverPresentationController?.backgroundColor)
 		let tag6 = TagButton(text: System.subjective.rawValue, presentingViewBackgroundColor: popoverPresentationController?.backgroundColor)
 		
-		guard let kind = session?.kind else { return }
 		var tagButtons: [TagButton]
 		var frame: CGRect
 		var title: String
-		switch kind {
+		switch session.kind {
 		case .sportClimbing:
 			tagButtons = [tag1, tag2, tag3]
 			frame = CGRect(x: 0, y: 0, width: 250, height: 40)
@@ -251,22 +254,20 @@ class GradeSystemViewController: UIViewController, ButtonGridDelegate {
 			frame = CGRect(x: 0, y: 0, width: 300, height: 40)
 			title = AppDelegate.shared.user.boulderingGradeSystem?.rawValue ?? ""
 		}
-		tagButtonGrid = TagButtonGrid(frame: frame, items: tagButtons)
-		tagButtonGrid?.delegate = self
-		guard let tagButtonGrid = tagButtonGrid else { return }
-		view.addSubview(tagButtonGrid)
+		let tagButtonGrid = TagButtonGrid(frame: frame, items: tagButtons)
 		tagButtonGrid.selectButtonWith(title: title)
+		tagButtonGrid.delegate = self
+		view.addSubview(tagButtonGrid)
+		return tagButtonGrid
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		
-		tagButtonGrid?.center = view.center
+		tagButtonGrid.center = view.center
 	}
 	
 	internal func buttonGridButtonWasPressed(sender: UIButton) {
-		guard let kind = session?.kind else { return }
-		switch kind {
+		switch session.kind {
 		case .sportClimbing:
 			AppDelegate.shared.user.sportClimbingGradeSystem = System(rawValue: sender.titleLabel?.text ?? "")
 		case .bouldering:
