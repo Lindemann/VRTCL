@@ -8,6 +8,7 @@
 
 import UIKit
 
+// MARK: - View model
 struct EditSessionViewControllerViewModel {
 	var session: Session?
 	
@@ -51,6 +52,7 @@ struct EditSessionViewControllerViewModel {
 	}
 }
 
+// MARK: - Controller
 class EditSessionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	
 	var viewModel = EditSessionViewControllerViewModel()
@@ -91,7 +93,7 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		self.navigationController?.navigationBar.barTintColor = Colors.bar
 	}
 	
-    // MARK: - Table view data source + delegate
+    // MARK: Table view data source + delegate
 	
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -105,16 +107,15 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		return climbsTableViewCell.height + 120
 	}
 	
-	// MARK: - Helper
+	// MARK: Helper
 	
 	@objc private func save() {
 		navigationController?.popViewController(animated: true)
 	}
 }
 
+// MARK: - Add Button
 extension EditSessionViewController {
-	
-	// MARK: - Add Button
 	
 	private func setupAddButton() {
 		addButton = viewModel.addButton
@@ -141,9 +142,8 @@ extension EditSessionViewController {
 	}
 }
 
+// MARK: - Cells
 extension EditSessionViewController: ButtonGridDelegate {
-	
-	// MARK: - Cells
 	
 	var climbsTableViewCell: SessionsTableViewCell {
 		let cell = SessionsTableViewCell()

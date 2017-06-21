@@ -8,6 +8,12 @@
 
 import UIKit
 
+// MARK: - View model
+struct AddRouteTableViewControllerViewModel {
+	
+}
+
+// MARK: - Controller
 class AddRouteTableViewController: UITableViewController {
 	
 	var session: Session? = Session(kind: .sportClimbing)
@@ -26,7 +32,7 @@ class AddRouteTableViewController: UITableViewController {
 		setupSessionKindDependentStuff()
     }
 
-    // MARK: - Table view data source
+    // MARK: Table view data source + delegate
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -58,7 +64,7 @@ class AddRouteTableViewController: UITableViewController {
 		}
 	}
 	
-	// MARK: - Helper
+	// MARK: Helper
 	
 	private func setupSessionKindDependentStuff() {
 		guard let kind = session?.kind else { return }
@@ -87,6 +93,7 @@ class AddRouteTableViewController: UITableViewController {
 	}
 }
 
+// MARK: - Cells + Header
 extension AddRouteTableViewController: ButtonGridDelegate {
 	
 	private var styleTableViewCell: SessionsTableViewCell {
@@ -196,6 +203,7 @@ extension AddRouteTableViewController: ButtonGridDelegate {
 	}
 }
 
+// MARK: - Popover
 extension AddRouteTableViewController: UIPopoverPresentationControllerDelegate {
 	@objc private func gradeSystemButtonWasPressed(sender: UIButton) {
 		let gradeSystemViewController = GradeSystemViewController()

@@ -8,6 +8,7 @@
 
 import UIKit
 
+// MARK: - View model
 struct SessionsTableViewControllerViewModel {
 	var boulderSession: Session?
 	var sportClimbingSession: Session?
@@ -21,6 +22,7 @@ struct SessionsTableViewControllerViewModel {
 	}
 }
 
+// MARK: - Controller
 class AddSessionTableViewController: UITableViewController {
 	
 	var viewModel = SessionsTableViewControllerViewModel()
@@ -35,7 +37,7 @@ class AddSessionTableViewController: UITableViewController {
 		tableView.allowsSelection = false
 	}
 	
-    // MARK: - Table view data source
+    // MARK: Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -106,11 +108,12 @@ class AddSessionTableViewController: UITableViewController {
 				return UITableViewCell()
 			}
 		}
-
+		
         return UITableViewCell()
     }
 }
 
+// MARK: - Cells
 extension AddSessionTableViewController: SessionsButtonTableviewCellDelegate {
 	// Cells
 	var startSessionCell: SessionsHeadingTableviewCell {
@@ -141,7 +144,7 @@ extension AddSessionTableViewController: SessionsButtonTableviewCellDelegate {
 		return cell
 	}
 	
-	// MARK: - SessionsButtonTableviewCellDelegate
+	// MARK: SessionsButtonTableviewCellDelegate
 	
 	@objc func sportClimbingButtonWasPressed() {
 		if !viewModel.hasActivesportClimbingSession {
@@ -164,6 +167,7 @@ extension AddSessionTableViewController: SessionsButtonTableviewCellDelegate {
 	}
 }
 
+// MARK: Cell classes
 class SessionsHeadingTableviewCell: UITableViewCell {
 	
 	static let nibNameAndReuseIdentifier = String(describing: SessionsHeadingTableviewCell.self)
