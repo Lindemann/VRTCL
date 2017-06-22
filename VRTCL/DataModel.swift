@@ -261,9 +261,9 @@ struct GradeScales {
 		Grade(system: .font, value: "4", color: Colors.purple, isRealGrade: true),
 		Grade(system: .font, value: "4+", color: Colors.purple, isRealGrade: true),
 		
-		Grade(system: .font, value: "5-", color: Colors.purple, isRealGrade: true),
-		Grade(system: .font, value: "5", color: Colors.purple, isRealGrade: true),
-		Grade(system: .font, value: "5+", color: Colors.purple, isRealGrade: true),
+		Grade(system: .font, value: "5-", color: Colors.babyBlue, isRealGrade: true),
+		Grade(system: .font, value: "5", color: Colors.babyBlue, isRealGrade: true),
+		Grade(system: .font, value: "5+", color: Colors.babyBlue, isRealGrade: true),
 		Grade(system: .font, value: nil, color: nil, isRealGrade: false),
 		
 		Grade(system: .font, value: "6A", color: Colors.magenta, isRealGrade: true),
@@ -289,37 +289,39 @@ struct GradeScales {
 	]
 	
 	static let hueco: [Grade] = [
-		Grade(system: .hueco, value: "3", color: Colors.neonGreen, isRealGrade: true),
+		Grade(system: .hueco, value: "VB", color: Colors.discoBlue, isRealGrade: true),
 		
-		Grade(system: .hueco, value: "4-", color: Colors.purple, isRealGrade: true),
-		Grade(system: .hueco, value: "4", color: Colors.purple, isRealGrade: true),
-		Grade(system: .hueco, value: "4+", color: Colors.purple, isRealGrade: true),
-		
-		Grade(system: .hueco, value: "5-", color: Colors.babyBlue, isRealGrade: true),
-		Grade(system: .hueco, value: "5", color: Colors.babyBlue, isRealGrade: true),
-		Grade(system: .hueco, value: "5+", color: Colors.babyBlue, isRealGrade: true),
+		Grade(system: .hueco, value: "V0-", color: Colors.neonGreen, isRealGrade: true),
+		Grade(system: .hueco, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .hueco, value: "V0", color: Colors.neonGreen, isRealGrade: true),
+		Grade(system: .hueco, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .hueco, value: "V0+", color: Colors.neonGreen, isRealGrade: true),
 		Grade(system: .hueco, value: nil, color: nil, isRealGrade: false),
 		
-		Grade(system: .hueco, value: "6A", color: Colors.magenta, isRealGrade: true),
-		Grade(system: .hueco, value: "6A+", color: Colors.magenta, isRealGrade: true),
-		Grade(system: .hueco, value: "6B", color: Colors.magenta, isRealGrade: true),
-		Grade(system: .hueco, value: "6B+", color: Colors.magenta, isRealGrade: true),
-		Grade(system: .hueco, value: "6C", color: Colors.magenta, isRealGrade: true),
-		Grade(system: .hueco, value: "6C+", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .hueco, value: "V1", color: Colors.purple, isRealGrade: true),
+		Grade(system: .hueco, value: "V2", color: Colors.purple, isRealGrade: true),
+		Grade(system: .hueco, value: "V3", color: Colors.purple, isRealGrade: true),
+		Grade(system: .hueco, value: nil, color: nil, isRealGrade: false),
 		
-		Grade(system: .hueco, value: "7A", color: Colors.mint, isRealGrade: true),
-		Grade(system: .hueco, value: "7A+", color: Colors.mint, isRealGrade: true),
-		Grade(system: .hueco, value: "7B", color: Colors.mint, isRealGrade: true),
-		Grade(system: .hueco, value: "7B+", color: Colors.mint, isRealGrade: true),
-		Grade(system: .hueco, value: "7C", color: Colors.mint, isRealGrade: true),
-		Grade(system: .hueco, value: "7C+", color: Colors.mint, isRealGrade: true),
+		Grade(system: .hueco, value: "V4", color: Colors.babyBlue, isRealGrade: true),
+		Grade(system: .hueco, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .hueco, value: "V5", color: Colors.babyBlue, isRealGrade: true),
+		Grade(system: .hueco, value: "V6", color: Colors.babyBlue, isRealGrade: true),
 		
-		Grade(system: .hueco, value: "8A", color: Colors.orange, isRealGrade: true),
-		Grade(system: .hueco, value: "8A+", color: Colors.orange, isRealGrade: true),
-		Grade(system: .hueco, value: "8B", color: Colors.orange, isRealGrade: true),
-		Grade(system: .hueco, value: "8B+", color: Colors.orange, isRealGrade: true),
-		Grade(system: .hueco, value: "8C", color: Colors.orange, isRealGrade: true),
-		Grade(system: .hueco, value: "8C+", color: Colors.orange, isRealGrade: true),
+		Grade(system: .hueco, value: "V7", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .hueco, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .hueco, value: "V8", color: Colors.magenta, isRealGrade: true),
+		Grade(system: .hueco, value: "V9", color: Colors.magenta, isRealGrade: true),
+		
+		Grade(system: .hueco, value: "V10", color: Colors.mint, isRealGrade: true),
+		Grade(system: .hueco, value: "V11", color: Colors.mint, isRealGrade: true),
+		Grade(system: .hueco, value: "V12", color: Colors.mint, isRealGrade: true),
+		
+		Grade(system: .hueco, value: "V13", color: Colors.orange, isRealGrade: true),
+		Grade(system: .hueco, value: "V14", color: Colors.orange, isRealGrade: true),
+		Grade(system: .hueco, value: "V15", color: Colors.orange, isRealGrade: true),
+		
+		Grade(system: .hueco, value: "V16", color: Colors.hardPurple, isRealGrade: true)
 	]
 	
 	static let subjective: [Grade] = [
