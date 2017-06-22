@@ -44,15 +44,15 @@ class AddRouteTableViewController: UITableViewController {
     // MARK: Table view data source + delegate
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
 	
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		switch indexPath.row {
+		switch indexPath.section {
 		case 0:
 			return styleTableViewCell
 		case 1:
@@ -62,12 +62,36 @@ class AddRouteTableViewController: UITableViewController {
 		}
     }
 	
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		switch section {
+		case 1:
+			return gradesHeaderView
+		default:
+			return nil
+		}
+	}
+	
+	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
+		view.tintColor = UIColor.red
+		let header = view as! UITableViewHeaderFooterView
+		header.textLabel?.textColor = UIColor.white
+	}
+	
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		switch section {
+		case 1:
+			return gradesHeaderView.height
+		default:
+			return 0
+		}
+	}
+	
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		switch indexPath.row {
+		switch indexPath.section {
 		case 0:
 			return styleTableViewCell.height
 		case 1:
-			return gradesTableViewCell.height + gradesTableViewCell.spacing
+			return gradesTableViewCell.height
 		default:
 			return 0
 		}
@@ -167,17 +191,22 @@ extension AddRouteTableViewController: ButtonGridDelegate {
 	private var styleTableViewCell: SessionsTableViewCell {
 		let cell = SessionsTableViewCell()
 		cell.heading = "Style"
-		
+		cell.hasBottomSpacing = false
+		return cell
+	}
+	
+	private var gradesHeaderView: SessionsTableViewHeaderFooterView {
+		let header = SessionsTableViewHeaderFooterView()
 		let tagButtonGrid = viewModel.styleTagButtonGrid
 		tagButtonGrid.delegate = self
-		cell.content = tagButtonGrid
-		
-		return cell
+		header.content = tagButtonGrid
+		return header
 	}
 	
 	private var gradesTableViewCell: SessionsTableViewCell {
 		let cell = SessionsTableViewCell()
 		cell.heading = "Grades"
+		cell.hasTopSpacing = false
 		
 		let tagButton = viewModel.gradeSystemTagButton
 		tagButton.addTarget(self, action: #selector(gradeSystemButtonWasPressed), for: .touchUpInside)
