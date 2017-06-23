@@ -13,13 +13,41 @@ struct AddRouteTableViewControllerViewModel {
 	var session: Session = Session(kind: .sportClimbing)
 	var climb: Climb = Climb()
 	var kind: Kind { return session.kind }
+	var isInEditMode: Bool = false
 	
 	internal var navigationBarTitle: String {
-		return kind == .sportClimbing ? "Add Route" : "Add Boulder"
+		switch (kind, isInEditMode) {
+		case (.sportClimbing, false):
+			return "Add Route"
+		case (.sportClimbing, true):
+			return "Edit Route"
+		case (.bouldering, false):
+			return "Add Boulder"
+		case (.bouldering, true):
+			return "Edit Boulder"
+		}
 	}
 	
 	internal var navigationBarColor: UIColor {
 		return kind == .sportClimbing ? Colors.purple : Colors.discoBlue
+	}
+	
+	internal func leftBarButtonItemWith(target: AddRouteTableViewController) -> UIBarButtonItem {
+		switch isInEditMode {
+		case true:
+			return UIBarButtonItem(title: "Delete", style: .plain, target: target, action: #selector(target.remove))
+		case false:
+			return UIBarButtonItem(title: "Cancel", style: .plain, target: target, action: #selector(target.cancel))
+		}
+	}
+	
+	internal func rightBarButtonItemWith(target: AddRouteTableViewController) -> UIBarButtonItem {
+		switch isInEditMode {
+		case true:
+			return UIBarButtonItem(title: "Done", style: .plain, target: target, action: #selector(target.done))
+		case false:
+			return UIBarButtonItem(title: "Save", style: .plain, target: target, action: #selector(target.save))
+		}
 	}
 }
 
@@ -35,8 +63,8 @@ class AddRouteTableViewController: UITableViewController {
 		tableView.separatorStyle = .none
 		tableView.allowsSelection = false
 		
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
-		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
+        navigationItem.rightBarButtonItem = viewModel.rightBarButtonItemWith(target: self)
+		navigationItem.leftBarButtonItem = viewModel.leftBarButtonItemWith(target: self)
 		navigationItem.title = viewModel.navigationBarTitle
 		navigationController?.navigationBar.barTintColor = viewModel.navigationBarColor
     }
@@ -112,6 +140,14 @@ class AddRouteTableViewController: UITableViewController {
 	@objc func cancel() {
 		dismiss(animated: true, completion: nil)
 	}
+	
+	@objc func done() {
+		dismiss(animated: true, completion: nil)
+	}
+	
+	@objc func remove() {
+		dismiss(animated: true, completion: nil)
+	}
 }
 
 // MARK: - Cells + Header
@@ -170,6 +206,11 @@ extension AddRouteTableViewControllerViewModel {
 			items.insert(UIView(), at: 1)
 		}
 		let buttonGrid = ButtonGrid(itemsPerRow: itemsPerRow, items: items, spaceing: spacing)
+		
+		if let gradeValue = climb.grade?.value {
+			buttonGrid.selectButtonWith(title: gradeValue)
+		}
+		
 		return buttonGrid
 	}
 	

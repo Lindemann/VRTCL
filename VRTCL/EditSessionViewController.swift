@@ -20,11 +20,12 @@ struct EditSessionViewControllerViewModel {
 	internal var climbsButtonGrid: ButtonGrid? {
 		guard let climbs = session.climbs, climbs.count > 0 else { return nil }
 		var items: [CircleButtonWithText] = []
-		for climb in climbs {
+		for (index, climb) in climbs.enumerated() {
 			let circleButtonWithText = CircleButtonWithText(mode: .filledMedium, buttonText: climb.grade?.value ?? "", labelText: climb.style?.rawValue ?? Style.toprope.rawValue, color: climb.grade?.color ?? UIColor.white)
 			if climb.style == .attempt || climb.style == .toprope {
 				circleButtonWithText.circleButton?.alpha = 0.4
 			}
+			circleButtonWithText.circleButton?.tag = index
 			items.append(circleButtonWithText)
 		}
 		let buttonGrid = ButtonGrid(itemsPerRow: 3, items: items, spaceing: 30)
@@ -151,5 +152,18 @@ extension EditSessionViewController: ButtonGridDelegate {
 	}
 	
 	func buttonGridButtonWasPressed(sender: UIButton) {
+		guard let climbs = viewModel.session.climbs else { return }
+		let addRouteTableViewController = AddRouteTableViewController()
+		let navigationController = NavigationController(rootViewController: addRouteTableViewController)
+		present(navigationController, animated: true, completion: nil)
+		addRouteTableViewController.viewModel.session = viewModel.session
+		addRouteTableViewController.viewModel.climb = climbs[sender.tag]
+		addRouteTableViewController.viewModel.isInEditMode = true
+		switch viewModel.kind {
+		case .sportClimbing:
+			AppDelegate.shared.user.sportClimbingGradeSystem = addRouteTableViewController.viewModel.climb.grade?.system
+		case .bouldering:
+			AppDelegate.shared.user.boulderingGradeSystem = addRouteTableViewController.viewModel.climb.grade?.system
+		}
 	}
 }

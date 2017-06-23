@@ -27,7 +27,7 @@ enum System: String {
 struct Climb {
 	var style: Style?
 	var grade: Grade?
-	var index: Int? // Index in climbs array of session
+	//var index: Int? // Index in climbs array of session
 }
 
 enum Style: String {
@@ -169,7 +169,7 @@ struct GradeScales {
 	static let french: [Grade] = [
 		Grade(system: .french, value: "3a", color: Colors.neonGreen, isRealGrade: true),
 		Grade(system: .french, value: "3b", color: Colors.neonGreen, isRealGrade: true),
-		Grade(system: .french, value: "3b", color: Colors.neonGreen, isRealGrade: true),
+		Grade(system: .french, value: "3c", color: Colors.neonGreen, isRealGrade: true),
 		Grade(system: .french, value: "4a", color: Colors.neonGreen, isRealGrade: true),
 		Grade(system: .french, value: "4b", color: Colors.neonGreen, isRealGrade: true),
 		Grade(system: .french, value: "4c", color: Colors.neonGreen, isRealGrade: true),
