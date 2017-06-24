@@ -27,7 +27,7 @@ enum System: String {
 struct Climb {
 	var style: Style?
 	var grade: Grade?
-	//var index: Int? // Index in climbs array of session
+	var index: Int? // Index in climbs array of session
 }
 
 enum Style: String {

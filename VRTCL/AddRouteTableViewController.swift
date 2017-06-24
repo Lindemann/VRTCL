@@ -129,6 +129,7 @@ class AddRouteTableViewController: UITableViewController {
 	
 	@objc func save() {
 		if let _ = viewModel.climb.style, let _ = viewModel.climb.grade {
+			viewModel.climb.index = viewModel.session.climbs?.count
 			viewModel.session.climbs?.append(viewModel.climb)
 			dismiss(animated: true, completion: nil)
 		} else {
@@ -142,10 +143,22 @@ class AddRouteTableViewController: UITableViewController {
 	}
 	
 	@objc func done() {
+		if let index = viewModel.climb.index, var climbs = viewModel.session.climbs {
+			climbs[index] = viewModel.climb
+			viewModel.session.climbs = climbs
+		}
 		dismiss(animated: true, completion: nil)
 	}
 	
 	@objc func remove() {
+		if let index = viewModel.climb.index, var climbs = viewModel.session.climbs {
+			climbs.remove(at: index)
+			// Update the index property o climb
+			for (index, _) in climbs.enumerated() {
+				climbs[index].index = index
+			}
+			viewModel.session.climbs = climbs
+		}
 		dismiss(animated: true, completion: nil)
 	}
 }
