@@ -59,12 +59,14 @@ internal class Button: UIButton {
 					self?.setTitleColor(self?.color, for: UIControlState())
 					self?.backgroundColor = UIColor.clear
 					self?.layer.borderColor = self?.color?.cgColor ?? UIColor.green.cgColor
+					self?.imageView?.tintColor = self?.color
 				}
 			}
 			if appearanceMode == .filled {
 				UIView.animate(withDuration: duration) { [weak self] in
 					self?.setTitleColor(self?.presentingViewBackgroundColor, for: UIControlState())
 					self?.backgroundColor = self?.color
+					self?.imageView?.tintColor = self?.presentingViewBackgroundColor
 				}
 			}
 		}
@@ -129,14 +131,17 @@ class TagButton: Button {
 
 class CircleButton: Button {
 	
+	var image: UIImage?
+	
 	// MARK: Initializer
 	
-	init(center: CGPoint = CGPoint.zero, diameter: CGFloat = 60, text: String, color: UIColor, presentingViewBackgroundColor: UIColor? = Colors.darkGray, appearanceMode: AppearanceMode = .filled, interactionMode: InteractionMode = .selectable) {
+		init(center: CGPoint = CGPoint.zero, diameter: CGFloat = 60, text: String, color: UIColor, presentingViewBackgroundColor: UIColor? = Colors.darkGray, appearanceMode: AppearanceMode = .filled, interactionMode: InteractionMode = .selectable, image: UIImage? = nil) {
 		super.init(frame: CGRect(x: center.x - diameter/2, y: center.y - diameter/2, width: diameter, height: diameter))
 		self.frame = CGRect(x: center.x - diameter/2, y: center.y - diameter/2, width: diameter, height: diameter)
 		self.text = text
 		self.color = color
 		self.presentingViewBackgroundColor = presentingViewBackgroundColor
+		self.image = image
 		self.initialAppearanceMode = appearanceMode
 		// trigger didSet of propertys http://stackoverflow.com/a/33979852/647644
 		defer {
@@ -163,6 +168,11 @@ class CircleButton: Button {
 		titleLabel?.baselineAdjustment = .alignCenters
 		let insets: CGFloat = 5
 		titleEdgeInsets = UIEdgeInsets(top: insets, left: insets, bottom: insets, right: insets)
+		
+		if let image = image {
+			setImage(image.withRenderingMode(.alwaysTemplate), for: UIControlState())
+			adjustsImageWhenHighlighted = false
+		}
 	}
 }
 

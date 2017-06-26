@@ -19,28 +19,31 @@ class ViewController: UIViewController, ButtonGridDelegate {
 		
 		view.backgroundColor = Colors.darkGray
 		
-		let center = CGPoint(x: view.center.x , y: 200)
-		let circleButton = CircleButton(center: center, diameter: 60, text: "5.15C", color: UIColor(red:0.8, green:1, blue:0.4, alpha:1))
-		view.addSubview(circleButton)
+		let faceButton = CircleButton(center: view.center, diameter: 60, text: "", color: Colors.lightGray, image: #imageLiteral(resourceName: "nah"))
+		view.addSubview(faceButton)
 		
-		let center2 = CGPoint(x: view.center.x , y: 200 + 200)
-		let circleButton2 = CircleButton(center: center2, diameter: 40, text: "9", color: UIColor(red:0.8, green:1, blue:0.4, alpha:1))
-		view.addSubview(circleButton2)
-		
-		let tagButton = TagButton(text: "redpoint", origin: CGPoint(x: 300, y: 300))
-		view.addSubview(tagButton)
-		
-		let tagButton2 = TagButton(text: "redpoint", interactionMode: .highlightable, origin: CGPoint(x: 300, y: 350))
-		view.addSubview(tagButton2)
-		
-		let fatButton = FatButton(origin: CGPoint(x: 50, y: 500), color: UIColor.blue, title: "Login")
-		view.addSubview(fatButton)
-		
-		let circleButtonWithText = CircleButtonWithText(mode: .filledMedium, center: CGPoint(x: 60, y: 100), buttonText: "12a+", labelText: "Red Point", color: Colors.discoBlue)
-		view.addSubview(circleButtonWithText)
-		
-		let circleButtonWithText2 = CircleButtonWithText(mode: .outlineSmall, center: CGPoint(x: 60, y: 250), buttonText: "12a+", labelText: "Red Point")
-		view.addSubview(circleButtonWithText2)
+//		let center = CGPoint(x: view.center.x , y: 200)
+//		let circleButton = CircleButton(center: center, diameter: 60, text: "5.15C", color: UIColor(red:0.8, green:1, blue:0.4, alpha:1))
+//		view.addSubview(circleButton)
+//
+//		let center2 = CGPoint(x: view.center.x , y: 200 + 200)
+//		let circleButton2 = CircleButton(center: center2, diameter: 40, text: "9", color: UIColor(red:0.8, green:1, blue:0.4, alpha:1))
+//		view.addSubview(circleButton2)
+//
+//		let tagButton = TagButton(text: "redpoint", origin: CGPoint(x: 300, y: 300))
+//		view.addSubview(tagButton)
+//
+//		let tagButton2 = TagButton(text: "redpoint", interactionMode: .highlightable, origin: CGPoint(x: 300, y: 350))
+//		view.addSubview(tagButton2)
+//
+//		let fatButton = FatButton(origin: CGPoint(x: 50, y: 500), color: UIColor.blue, title: "Login")
+//		view.addSubview(fatButton)
+//
+//		let circleButtonWithText = CircleButtonWithText(mode: .filledMedium, center: CGPoint(x: 60, y: 100), buttonText: "12a+", labelText: "Red Point", color: Colors.discoBlue)
+//		view.addSubview(circleButtonWithText)
+//
+//		let circleButtonWithText2 = CircleButtonWithText(mode: .outlineSmall, center: CGPoint(x: 60, y: 250), buttonText: "12a+", labelText: "Red Point")
+//		view.addSubview(circleButtonWithText2)
 		
 //		let buttonGrid = ButtonGrid(origin: CGPoint(x: 60, y: 100), itemsPerRow: 3, items: data(), spaceing: 20)
 //		buttonGrid.center = view.center
@@ -58,14 +61,14 @@ class ViewController: UIViewController, ButtonGridDelegate {
 //		view.addSubview(tagButtonGrid)
 	}
 	
-	func data() -> [CircleButtonWithText] {
-		var data: [CircleButtonWithText] = []
-		for _ in 0...9 {
-			let circleButtonWithText = CircleButtonWithText(mode: .filledMedium, center: CGPoint.zero, buttonText: "12a+", labelText: "Red Point", color: Colors.discoBlue)
-			data.append(circleButtonWithText)
-		}
-		return data
-	}
+//	func data() -> [CircleButtonWithText] {
+//		var data: [CircleButtonWithText] = []
+//		for _ in 0...9 {
+//			let circleButtonWithText = CircleButtonWithText(mode: .filledMedium, center: CGPoint.zero, buttonText: "12a+", labelText: "Red Point", color: Colors.discoBlue)
+//			data.append(circleButtonWithText)
+//		}
+//		return data
+//	}
 	
 	func buttonGridButtonWasPressed(sender: UIButton) {
 		print("🐹🐹🐰🐼")

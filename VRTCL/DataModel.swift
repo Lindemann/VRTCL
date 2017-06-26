@@ -31,8 +31,8 @@ struct Climb {
 }
 
 enum Style: String {
-	case flash = "Flash"
 	case onsight = "On Sight"
+	case flash = "Flash"
 	case redpoint = "Redpoint"
 	case attempt = "Attempt"
 	case toprope = "Toprope"
@@ -48,11 +48,10 @@ struct Date {
 	let endDate: Foundation.Date
 }
 
-enum Feeling {
-	case fabolous
-	case ok
-	case exhausted
-	case hideous
+enum Mood {
+	case good
+	case nah
+	case dead
 }
 
 struct Location {
@@ -335,7 +334,7 @@ struct GradeScales {
 class Session {
 	let kind: Kind
 	var climbs: [Climb]? = []
-	var feeling: Feeling?
+	var mood: Mood?
 	var location: Location?
 	var duration: Double?
 	var date: Date?

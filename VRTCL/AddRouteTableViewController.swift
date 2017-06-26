@@ -153,7 +153,7 @@ class AddRouteTableViewController: UITableViewController {
 	@objc func remove() {
 		if let index = viewModel.climb.index, var climbs = viewModel.session.climbs {
 			climbs.remove(at: index)
-			// Update the index property o climb
+			// Updates the index property of climb
 			for (index, _) in climbs.enumerated() {
 				climbs[index].index = index
 			}
@@ -176,8 +176,8 @@ extension AddRouteTableViewControllerViewModel {
 	}
 	
 	internal var styleTagButtonGrid: TagButtonGrid {
-		let tag1 = TagButton(text: Style.flash.rawValue)
-		let tag2 = TagButton(text: Style.onsight.rawValue)
+		let tag1 = TagButton(text: Style.onsight.rawValue)
+		let tag2 = TagButton(text: Style.flash.rawValue)
 		let tag3 = TagButton(text: Style.redpoint.rawValue)
 		let tag4 = TagButton(text: Style.attempt.rawValue)
 		let tag5 = TagButton(text: Style.toprope.rawValue)
