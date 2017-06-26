@@ -152,6 +152,18 @@ extension EditSessionViewControllerViewModel {
 		dead.tag = 2
 		let items = [smile, nah, dead]
 		let buttonGrid = ButtonGrid(itemsPerRow: 3, items: items, spaceing: 40)
+		
+		if let mood = session.mood {
+			switch mood {
+			case .good:
+				smile.isSelected = true
+			case .nah:
+				nah.isSelected = true
+			case .dead:
+				dead.isSelected = true
+			}
+		}
+		
 		return buttonGrid
 	}
 }
