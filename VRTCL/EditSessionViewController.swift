@@ -38,8 +38,8 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 	var tableView: UITableView!
 	var addButton: FatButton?
 	
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		
 		// Setup tableview
 		let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
@@ -61,7 +61,7 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		navigationController?.navigationBar.barTintColor = viewModel.navigationBarColor
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
 		setupAddButton()
-    }
+	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -73,15 +73,15 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		self.navigationController?.navigationBar.barTintColor = Colors.bar
 	}
 	
-    // MARK: Table view data source + delegate
+	// MARK: Table view data source + delegate
 	
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cells.count
-    }
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return cells.count
+	}
 	
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return cells[indexPath.row]
-    }
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		return cells[indexPath.row]
+	}
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return cells[indexPath.row].height
@@ -166,12 +166,22 @@ extension EditSessionViewControllerViewModel {
 		
 		return buttonGrid
 	}
+	
+	internal var locationButtonGrid: TagButtonGrid? {
+		let tag1 = TagButton(text: "Gym")
+		let tag2 = TagButton(text: "Outdoor")
+		let items = [tag1, tag2]
+		let frame = CGRect(x: 0, y: 0, width: 250, height: 40)
+		let tagButtonGrid = TagButtonGrid(frame: frame, items: items)
+		return tagButtonGrid
+	}
+	
 }
 
 extension EditSessionViewController {
 	
 	internal var cells: [SessionsTableViewCell] {
-		var tmpCells = [moodTableViewCell]
+		var tmpCells = [moodTableViewCell, locationTableViewCell]
 		if let count = viewModel.session.climbs?.count, count > 0 {
 			tmpCells.insert(climbsTableViewCell, at: 0)
 			return tmpCells
@@ -197,6 +207,15 @@ extension EditSessionViewController {
 		buttonGrid?.delegate = MoodButtonPressHelper(viewModel: viewModel, viewController: self)
 		cell.content = buttonGrid
 		cell.hasBottomSpacing = false
+		return cell
+	}
+	
+	var locationTableViewCell: SessionsTableViewCell {
+		let cell = SessionsTableViewCell()
+		cell.heading = "Location"
+		let tagButtonGrid = viewModel.locationButtonGrid
+		tagButtonGrid?.delegate = LocationButtonPressHelper(viewModel: viewModel, viewController: self)
+		cell.content = tagButtonGrid
 		return cell
 	}
 	
@@ -232,6 +251,12 @@ extension EditSessionViewController {
 			}
 		}
 	}
+	
+	internal class LocationButtonPressHelper: ButtonGridButtonPressHelper, ButtonGridDelegate {
+		func buttonGridButtonWasPressed(sender: UIButton) {
+			
+		}
+	}
 }
 
 internal class ButtonGridButtonPressHelper {
@@ -242,3 +267,4 @@ internal class ButtonGridButtonPressHelper {
 		self.viewController = viewController
 	}
 }
+

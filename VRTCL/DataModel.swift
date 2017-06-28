@@ -55,8 +55,13 @@ enum Mood {
 }
 
 struct Location {
-	var name: String
-	var geoLocation: Int
+	enum Venue: String {
+		case gym = "Gym"
+		case outdoor = "Outdoor"
+	}
+	var venue: Venue
+	var name: String?
+	var geoLocation: Int?
 }
 
 struct Likes {
