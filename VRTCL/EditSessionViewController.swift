@@ -241,6 +241,7 @@ extension EditSessionViewController: UITextFieldDelegate {
 	var deleteSessionTableViewCell: SessionsTableViewCell {
 		let cell = SessionsTableViewCell()
 		let tagButton = TagButton(text: "Delete Session", color: Colors.watermelon, interactionMode: .highlightable)
+		tagButton.addTarget(self, action: #selector(deleteSession), for: .touchUpInside)
 		cell.content = tagButton
 		return cell
 	}
@@ -283,6 +284,20 @@ extension EditSessionViewController: UITextFieldDelegate {
 			
 		}
 	}
+	
+	@objc func deleteSession() {
+		let alertController = UIAlertController(title: "Really Delete Session?!", message: nil, preferredStyle: .alert)
+		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
+			return
+		}
+		let DeleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] action in
+//			self?.viewModel.session = nil
+			self?.navigationController?.popViewController(animated: true)
+		}
+		alertController.addAction(DeleteAction)
+		alertController.addAction(cancelAction)
+		present(alertController, animated: true, completion: nil)
+	}
 }
 
 internal class ButtonGridButtonPressHelper {
@@ -304,8 +319,8 @@ extension EditSessionViewController {
 		let pointInTable: CGPoint = textField.superview!.convert(textField.frame.origin, to: tableView)
 		var contentOffset: CGPoint = tableView.contentOffset
 		contentOffset.y = pointInTable.y - 200
-		UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-			self.tableView.contentOffset = contentOffset
+		UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: { [weak self] in
+			self?.tableView.contentOffset = contentOffset
 		})
 	}
 	
