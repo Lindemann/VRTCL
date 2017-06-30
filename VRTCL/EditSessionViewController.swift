@@ -1,3 +1,4 @@
+
 //
 //  EditSessionTableViewController.swift
 //  VRTCL
@@ -66,6 +67,9 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		tableView.reloadData()
+		if let count = viewModel.session.climbs?.count, count > 0 {
+			tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
+		}
 	}
 	
 	override func willMove(toParentViewController parent: UIViewController?) {
@@ -84,7 +88,11 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 	}
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return cells[indexPath.row].height
+		if viewModel.session.climbs?.count == 0 && indexPath.row == 0 {
+			return 0
+		} else {
+			return cells[indexPath.row].height
+		}
 	}
 	
 	// MARK: Helper
@@ -167,7 +175,7 @@ extension EditSessionViewControllerViewModel {
 		return buttonGrid
 	}
 	
-	internal var locationButtonGrid: TagButtonGrid? {
+	internal var locationButtonGrid: TagButtonGrid {
 		let tag1 = TagButton(text: "Gym")
 		let tag2 = TagButton(text: "Outdoor")
 		let items = [tag1, tag2]
@@ -178,21 +186,17 @@ extension EditSessionViewControllerViewModel {
 	
 }
 
-extension EditSessionViewController {
+extension EditSessionViewController: UITextFieldDelegate {
 	
 	internal var cells: [SessionsTableViewCell] {
-		var tmpCells = [moodTableViewCell, locationTableViewCell]
-		if let count = viewModel.session.climbs?.count, count > 0 {
-			tmpCells.insert(climbsTableViewCell, at: 0)
-			return tmpCells
-		} else {
-			return tmpCells
-		}
+		return [climbsTableViewCell, moodTableViewCell, locationTableViewCell]
 	}
 	
 	var climbsTableViewCell: SessionsTableViewCell {
 		let cell = SessionsTableViewCell()
-		cell.heading = viewModel.climbsTableViewCellHeading
+		if let count = viewModel.session.climbs?.count, count > 0 {
+			cell.heading = viewModel.climbsTableViewCellHeading
+		}
 		let buttonGrid = viewModel.climbsButtonGrid
 		buttonGrid?.delegate = ClimbButtonPressHelper(viewModel: viewModel, viewController: self)
 		cell.content = buttonGrid
@@ -214,8 +218,23 @@ extension EditSessionViewController {
 		let cell = SessionsTableViewCell()
 		cell.heading = "Location"
 		let tagButtonGrid = viewModel.locationButtonGrid
-		tagButtonGrid?.delegate = LocationButtonPressHelper(viewModel: viewModel, viewController: self)
-		cell.content = tagButtonGrid
+		tagButtonGrid.delegate = LocationButtonPressHelper(viewModel: viewModel, viewController: self)
+		
+		let textField = FatTextField(origin: CGPoint.zero)
+		textField.delegate = self
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
+		tableView.addGestureRecognizer(tapGestureRecognizer)
+		
+		let frame = CGRect(x: 0, y: 0, width: 330, height: tagButtonGrid.frame.height + textField.frame.height + 20)
+		let view = UIView(frame: frame)
+		tagButtonGrid.frame.origin.y = 0
+		tagButtonGrid.center.x = view.center.x
+		textField.center.x = view.center.x
+		textField.frame.origin.y = view.frame.height - textField.frame.height
+		view.addSubview(tagButtonGrid)
+		view.addSubview(textField)
+		cell.content = view
+		
 		return cell
 	}
 	
@@ -268,3 +287,22 @@ internal class ButtonGridButtonPressHelper {
 	}
 }
 
+// MARK:  - Handle text field action
+extension EditSessionViewController {
+	@objc func tap() {
+		view.endEditing(true)
+	}
+	
+	func textFieldDidBeginEditing(_ textField: UITextField) {
+		let pointInTable: CGPoint = textField.superview!.convert(textField.frame.origin, to: tableView)
+		var contentOffset: CGPoint = tableView.contentOffset
+		contentOffset.y = pointInTable.y - 200
+		UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+			self.tableView.contentOffset = contentOffset
+		})
+	}
+	
+	func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+		view.endEditing(true)
+	}
+}

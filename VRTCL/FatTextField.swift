@@ -12,6 +12,11 @@ class FatTextField: UITextField {
 	
 	private var inset: CGFloat = 20
 	
+	convenience init(origin: CGPoint = CGPoint.zero) {
+		let frame = CGRect(origin: origin, size: CGSize(width: 300, height: 40))
+		self.init(frame: frame)
+	}
+	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		setup()
@@ -24,13 +29,13 @@ class FatTextField: UITextField {
 	
 	func setup() {
 		borderStyle = .none
-		
 		layer.cornerRadius = frame.size.height / CGFloat(2)
-		layer.borderColor = UIColor(red:0.78, green:0.78, blue:0.80, alpha:1.00).cgColor
+		layer.borderColor = Colors.lightGray.cgColor
 		layer.borderWidth = 2
 		clipsToBounds = true
-		
-//		clearButtonMode = .always
+		textColor = Colors.lightGray
+		backgroundColor = Colors.lightGray.withAlphaComponent(0.14)
+		keyboardAppearance = .dark
 	}
 	
 	override func textRect(forBounds bounds: CGRect) -> CGRect {
