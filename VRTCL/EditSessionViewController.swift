@@ -189,7 +189,7 @@ extension EditSessionViewControllerViewModel {
 extension EditSessionViewController: UITextFieldDelegate {
 	
 	internal var cells: [SessionsTableViewCell] {
-		return [climbsTableViewCell, moodTableViewCell, locationTableViewCell]
+		return [climbsTableViewCell, moodTableViewCell, locationTableViewCell, deleteSessionTableViewCell]
 	}
 	
 	var climbsTableViewCell: SessionsTableViewCell {
@@ -234,7 +234,14 @@ extension EditSessionViewController: UITextFieldDelegate {
 		view.addSubview(tagButtonGrid)
 		view.addSubview(textField)
 		cell.content = view
-		
+		cell.hasBottomSpacing = false
+		return cell
+	}
+	
+	var deleteSessionTableViewCell: SessionsTableViewCell {
+		let cell = SessionsTableViewCell()
+		let tagButton = TagButton(text: "Delete Session", color: Colors.watermelon, interactionMode: .highlightable)
+		cell.content = tagButton
 		return cell
 	}
 	
@@ -302,7 +309,14 @@ extension EditSessionViewController {
 		})
 	}
 	
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		view.endEditing(true)
+		return true
+	}
+	
 	func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
 		view.endEditing(true)
 	}
 }
+
+

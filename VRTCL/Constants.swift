@@ -24,6 +24,7 @@ struct Colors {
 	static let mauve = #colorLiteral(red:0.85, green:0.73, blue:0.99, alpha:1.00)
 	static let hardPurple = #colorLiteral(red:0.40, green:0.14, blue:0.98, alpha:1.00)
 	static let pink = #colorLiteral(red:0.99, green:0.14, blue:0.87, alpha:1.00)
+	static let watermelon = #colorLiteral(red:0.99, green:0.22, blue:0.37, alpha:1.00)
 }
 
 struct Fonts {

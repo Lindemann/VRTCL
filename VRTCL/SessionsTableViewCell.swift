@@ -45,11 +45,18 @@ class SessionsTableViewCell: UITableViewCell {
 			view.widthAnchor.constraint(equalToConstant: content.frame.size.width).isActive = true
 			view.heightAnchor.constraint(equalToConstant: content.frame.size.height).isActive = true
 			view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-			view.topAnchor.constraint(equalTo: topAnchor, constant: (hasTopSpacing ? spacing : 0) + labelHeight + spacing).isActive = true
+			if heading == nil {
+				view.topAnchor.constraint(equalTo: topAnchor, constant: hasTopSpacing ? spacing : 0).isActive = true
+			} else {
+				view.topAnchor.constraint(equalTo: topAnchor, constant: (hasTopSpacing ? spacing : 0) + labelHeight + spacing).isActive = true
+			}
 		}
 	}
 	
 	var height: CGFloat {
+		if heading == nil {
+			return (hasTopSpacing ? spacing : 0) + (content?.frame.size.height != nil ? (content?.frame.size.height ?? 0) : 0) + (hasBottomSpacing ? spacing : 0)
+		}
 		return (hasTopSpacing ? spacing : 0) + labelHeight + (content?.frame.size.height != nil ? ((content?.frame.size.height ?? 0) + spacing) : 0) + (hasBottomSpacing ? spacing : 0)
 	}
 	
@@ -97,8 +104,6 @@ class SessionsTableViewHeaderFooterView: UITableViewHeaderFooterView {
 	
 	init() {
 		super.init(reuseIdentifier: SessionsTableViewHeaderFooterView.nibAndReuseIdentifier)
-//		backgroundView = UIView()
-//		backgroundView!.backgroundColor = UIColor.clear
 		contentView.backgroundColor = Colors.darkGray
 	}
 	

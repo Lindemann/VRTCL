@@ -99,7 +99,7 @@ internal class Button: UIButton {
 
 class TagButton: Button {
 	
-	init(text: String, presentingViewBackgroundColor: UIColor? = Colors.darkGray, appearanceMode: AppearanceMode = .outlined, interactionMode: InteractionMode = .selectable, origin: CGPoint = CGPoint.zero) {
+	init(text: String, color: UIColor = Colors.lightGray, presentingViewBackgroundColor: UIColor? = Colors.darkGray, appearanceMode: AppearanceMode = .outlined, interactionMode: InteractionMode = .selectable, origin: CGPoint = CGPoint.zero) {
 		let nsString = text as NSString
 		let font = UIFont.systemFont(ofSize: 16, weight: .medium)
 		let insets: CGFloat = 14
@@ -108,7 +108,7 @@ class TagButton: Button {
 		let frame = CGRect(x: origin.x, y: origin.y, width: stringSize.width + insets * 2, height: 30)
 		
 		super.init(frame: frame)
-		self.color = Colors.lightGray
+		self.color = color
 		self.presentingViewBackgroundColor = presentingViewBackgroundColor
 		self.initialAppearanceMode = appearanceMode
 		defer {
@@ -121,7 +121,7 @@ class TagButton: Button {
 		
 		layer.cornerRadius = 14
 		layer.borderWidth = 2
-		layer.borderColor = color?.cgColor
+		layer.borderColor = color.cgColor
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
