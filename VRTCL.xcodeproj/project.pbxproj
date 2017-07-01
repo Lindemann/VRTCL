@@ -18,6 +18,7 @@
 		82430AE31EB3DFD300160D15 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82430AE21EB3DFD300160D15 /* Extensions.swift */; };
 		82541A311EF265D10020032C /* ButtonGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82541A301EF265D10020032C /* ButtonGrid.swift */; };
 		82834E341BD002400006793C /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82834E331BD002400006793C /* DataModel.swift */; };
+		828C5DF91F07F5D000CB7468 /* DurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828C5DF81F07F5D000CB7468 /* DurationView.swift */; };
 		829EC0B11EEECAF200AB055F /* EditSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829EC0B01EEECAF200AB055F /* EditSessionViewController.swift */; };
 		829EC0B31EEECB1200AB055F /* AddRouteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829EC0B21EEECB1200AB055F /* AddRouteTableViewController.swift */; };
 		829F24761B0021EB00BDF443 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829F24751B0021EB00BDF443 /* AppDelegate.swift */; };
@@ -47,6 +48,7 @@
 		82430AE21EB3DFD300160D15 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		82541A301EF265D10020032C /* ButtonGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonGrid.swift; sourceTree = "<group>"; };
 		82834E331BD002400006793C /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		828C5DF81F07F5D000CB7468 /* DurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationView.swift; sourceTree = "<group>"; };
 		829EC0B01EEECAF200AB055F /* EditSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSessionViewController.swift; sourceTree = "<group>"; };
 		829EC0B21EEECB1200AB055F /* AddRouteTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRouteTableViewController.swift; sourceTree = "<group>"; };
 		829F24701B0021EB00BDF443 /* VRTCL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VRTCL.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -213,6 +215,7 @@
 				829EC0B01EEECAF200AB055F /* EditSessionViewController.swift */,
 				829EC0B21EEECB1200AB055F /* AddRouteTableViewController.swift */,
 				8227CA601EF5157B00EF236A /* SessionsTableViewCell.swift */,
+				828C5DF81F07F5D000CB7468 /* DurationView.swift */,
 			);
 			name = Sessions;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				82C12A821C24827800D9AC45 /* Constants.swift in Sources */,
 				829F24761B0021EB00BDF443 /* AppDelegate.swift in Sources */,
 				829EC0B31EEECB1200AB055F /* AddRouteTableViewController.swift in Sources */,
+				828C5DF91F07F5D000CB7468 /* DurationView.swift in Sources */,
 				829EC0B11EEECAF200AB055F /* EditSessionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

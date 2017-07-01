@@ -189,7 +189,7 @@ extension EditSessionViewControllerViewModel {
 extension EditSessionViewController: UITextFieldDelegate {
 	
 	internal var cells: [SessionsTableViewCell] {
-		return [climbsTableViewCell, moodTableViewCell, locationTableViewCell, deleteSessionTableViewCell]
+		return [climbsTableViewCell, moodTableViewCell, locationTableViewCell, durationSessionTableViewCell, deleteSessionTableViewCell]
 	}
 	
 	var climbsTableViewCell: SessionsTableViewCell {
@@ -235,6 +235,14 @@ extension EditSessionViewController: UITextFieldDelegate {
 		view.addSubview(textField)
 		cell.content = view
 		cell.hasBottomSpacing = false
+		return cell
+	}
+	
+	var durationSessionTableViewCell: SessionsTableViewCell {
+		let cell = SessionsTableViewCell()
+		cell.heading = "Duration"
+		let durationView = DurationView()
+		cell.content = durationView
 		return cell
 	}
 	
@@ -291,7 +299,6 @@ extension EditSessionViewController: UITextFieldDelegate {
 			return
 		}
 		let DeleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] action in
-//			self?.viewModel.session = nil
 			self?.navigationController?.popViewController(animated: true)
 		}
 		alertController.addAction(DeleteAction)

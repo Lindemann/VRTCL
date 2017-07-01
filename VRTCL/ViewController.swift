@@ -19,8 +19,13 @@ class ViewController: UIViewController, ButtonGridDelegate {
 		
 		view.backgroundColor = Colors.darkGray
 		
-		let textField = FatTextField(origin: CGPoint(x: 60, y: 100))
-		view.addSubview(textField)
+		let durationView = DurationView()
+		durationView.center = view.center
+		view.addSubview(durationView)
+		
+		
+//		let textField = FatTextField(origin: CGPoint(x: 60, y: 100))
+//		view.addSubview(textField)
 		
 //		let faceButton = CircleButton(center: view.center, diameter: 60, text: "", color: Colors.lightGray, image: #imageLiteral(resourceName: "nah"))
 //		view.addSubview(faceButton)
