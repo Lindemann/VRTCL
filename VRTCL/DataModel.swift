@@ -43,11 +43,6 @@ enum Kind {
 	case bouldering
 }
 
-struct Date {
-	let startDate: Foundation.Date
-	let endDate: Foundation.Date
-}
-
 enum Mood {
 	case good
 	case nah
@@ -341,7 +336,7 @@ class Session {
 	var climbs: [Climb]? = []
 	var mood: Mood?
 	var location: Location?
-	var duration: Double?
+	var duration: Int?
 	var date: Date?
 	var likes: Likes?
 	var comments: Comments?

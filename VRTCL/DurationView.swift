@@ -8,16 +8,26 @@
 
 import UIKit
 
+protocol DurationViewDelegate: class {
+	func userHasChanged(duration: Int)
+}
+
 class DurationView: UIView {
 	
-	var duration = 0 {
+	var duration: Int = 0 {
 		didSet {
+			if duration > 24 {
+				duration = 24
+			} else if duration < 0 {
+				duration = 0
+			}
 			label.text = "\(duration)h"
 		}
 	}
 	private var label: UILabel!
 	private var plusButton: CircleButton!
 	private var minusButton: CircleButton!
+	weak var delegate: DurationViewDelegate?
 
 	init() {
 		let frame = CGRect(x: 0, y: 0, width: 200, height: 80)
@@ -69,15 +79,12 @@ class DurationView: UIView {
 	}
 	
 	@objc private func plus() {
-		if duration < 24 {
-			duration += 1
-		}
+		duration += 1
+		delegate?.userHasChanged(duration: duration)
 	}
 	
 	@objc private func minus() {
-		if duration > 0 {
-			duration -= 1
-		}
+		duration -= 1
+		delegate?.userHasChanged(duration: duration)
 	}
-	
 }

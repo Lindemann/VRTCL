@@ -30,6 +30,11 @@ struct EditSessionViewControllerViewModel {
 			return FatButton(origin: CGPoint.zero, color: Colors.discoBlue, title: "Add Boulder")
 		}
 	}
+	
+	internal var estimatedDuration: Int {
+		guard let date = session.date else { return 0 }
+		return Calendar.current.dateComponents([.hour], from: date, to: Date()).hour ?? 0
+	}
 }
 
 // MARK: - Controller
@@ -62,6 +67,12 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		navigationController?.navigationBar.barTintColor = viewModel.navigationBarColor
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
 		setupAddButton()
+		
+		// Updates duration view once per hour
+		let _ = Timer.scheduledTimer(withTimeInterval: 60 * 60 + 3, repeats: true, block: { timer in
+			self.tableView.reloadData()
+		})
+		
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -98,6 +109,9 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 	// MARK: Helper
 	
 	@objc private func save() {
+		if viewModel.session.duration == nil {
+			viewModel.session.duration = viewModel.estimatedDuration
+		}
 		navigationController?.popViewController(animated: true)
 	}
 }
@@ -186,7 +200,7 @@ extension EditSessionViewControllerViewModel {
 	
 }
 
-extension EditSessionViewController: UITextFieldDelegate {
+extension EditSessionViewController: DurationViewDelegate {
 	
 	internal var cells: [SessionsTableViewCell] {
 		return [climbsTableViewCell, moodTableViewCell, locationTableViewCell, durationSessionTableViewCell, deleteSessionTableViewCell]
@@ -242,7 +256,9 @@ extension EditSessionViewController: UITextFieldDelegate {
 		let cell = SessionsTableViewCell()
 		cell.heading = "Duration"
 		let durationView = DurationView()
+		durationView.duration = viewModel.estimatedDuration
 		cell.content = durationView
+		cell.hasBottomSpacing = false
 		return cell
 	}
 	
@@ -305,6 +321,10 @@ extension EditSessionViewController: UITextFieldDelegate {
 		alertController.addAction(cancelAction)
 		present(alertController, animated: true, completion: nil)
 	}
+	
+	func userHasChanged(duration: Int) {
+		viewModel.session.duration = duration
+	}
 }
 
 internal class ButtonGridButtonPressHelper {
@@ -317,18 +337,15 @@ internal class ButtonGridButtonPressHelper {
 }
 
 // MARK:  - Handle text field action
-extension EditSessionViewController {
+extension EditSessionViewController: UITextFieldDelegate {
 	@objc func tap() {
 		view.endEditing(true)
 	}
 	
 	func textFieldDidBeginEditing(_ textField: UITextField) {
-		let pointInTable: CGPoint = textField.superview!.convert(textField.frame.origin, to: tableView)
-		var contentOffset: CGPoint = tableView.contentOffset
-		contentOffset.y = pointInTable.y - 200
-		UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: { [weak self] in
-			self?.tableView.contentOffset = contentOffset
-		})
+		DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in // <- Bug workaround -_-
+			self?.tableView.scrollToRow(at: IndexPath(row: 2, section: 0), at: .top, animated: true)
+		}
 	}
 	
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -160,6 +160,10 @@ extension AddSessionTableViewController: SessionsButtonTableviewCellDelegate {
 		let editSessionTableViewController = EditSessionViewController()
 		editSessionTableViewController.viewModel.session = sportClimbingSession
 		navigationController?.pushViewController(editSessionTableViewController, animated: true)
+		
+		if viewModel.sportClimbingSession?.date == nil {
+			viewModel.sportClimbingSession?.date = Date()
+		}
 	}
 	
 	@objc func boulderingButtonWasPressed() {
@@ -171,6 +175,10 @@ extension AddSessionTableViewController: SessionsButtonTableviewCellDelegate {
 		let editSessionTableViewController = EditSessionViewController()
 		editSessionTableViewController.viewModel.session = boulderingSession
 		navigationController?.pushViewController(editSessionTableViewController, animated: true)
+		
+		if viewModel.boulderingSession?.date == nil {
+			viewModel.boulderingSession?.date = Date()
+		}
 	}
 }
 
@@ -202,7 +210,7 @@ class SessionsHeadingTableviewCell: UITableViewCell {
 	}
 }
 
-@objc protocol SessionsButtonTableviewCellDelegate {
+@objc protocol SessionsButtonTableviewCellDelegate: class {
 	@objc func sportClimbingButtonWasPressed()
 	@objc func boulderingButtonWasPressed()
 }
@@ -211,7 +219,7 @@ class SessionsButtonTableviewCell: UITableViewCell {
 	
 	static let nibNameAndReuseIdentifier = String(describing: SessionsButtonTableviewCell.self)
 	
-	var delegate: SessionsButtonTableviewCellDelegate?
+	weak var delegate: SessionsButtonTableviewCellDelegate?
 	
 	var button: FatButton? {
 		didSet {
