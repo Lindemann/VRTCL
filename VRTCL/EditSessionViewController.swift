@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 // MARK: - View model
 struct EditSessionViewControllerViewModel {
@@ -73,6 +74,14 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 			self.tableView.reloadData()
 		})
 		
+		// Tracking location stuff
+		switch viewModel.kind {
+		case .bouldering:
+			AppDelegate.shared.bouleringSessionLocationManager.startMonitoringSignificantLocationChanges()
+		case .sportClimbing:
+			AppDelegate.shared.sportClimbingSessionLocationManager.startMonitoringSignificantLocationChanges()
+		}
+		AppDelegate.shared.initialLocationDelegate = self
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -195,9 +204,9 @@ extension EditSessionViewControllerViewModel {
 		let items = [tag1, tag2]
 		let frame = CGRect(x: 0, y: 0, width: 250, height: 40)
 		let tagButtonGrid = TagButtonGrid(frame: frame, items: items)
+		tagButtonGrid.selectButtonWith(title: session.location?.venue?.rawValue ?? "")
 		return tagButtonGrid
 	}
-	
 }
 
 extension EditSessionViewController: DurationViewDelegate {
@@ -235,6 +244,7 @@ extension EditSessionViewController: DurationViewDelegate {
 		tagButtonGrid.delegate = LocationButtonPressHelper(viewModel: viewModel, viewController: self)
 		
 		let textField = FatTextField(origin: CGPoint.zero)
+		textField.text = viewModel.session.location?.name
 		textField.delegate = self
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
 		tableView.addGestureRecognizer(tapGestureRecognizer)
@@ -305,7 +315,7 @@ extension EditSessionViewController: DurationViewDelegate {
 	
 	internal class LocationButtonPressHelper: ButtonGridButtonPressHelper, ButtonGridDelegate {
 		func buttonGridButtonWasPressed(sender: UIButton) {
-			
+			viewModel.session.location?.venue = Location.Venue(rawValue: sender.titleLabel?.text ?? "")
 		}
 	}
 	
@@ -337,7 +347,16 @@ internal class ButtonGridButtonPressHelper {
 }
 
 // MARK:  - Handle text field action
-extension EditSessionViewController: UITextFieldDelegate {
+extension EditSessionViewController: UITextFieldDelegate, InitialLocationDelegate {
+	
+	func initialLocationWasSet(initialLocation: CLLocation) {
+		viewModel.session.location?.geoLocation = initialLocation
+		initialLocation.nameRequest { [weak self] (name, error) in
+			self?.viewModel.session.location?.name = name
+			self?.tableView.reloadData()
+		}
+	}
+	
 	@objc func tap() {
 		view.endEditing(true)
 	}
@@ -346,6 +365,10 @@ extension EditSessionViewController: UITextFieldDelegate {
 		DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in // <- Bug workaround -_-
 			self?.tableView.scrollToRow(at: IndexPath(row: 2, section: 0), at: .top, animated: true)
 		}
+	}
+	
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		viewModel.session.location?.name = textField.text
 	}
 	
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {

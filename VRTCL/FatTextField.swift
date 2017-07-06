@@ -36,6 +36,7 @@ class FatTextField: UITextField {
 		textColor = Colors.lightGray
 		backgroundColor = Colors.lightGray.withAlphaComponent(0.14)
 		keyboardAppearance = .dark
+		clearButtonMode = .whileEditing
 	}
 	
 	override func textRect(forBounds bounds: CGRect) -> CGRect {
@@ -48,5 +49,11 @@ class FatTextField: UITextField {
 	
 	override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
 		return bounds.insetBy(dx: inset, dy: 0)
+	}
+	
+	override func clearButtonRect(forBounds bounds: CGRect) -> CGRect {
+		var rect = super.clearButtonRect(forBounds: bounds)
+		rect.origin.x -= 5
+		return rect
 	}
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 struct Grade {
 	let system: System
@@ -54,9 +55,9 @@ struct Location {
 		case gym = "Gym"
 		case outdoor = "Outdoor"
 	}
-	var venue: Venue
+	var venue: Venue?
 	var name: String?
-	var geoLocation: Int?
+	var geoLocation: CLLocation?
 }
 
 struct Likes {
@@ -335,7 +336,7 @@ class Session {
 	let kind: Kind
 	var climbs: [Climb]? = []
 	var mood: Mood?
-	var location: Location?
+	var location: Location? = Location()
 	var duration: Int?
 	var date: Date?
 	var likes: Likes?

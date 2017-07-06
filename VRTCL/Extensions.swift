@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MapKit
+import CoreLocation
 
 extension UIColor {
 
@@ -28,5 +30,22 @@ extension UIColor {
 		} else {
 			return nil
 		}
+	}
+}
+
+extension CLLocation {
+	func nameRequest(completion: @escaping (String?, Error?) -> Void ) {
+		let geoCoder = CLGeocoder()
+		geoCoder.reverseGeocodeLocation(self, completionHandler: { placemarks, error in
+			guard let placemark = placemarks?[0] else {
+				completion(nil, error)
+				return
+			}
+			let string = "\(placemark.locality ?? ""), \(placemark.subLocality ?? "")"
+			completion(string, error)
+//			if let areasOfInterest = placemark.areasOfInterest?[1] {
+//				print(areasOfInterest)
+//			}
+		})
 	}
 }
