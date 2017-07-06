@@ -77,9 +77,9 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		// Tracking location stuff
 		switch viewModel.kind {
 		case .bouldering:
-			AppDelegate.shared.bouleringSessionLocationManager.startMonitoringSignificantLocationChanges()
+			AppDelegate.shared.bouleringSessionLocationManager.startUpdatingLocation()
 		case .sportClimbing:
-			AppDelegate.shared.sportClimbingSessionLocationManager.startMonitoringSignificantLocationChanges()
+			AppDelegate.shared.sportClimbingSessionLocationManager.startUpdatingLocation()
 		}
 		AppDelegate.shared.initialLocationDelegate = self
 	}
@@ -347,15 +347,7 @@ internal class ButtonGridButtonPressHelper {
 }
 
 // MARK:  - Handle text field action
-extension EditSessionViewController: UITextFieldDelegate, InitialLocationDelegate {
-	
-	func initialLocationWasSet(initialLocation: CLLocation) {
-		viewModel.session.location?.geoLocation = initialLocation
-		initialLocation.nameRequest { [weak self] (name, error) in
-			self?.viewModel.session.location?.name = name
-			self?.tableView.reloadData()
-		}
-	}
+extension EditSessionViewController: UITextFieldDelegate {
 	
 	@objc func tap() {
 		view.endEditing(true)
@@ -368,7 +360,9 @@ extension EditSessionViewController: UITextFieldDelegate, InitialLocationDelegat
 	}
 	
 	func textFieldDidEndEditing(_ textField: UITextField) {
-		viewModel.session.location?.name = textField.text
+		if let count = textField.text?.characters.count, count > 0 {
+			viewModel.session.location?.name = textField.text
+		}
 	}
 	
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -381,4 +375,20 @@ extension EditSessionViewController: UITextFieldDelegate, InitialLocationDelegat
 	}
 }
 
-
+// MARK:  - Handle location actions
+extension EditSessionViewController: InitialLocationDelegate {
+	
+	func userHasLeftInitialLocation() {
+		if viewModel.session.duration == nil {
+			viewModel.session.duration = viewModel.estimatedDuration
+		}
+	}
+	
+	func initialLocationWasSet(initialLocation: CLLocation) {
+		viewModel.session.location?.geoLocation = initialLocation
+		initialLocation.nameRequest { [weak self] (name, error) in
+			self?.viewModel.session.location?.name = name
+			self?.tableView.reloadData()
+		}
+	}
+}

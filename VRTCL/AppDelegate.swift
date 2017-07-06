@@ -18,16 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	let sportClimbingSessionLocationManager = CLLocationManager()
 	let bouleringSessionLocationManager = CLLocationManager()
-	var sportClimbingLocation: CLLocation? {
+	var sportClimbingInitialLocation: CLLocation? {
 		didSet {
-			guard let sportClimbingLocation = sportClimbingLocation else { return }
-			initialLocationDelegate?.initialLocationWasSet(initialLocation: sportClimbingLocation)
+			guard let sportClimbingInitialLocation = sportClimbingInitialLocation else { return }
+			initialLocationDelegate?.initialLocationWasSet(initialLocation: sportClimbingInitialLocation)
 		}
 	}
-	var boulderingLocation: CLLocation? {
+	var boulderingInitialLocation: CLLocation? {
 		didSet {
-			guard let boulderingLocation = boulderingLocation else { return }
-			initialLocationDelegate?.initialLocationWasSet(initialLocation: boulderingLocation)
+			guard let boulderingInitialLocation = boulderingInitialLocation else { return }
+			initialLocationDelegate?.initialLocationWasSet(initialLocation: boulderingInitialLocation)
 		}
 	}
 	
@@ -62,6 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 protocol InitialLocationDelegate: class {
 	func initialLocationWasSet(initialLocation: CLLocation)
+	func userHasLeftInitialLocation()
 }
 
 extension AppDelegate: CLLocationManagerDelegate {
@@ -78,12 +79,30 @@ extension AppDelegate: CLLocationManagerDelegate {
 		bouleringSessionLocationManager.allowsBackgroundLocationUpdates = true
 	}
 	
-	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		if sportClimbingLocation == nil && manager === sportClimbingSessionLocationManager {
-			sportClimbingLocation = locations[0]
+	private func distance(from: CLLocation?, to: CLLocation?, isBiggerThan meters: Double) -> Bool {
+		guard let from = from, let to = to else { return false }
+		let distanceInMeters = to.distance(from: from)
+		if distanceInMeters > meters {
+			return true
+		} else {
+			return false
 		}
-		if boulderingLocation == nil && manager === bouleringSessionLocationManager {
-			boulderingLocation = locations[0]
+	}
+	
+	 func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+		let maxDistance: Double = 500
+		if sportClimbingInitialLocation == nil && manager === sportClimbingSessionLocationManager {
+			sportClimbingInitialLocation = locations[0]
+		}
+		if distance(from: sportClimbingInitialLocation, to: locations.last, isBiggerThan: maxDistance) {
+			initialLocationDelegate?.userHasLeftInitialLocation()
+		}
+		
+		if boulderingInitialLocation == nil && manager === bouleringSessionLocationManager {
+			boulderingInitialLocation = locations[0]
+		}
+		if distance(from: boulderingInitialLocation, to: locations.last, isBiggerThan: maxDistance) {
+			initialLocationDelegate?.userHasLeftInitialLocation()
 		}
 	}
 }
