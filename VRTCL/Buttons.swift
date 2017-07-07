@@ -135,7 +135,7 @@ class CircleButton: Button {
 	
 	// MARK: Initializer
 	
-		init(center: CGPoint = CGPoint.zero, diameter: CGFloat = 60, text: String, color: UIColor, presentingViewBackgroundColor: UIColor? = Colors.darkGray, appearanceMode: AppearanceMode = .filled, interactionMode: InteractionMode = .selectable, image: UIImage? = nil) {
+		init(center: CGPoint = CGPoint.zero, diameter: CGFloat = 60, text: String = "", color: UIColor = UIColor.yellow, presentingViewBackgroundColor: UIColor = Colors.darkGray, appearanceMode: AppearanceMode = .filled, interactionMode: InteractionMode = .selectable, image: UIImage? = nil) {
 		super.init(frame: CGRect(x: center.x - diameter/2, y: center.y - diameter/2, width: diameter, height: diameter))
 		self.frame = CGRect(x: center.x - diameter/2, y: center.y - diameter/2, width: diameter, height: diameter)
 		self.text = text
@@ -245,5 +245,24 @@ class FatButton: UIButton {
 	
 	override func prepareForInterfaceBuilder() {
 		setup()
+	}
+}
+
+class PhotoButton: UIButton {
+	
+	init(center: CGPoint = CGPoint.zero, diameter: CGFloat = 80, image: UIImage? = nil) {
+		super.init(frame: CGRect(x: 0, y: 0, width: diameter, height: diameter))
+		self.center = center
+		widthAnchor.constraint(equalToConstant: frame.size.width).isActive = true
+		heightAnchor.constraint(equalToConstant: frame.size.height).isActive = true
+		
+		layer.cornerRadius = frame.size.height / CGFloat(2)
+		clipsToBounds = true
+		setImage(image, for: UIControlState())
+		imageView?.contentMode = .scaleAspectFill
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 }

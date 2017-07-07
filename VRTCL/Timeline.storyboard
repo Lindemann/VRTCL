@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bHe-3G-w4K">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.19" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bHe-3G-w4K">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="If7-Et-ZEl">
+        <!--Timeline Table View Controller-->
+        <scene sceneID="hie-ab-AB6">
             <objects>
-                <viewController id="rQj-fX-bQl" customClass="ViewController" customModule="VRTCL" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="wGz-vR-w1C"/>
-                        <viewControllerLayoutGuide type="bottom" id="8Id-Qc-bge"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="edf-zh-d2A">
+                <tableViewController id="ZsZ-U7-zh4" customClass="TimelineTableViewController" customModule="VRTCL" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7ua-lu-iTw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="zxM-ey-gfk"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TqD-ae-Ais" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <outlet property="dataSource" destination="ZsZ-U7-zh4" id="MQq-QH-VKR"/>
+                            <outlet property="delegate" destination="ZsZ-U7-zh4" id="6Pd-G4-B4e"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="G6D-8o-FuB"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QHO-Am-daG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1116" y="-92.203898050974516"/>
+            <point key="canvasLocation" x="986" y="-92"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SWm-13-ihX">
@@ -42,7 +42,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="rQj-fX-bQl" kind="relationship" relationship="rootViewController" id="nH6-je-icl"/>
+                        <segue destination="ZsZ-U7-zh4" kind="relationship" relationship="rootViewController" id="ygv-kE-tVi"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O7M-L3-NkN" userLabel="First Responder" sceneMemberID="firstResponder"/>

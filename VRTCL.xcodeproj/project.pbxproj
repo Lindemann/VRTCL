@@ -28,6 +28,8 @@
 		82AAC0C51EEF5C9E00B7E6A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AAC0C41EEF5C9E00B7E6A3 /* ViewController.swift */; };
 		82AAC0C71EEF5ED800B7E6A3 /* CircleButtonWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AAC0C61EEF5ED800B7E6A3 /* CircleButtonWithText.swift */; };
 		82B3033F1EB6F7F6001DD730 /* Sessions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82B3033E1EB6F7F6001DD730 /* Sessions.storyboard */; };
+		82B9866E1F0FD1BA001BD4B5 /* TimelineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B9866D1F0FD1BA001BD4B5 /* TimelineTableViewController.swift */; };
+		82B986701F0FD1FA001BD4B5 /* TimelineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B9866F1F0FD1FA001BD4B5 /* TimelineTableViewCell.swift */; };
 		82BAE5E91EEA49BB00383585 /* AddSessionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BAE5E81EEA49BB00383585 /* AddSessionTableViewController.swift */; };
 		82C12A7E1C2480F900D9AC45 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C12A7D1C2480F900D9AC45 /* NavigationController.swift */; };
 		82C12A801C24811100D9AC45 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C12A7F1C24811100D9AC45 /* TabBarController.swift */; };
@@ -60,6 +62,8 @@
 		82AAC0C41EEF5C9E00B7E6A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		82AAC0C61EEF5ED800B7E6A3 /* CircleButtonWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButtonWithText.swift; sourceTree = "<group>"; };
 		82B3033E1EB6F7F6001DD730 /* Sessions.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Sessions.storyboard; sourceTree = "<group>"; };
+		82B9866D1F0FD1BA001BD4B5 /* TimelineTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTableViewController.swift; sourceTree = "<group>"; };
+		82B9866F1F0FD1FA001BD4B5 /* TimelineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTableViewCell.swift; sourceTree = "<group>"; };
 		82BAE5E81EEA49BB00383585 /* AddSessionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSessionTableViewController.swift; sourceTree = "<group>"; };
 		82C12A7D1C2480F900D9AC45 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		82C12A7F1C24811100D9AC45 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -93,6 +97,8 @@
 			isa = PBXGroup;
 			children = (
 				8211D5CE1EDA571900DF3F48 /* Timeline.storyboard */,
+				82B9866D1F0FD1BA001BD4B5 /* TimelineTableViewController.swift */,
+				82B9866F1F0FD1FA001BD4B5 /* TimelineTableViewCell.swift */,
 			);
 			name = Timeline;
 			sourceTree = "<group>";
@@ -366,12 +372,14 @@
 				8227CA611EF5157B00EF236A /* SessionsTableViewCell.swift in Sources */,
 				821812181C2461CF004726DC /* Buttons.swift in Sources */,
 				82430AE31EB3DFD300160D15 /* Extensions.swift in Sources */,
+				82B9866E1F0FD1BA001BD4B5 /* TimelineTableViewController.swift in Sources */,
 				82834E341BD002400006793C /* DataModel.swift in Sources */,
 				82C12A7E1C2480F900D9AC45 /* NavigationController.swift in Sources */,
 				82BAE5E91EEA49BB00383585 /* AddSessionTableViewController.swift in Sources */,
 				82541A311EF265D10020032C /* ButtonGrid.swift in Sources */,
 				82C12A801C24811100D9AC45 /* TabBarController.swift in Sources */,
 				82AAC0C71EEF5ED800B7E6A3 /* CircleButtonWithText.swift in Sources */,
+				82B986701F0FD1FA001BD4B5 /* TimelineTableViewCell.swift in Sources */,
 				82AAC0C51EEF5C9E00B7E6A3 /* ViewController.swift in Sources */,
 				82DA1CD51F02E15400135394 /* FatTextField.swift in Sources */,
 				82C12A821C24827800D9AC45 /* Constants.swift in Sources */,

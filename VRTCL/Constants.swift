@@ -29,4 +29,6 @@ struct Colors {
 
 struct Fonts {
 	static let h1 = UIFont.systemFont(ofSize: 36, weight: .light)
+	static let h3 = UIFont.systemFont(ofSize: 20, weight: .regular)
+	static let text = UIFont.systemFont(ofSize: 16, weight: .regular)
 }
