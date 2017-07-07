@@ -10,15 +10,13 @@ import UIKit
 
 // MARK: - View model
 internal struct SessionsTableViewControllerViewModel {
-	var boulderingSession: Session?
-	var sportClimbingSession: Session?
 	
 	var hasActiveBoulderingSession: Bool {
-		return boulderingSession != nil
+		return AppDelegate.shared.boulderingSession != nil
 	}
 	
 	var hasActivesportClimbingSession: Bool {
-		return sportClimbingSession != nil
+		return AppDelegate.shared.sportClimbingSession != nil
 	}
 }
 
@@ -153,31 +151,31 @@ extension AddSessionTableViewController: SessionsButtonTableviewCellDelegate {
 	
 	@objc func sportClimbingButtonWasPressed() {
 		if !viewModel.hasActivesportClimbingSession {
-			viewModel.sportClimbingSession = Session(kind: .sportClimbing)
+			AppDelegate.shared.sportClimbingSession = Session(kind: .sportClimbing)
 			tableView.reloadData()
 		}
-		guard let sportClimbingSession =  viewModel.sportClimbingSession else { return }
+		guard let sportClimbingSession =  AppDelegate.shared.sportClimbingSession else { return }
 		let editSessionTableViewController = EditSessionViewController()
 		editSessionTableViewController.viewModel.session = sportClimbingSession
 		navigationController?.pushViewController(editSessionTableViewController, animated: true)
 		
-		if viewModel.sportClimbingSession?.date == nil {
-			viewModel.sportClimbingSession?.date = Date()
+		if AppDelegate.shared.sportClimbingSession?.date == nil {
+			AppDelegate.shared.sportClimbingSession?.date = Date()
 		}
 	}
 	
 	@objc func boulderingButtonWasPressed() {
 		if !viewModel.hasActiveBoulderingSession {
-			viewModel.boulderingSession = Session(kind: .bouldering)
+			AppDelegate.shared.boulderingSession = Session(kind: .bouldering)
 			tableView.reloadData()
 		}
-		guard let boulderingSession =  viewModel.boulderingSession else { return }
+		guard let boulderingSession =  AppDelegate.shared.boulderingSession else { return }
 		let editSessionTableViewController = EditSessionViewController()
 		editSessionTableViewController.viewModel.session = boulderingSession
 		navigationController?.pushViewController(editSessionTableViewController, animated: true)
 		
-		if viewModel.boulderingSession?.date == nil {
-			viewModel.boulderingSession?.date = Date()
+		if AppDelegate.shared.boulderingSession?.date == nil {
+			AppDelegate.shared.boulderingSession?.date = Date()
 		}
 	}
 }

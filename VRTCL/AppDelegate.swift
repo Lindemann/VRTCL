@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var user = User()
 	static let shared = UIApplication.shared.delegate as! AppDelegate
 	
+	var boulderingSession: Session?
+	var sportClimbingSession: Session?
+	
 	let sportClimbingSessionLocationManager = CLLocationManager()
 	let bouleringSessionLocationManager = CLLocationManager()
 	var sportClimbingInitialLocation: CLLocation? {
@@ -65,6 +68,7 @@ protocol InitialLocationDelegate: class {
 	func userHasLeftInitialLocation()
 }
 
+// MARK:  - Handle location stuff
 extension AppDelegate: CLLocationManagerDelegate {
 	
 	private func setupLocationTracking() {

@@ -36,6 +36,15 @@ struct EditSessionViewControllerViewModel {
 		guard let date = session.date else { return 0 }
 		return Calendar.current.dateComponents([.hour], from: date, to: Date()).hour ?? 0
 	}
+	
+	internal func setSessionToNil() {
+		switch kind {
+		case .bouldering:
+			AppDelegate.shared.boulderingSession = nil
+		case .sportClimbing:
+			AppDelegate.shared.sportClimbingSession = nil
+		}
+	}
 }
 
 // MARK: - Controller
@@ -121,6 +130,8 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		if viewModel.session.duration == nil {
 			viewModel.session.duration = viewModel.estimatedDuration
 		}
+		AppDelegate.shared.user.sessions?.append(viewModel.session)
+		viewModel.setSessionToNil()
 		navigationController?.popViewController(animated: true)
 	}
 }
@@ -325,6 +336,7 @@ extension EditSessionViewController: DurationViewDelegate {
 			return
 		}
 		let DeleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] action in
+			self?.viewModel.setSessionToNil()
 			self?.navigationController?.popViewController(animated: true)
 		}
 		alertController.addAction(DeleteAction)
@@ -375,7 +387,7 @@ extension EditSessionViewController: UITextFieldDelegate {
 	}
 }
 
-// MARK:  - Handle location actions
+// MARK:  - Handle location stuff
 extension EditSessionViewController: InitialLocationDelegate {
 	
 	func userHasLeftInitialLocation() {
