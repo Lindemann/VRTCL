@@ -19,7 +19,7 @@ class CircleButtonWithText: UIView {
 	private let buttonSizeMedium: CGFloat = 60
 	private let fontSizeSmall: CGFloat = 12
 	private let fontSizeMedium: CGFloat = 16
-	private let sizeSmall: CGFloat = 60
+	private let sizeSmall: CGFloat = 62 // LOL 60 + 2 to make "Best Efford" fit
 	private let sizeMedium: CGFloat = 90
 	
 	
@@ -61,6 +61,7 @@ class CircleButtonWithText: UIView {
 		label.text = labelText
 		label.textColor = Colors.lightGray
 		label.textAlignment = .center
+		label.lineBreakMode = .byWordWrapping
 		
 		addSubview(label)
 		label.translatesAutoresizingMaskIntoConstraints = false
