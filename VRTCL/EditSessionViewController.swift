@@ -174,7 +174,7 @@ extension EditSessionViewControllerViewModel {
 		guard let climbs = session.climbs, climbs.count > 0 else { return nil }
 		var items: [CircleButtonWithText] = []
 		for (index, climb) in climbs.enumerated() {
-			let circleButtonWithText = CircleButtonWithText(mode: .filledMedium, buttonText: climb.grade?.value ?? "", labelText: climb.style?.rawValue ?? Style.toprope.rawValue, color: climb.grade?.color ?? UIColor.white)
+			let circleButtonWithText = CircleButtonWithText(mode: .filledMedium, buttonText: climb.grade?.value ?? "", labelText: climb.style?.rawValue ?? Style.toprope.rawValue, color: UIColor(hex: climb.grade?.color))
 			if climb.style == .attempt || climb.style == .toprope {
 				circleButtonWithText.circleButton?.alpha = 0.4
 			}
@@ -397,7 +397,7 @@ extension EditSessionViewController: InitialLocationDelegate {
 	}
 	
 	func initialLocationWasSet(initialLocation: CLLocation) {
-		viewModel.session.location?.geoLocation = initialLocation
+		viewModel.session.location?.coordinate = Location.Coordinate(latitude: initialLocation.coordinate.latitude, longitude: initialLocation.coordinate.longitude)
 		initialLocation.nameRequest { [weak self] (name, error) in
 			self?.viewModel.session.location?.name = name
 			self?.tableView.reloadData()

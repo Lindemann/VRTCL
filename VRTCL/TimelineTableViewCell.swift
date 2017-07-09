@@ -38,7 +38,7 @@ internal struct TimelineTableViewCellViewModel {
 	internal var climbsButtonGrid: ButtonGrid {
 		var items: [CircleButton] = []
 		for climb in climbs {
-			let button = CircleButton(diameter: 30, text: climb.grade?.value ?? "0", color: climb.grade?.color ?? UIColor.black)
+			let button = CircleButton(diameter: 30, text: climb.grade?.value ?? "0", color: UIColor(hex: climb.grade?.color))
 			if climb.style == .toprope || climb.style == .attempt {
 				button.alpha = 0.4
 			}

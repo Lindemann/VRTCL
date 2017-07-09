@@ -12,12 +12,12 @@ import CoreLocation
 
 extension UIColor {
 	
-	convenience init(hex: String) {
-		var string = hex
+	convenience init(hex: String?) {
+		var string = hex ?? "#FF5778"
 		if string.hasPrefix("#") {
-			string = hex.substring(from: hex.index(hex.startIndex, offsetBy: 1))
+			string = string.substring(from: string.index(string.startIndex, offsetBy: 1))
 		} else if string.hasPrefix("0x") {
-			string = hex.substring(from: hex.index(hex.startIndex, offsetBy: 2))
+			string = string.substring(from: string.index(string.startIndex, offsetBy: 2))
 		}
 		let scanner = Scanner(string: string)
 		scanner.scanLocation = 0

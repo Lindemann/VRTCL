@@ -204,7 +204,7 @@ extension AddRouteTableViewControllerViewModel {
 		var items: [UIView] = []
 		for grade in scale {
 			if grade.isRealGrade == true {
-				let circleButton = CircleButton(text: grade.value ?? "", color: grade.color ?? UIColor.white, appearanceMode: .outlined)
+				let circleButton = CircleButton(text: grade.value ?? "", color: UIColor(hex: grade.color), appearanceMode: .outlined)
 				items.append(circleButton)
 				
 				if system == .subjective {
