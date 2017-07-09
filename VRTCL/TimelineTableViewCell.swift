@@ -12,6 +12,11 @@ internal struct TimelineTableViewCellViewModel {
 	var photo = #imageLiteral(resourceName: "avatar")
 	var kind = Kind.bouldering
 	var name = "Judith Lindemann"
+	var location = "Berlin, DAV Halle"
+	var numberOfClimbs = 0
+	var bestEffort = "15.5c"
+	var duration = 0
+	var climbs: [Climb] = []
 	
 	internal var kindBadgeText: String {
 		return kind == .bouldering ? "B" : "SC"
@@ -23,23 +28,31 @@ internal struct TimelineTableViewCellViewModel {
 	
 	internal var performanceButtonGrid: ButtonGrid {
 		let climbsLabel = kind == .bouldering ? "Boulder" : "Routes"
-		let climbsButton = CircleButtonWithText(mode: .outlineSmall, buttonText: "6", labelText: climbsLabel, color: Colors.lightGray)
-		let bestEffortButton = CircleButtonWithText(mode: .outlineSmall, buttonText: "6", labelText: "Best Effort", color: Colors.lightGray)
-		let durationButton = CircleButtonWithText(mode: .outlineSmall, buttonText: "6h", labelText: "Duration", color: Colors.lightGray)
+		let climbsButton = CircleButtonWithText(mode: .outlineSmall, buttonText: "\(numberOfClimbs)", labelText: climbsLabel, color: Colors.lightGray)
+		let bestEffortButton = CircleButtonWithText(mode: .outlineSmall, buttonText: bestEffort, labelText: "Best Effort", color: Colors.lightGray)
+		let durationButton = CircleButtonWithText(mode: .outlineSmall, buttonText: "\(duration)", labelText: "Duration", color: Colors.lightGray)
 		let items = [climbsButton, bestEffortButton, durationButton]
 		return ButtonGrid(itemsPerRow: 3, items: items, spaceing: 20)
 	}
 	
 	internal var climbsButtonGrid: ButtonGrid {
-		let button1 = CircleButton(diameter: 30, text: "7+", color: Colors.magenta)
+		var items: [CircleButton] = []
+		for climb in climbs {
+			let button = CircleButton(diameter: 30, text: climb.grade?.value ?? "0", color: climb.grade?.color ?? UIColor.black)
+			if climb.style == .toprope || climb.style == .attempt {
+				button.alpha = 0.4
+			}
+			items.append(button)
+		}
+		let button1 = CircleButton(diameter: 30, text: "15.5c", color: Colors.magenta)
 		let button2 = CircleButton(diameter: 30, text: "8+", color: Colors.babyBlue)
-		let button3 = CircleButton(diameter: 30, text: "12", color: Colors.neonGreen)
-		let items = [button1, button2, button3]
+		let button3 = CircleButton(diameter: 30, text: "5", color: Colors.orange)
+		let button4 = CircleButton(diameter: 30, text: "9a+", color: Colors.neonGreen)
+		let button5 = CircleButton(diameter: 30, text: "12", color: Colors.mint)
+		items = [button1, button2, button3, button4, button5]
 		let itemsPerRow = items.count < 6 ? items.count : 6
 		return ButtonGrid(itemsPerRow: itemsPerRow, items: items, spaceing: 20)
 	}
-	
-	var location = "Berlin, DAV Halle"
 }
 
 class TimelineTableViewCell: UITableViewCell {
@@ -142,7 +155,7 @@ class TimelineTableViewCell: UITableViewCell {
 	
 	
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-		super .init(style: style, reuseIdentifier: reuseIdentifier)
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setup()
 	}
 	

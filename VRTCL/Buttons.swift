@@ -166,8 +166,20 @@ class CircleButton: Button {
 		titleLabel?.adjustsFontSizeToFitWidth = true
 		titleLabel?.textAlignment = .center
 		titleLabel?.baselineAdjustment = .alignCenters
-		let insets: CGFloat = 5
-		titleEdgeInsets = UIEdgeInsets(top: insets, left: insets, bottom: insets, right: insets)
+		var inset: CGFloat = 0
+		// Adjusting the label size for small Buttons
+		if let count = titleLabel?.text?.characters.count, frame.width <= 30 {
+			switch count {
+			case 1:
+				inset = 11
+			case 2:
+				inset = 7
+			default:
+				print(titleLabel?.text ?? "")
+				inset = 0
+			}
+		}
+		titleEdgeInsets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
 		
 		if let image = image {
 			setImage(image.withRenderingMode(.alwaysTemplate), for: UIControlState())

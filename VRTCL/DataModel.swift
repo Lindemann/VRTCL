@@ -70,7 +70,7 @@ struct Likes {
 struct Comment {
 	var text: String
 	var user: User
-	var date: Foundation.Date
+	var date: Date
 }
 
 struct Comments {

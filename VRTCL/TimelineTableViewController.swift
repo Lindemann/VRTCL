@@ -23,7 +23,15 @@ class TimelineTableViewController: UITableViewController {
 		tableView.estimatedRowHeight = UITableViewAutomaticDimension
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.register(TimelineTableViewCell.self, forCellReuseIdentifier: TimelineTableViewCell.nibAndReuseIdentifier)
+		
+		tableView.separatorColor = Colors.lightGray
+		tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
+	
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+		dch_checkDeallocation()
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
