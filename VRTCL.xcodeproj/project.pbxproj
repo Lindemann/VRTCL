@@ -34,6 +34,7 @@
 		82C12A7E1C2480F900D9AC45 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C12A7D1C2480F900D9AC45 /* NavigationController.swift */; };
 		82C12A801C24811100D9AC45 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C12A7F1C24811100D9AC45 /* TabBarController.swift */; };
 		82C12A821C24827800D9AC45 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C12A811C24827800D9AC45 /* Constants.swift */; };
+		82C139E71F12C0E70027FB1D /* JsonIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C139E61F12C0E70027FB1D /* JsonIO.swift */; };
 		82DA1CD51F02E15400135394 /* FatTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DA1CD41F02E15400135394 /* FatTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		82C12A7D1C2480F900D9AC45 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		82C12A7F1C24811100D9AC45 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		82C12A811C24827800D9AC45 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		82C139E61F12C0E70027FB1D /* JsonIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonIO.swift; sourceTree = "<group>"; };
 		82DA1CD41F02E15400135394 /* FatTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatTextField.swift; sourceTree = "<group>"; };
 		A15E55CEF4005197D304EF55 /* Pods-VRTCL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VRTCL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VRTCL/Pods-VRTCL.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -156,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				82834E331BD002400006793C /* DataModel.swift */,
+				82C139E61F12C0E70027FB1D /* JsonIO.swift */,
 			);
 			name = "Data Models";
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				82DA1CD51F02E15400135394 /* FatTextField.swift in Sources */,
 				82C12A821C24827800D9AC45 /* Constants.swift in Sources */,
 				829F24761B0021EB00BDF443 /* AppDelegate.swift in Sources */,
+				82C139E71F12C0E70027FB1D /* JsonIO.swift in Sources */,
 				829EC0B31EEECB1200AB055F /* AddRouteTableViewController.swift in Sources */,
 				828C5DF91F07F5D000CB7468 /* DurationView.swift in Sources */,
 				829EC0B11EEECAF200AB055F /* EditSessionViewController.swift in Sources */,

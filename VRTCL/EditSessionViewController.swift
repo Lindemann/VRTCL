@@ -130,7 +130,7 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		if viewModel.session.duration == nil {
 			viewModel.session.duration = viewModel.estimatedDuration
 		}
-		AppDelegate.shared.user.sessions?.append(viewModel.session)
+		AppDelegate.shared.user.sessions.append(viewModel.session)
 		viewModel.setSessionToNil()
 		navigationController?.popViewController(animated: true)
 	}

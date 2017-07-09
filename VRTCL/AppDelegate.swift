@@ -13,7 +13,7 @@ import CoreLocation
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
-	var user = User()
+	var user = User.shared
 	static let shared = UIApplication.shared.delegate as! AppDelegate
 	
 	var boulderingSession: Session?
@@ -48,10 +48,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationDidEnterBackground(_ application: UIApplication) {
 		// Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
 		// If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+		guard user.sessions.count > 0 else { return }
+		JsonIO.save(codable: user.sessions)
 	}
 
 	func applicationWillEnterForeground(_ application: UIApplication) {
 		// Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+		var _ = JsonIO.codableType([Session].self)
 	}
 
 	func applicationDidBecomeActive(_ application: UIApplication) {

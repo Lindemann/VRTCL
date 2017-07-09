@@ -354,7 +354,8 @@ class Session: Codable {
 }
 
 class User: Codable {
-	var sessions: [Session]?
+	static let shared = User()
+	var sessions: [Session] = []
 	
 	let ud_boulderingGradeSystem = "ud_boulderingGradeSystem"
 	let ud_sportClimbingGradeSystem = "ud_sportClimbingGradeSystem"
