@@ -18,7 +18,6 @@ class ButtonGrid: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 	var spaceing: CGFloat!
 	var items: [UIView]! {
 		didSet {
-			guard let items = items else { return }
 			for item in items {
 				if let button = item as? UIButton {
 					button.addTarget(self, action: #selector(buttonWasPressed), for: .touchUpInside)
@@ -27,6 +26,14 @@ class ButtonGrid: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 				}
 			}
 		}
+	}
+	
+	var itemSize: CGFloat {
+		guard items.count > 0 else {
+			print("⚠️ ButtonGrid has no items!")
+			return 20
+		}
+		return items[0].frame.size.width
 	}
 	
 	var delegate: ButtonGridDelegate?
@@ -57,7 +64,8 @@ class ButtonGrid: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 	}
 	
 	private func size(itemsPerRow: Int, spaceing: CGFloat, items: [UIView]) -> CGSize {
-		let itemSize: CGFloat = items[0].frame.size.width
+		guard items.count > 0 else { return CGSize(width: 20, height: 20) }
+		let itemSize: CGFloat = self.itemSize
 		let itemsPerColum: Int = items.count % itemsPerRow == 0 ? items.count / itemsPerRow : items.count / itemsPerRow + 1
 		let size = CGSize(width: itemSize * CGFloat(itemsPerRow) + spaceing * CGFloat(itemsPerRow - 1), height: itemSize * CGFloat(itemsPerColum) + spaceing * CGFloat(itemsPerColum - 1))
 		return size
@@ -67,7 +75,7 @@ class ButtonGrid: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 		let flowLayout = UICollectionViewFlowLayout()
 		flowLayout.minimumLineSpacing = spaceing
 		flowLayout.minimumInteritemSpacing = spaceing
-		let itemSize: CGFloat = items[0].frame.size.width
+		let itemSize: CGFloat = self.itemSize
 		flowLayout.itemSize = CGSize(width: itemSize, height: itemSize)
 		collectionView = UICollectionView(frame: bounds, collectionViewLayout: flowLayout)
 		collectionView.delegate = self

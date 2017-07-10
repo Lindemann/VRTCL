@@ -9,11 +9,15 @@
 import UIKit
 import CoreLocation
 
-struct Grade: Codable {
+struct Grade: Codable, Equatable {
 	let system: System
 	let value: String?
 	let color: String?
 	let isRealGrade: Bool
+	
+	static func == (left: Grade, right: Grade) -> Bool {
+		return left.system == right.system && left.value == right.value
+	}
 }
 
 enum System: String, Codable {
@@ -94,7 +98,31 @@ struct Account: Codable {
 }
 
 struct Statistics {
-	
+	static func bestEffort(session: Session) -> Climb? {
+		guard let climbs = session.climbs else { return nil }
+		var realEfforts: [Climb] = []
+		for climb in climbs {
+			if let style = climb.style {
+				switch style {
+				case .toprope, .attempt:
+					continue
+				default:
+					realEfforts.append(climb)
+				}
+			}
+		}
+		var tmpBestEffort: Climb? = nil
+		if realEfforts.count == 0 { return nil }
+		for i in 0...realEfforts.count - 1 {
+			if tmpBestEffort == nil {
+				tmpBestEffort = realEfforts[i]
+			}
+			if GradeScales.indexFor(grade: realEfforts[i].grade) ?? 0 > GradeScales.indexFor(grade: tmpBestEffort?.grade) ?? 0 {
+				tmpBestEffort = realEfforts[i]
+			}
+		}
+		return tmpBestEffort
+	}
 }
 
 struct GradeScales: Codable {
@@ -123,6 +151,24 @@ struct GradeScales: Codable {
 			}
 		}
 		return nil
+	}
+	
+	static func indexFor(grade: Grade?) -> Int? {
+		guard let grade = grade else { return nil }
+		switch grade.system {
+		case .uiaa:
+			return GradeScales.uiaa.index(of: grade)
+		case .french:
+			return GradeScales.french.index(of: grade)
+		case .yds:
+			return GradeScales.yds.index(of: grade)
+		case .font:
+			return GradeScales.font.index(of: grade)
+		case .hueco:
+			return GradeScales.hueco.index(of: grade)
+		case .subjective:
+			return GradeScales.subjective.index(of: grade)
+		}
 	}
 	
 	static let uiaa: [Grade] = [

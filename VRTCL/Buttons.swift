@@ -175,7 +175,6 @@ class CircleButton: Button {
 			case 2:
 				inset = 7
 			default:
-				print(titleLabel?.text ?? "")
 				inset = 0
 			}
 		}

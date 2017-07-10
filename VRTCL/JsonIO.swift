@@ -19,7 +19,7 @@ struct JsonIO {
 		do {
 			let data = try encoder.encode(codable)
 			try data.write(to: fileUrl, options: [])
-			var _ = String(data: data, encoding: .utf8)!
+//			var _ = String(data: data, encoding: .utf8)!
 		} catch {
 			print("💥 \(error)")
 		}

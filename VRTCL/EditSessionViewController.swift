@@ -131,6 +131,10 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 			viewModel.session.duration = viewModel.estimatedDuration
 		}
 		AppDelegate.shared.user.sessions.append(viewModel.session)
+		// Store sessions to JSON cache
+		if AppDelegate.shared.user.sessions.count > 0 {
+			JsonIO.save(codable: AppDelegate.shared.user.sessions)
+		}
 		viewModel.setSessionToNil()
 		navigationController?.popViewController(animated: true)
 	}

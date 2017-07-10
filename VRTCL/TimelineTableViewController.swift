@@ -25,8 +25,14 @@ class TimelineTableViewController: UITableViewController {
 		tableView.register(TimelineTableViewCell.self, forCellReuseIdentifier: TimelineTableViewCell.nibAndReuseIdentifier)
 		
 		tableView.separatorColor = Colors.lightGray
-		tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+		tableView.separatorStyle = .none
+//		tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		tableView.reloadData()
+	}
 	
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
@@ -45,13 +51,19 @@ class TimelineTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return AppDelegate.shared.user.sessions.count
     }
-
 	
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: TimelineTableViewCell.nibAndReuseIdentifier, for: indexPath) as! TimelineTableViewCell
-		
+		var viewModel =  TimelineTableViewCellViewModel()
+		viewModel.kind = AppDelegate.shared.user.sessions[indexPath.row].kind
+		viewModel.location = AppDelegate.shared.user.sessions[indexPath.row].location?.name ?? "?"
+		viewModel.numberOfClimbs = AppDelegate.shared.user.sessions[indexPath.row].climbs?.count ?? 0
+		viewModel.bestEffort = "\(Statistics.bestEffort(session: AppDelegate.shared.user.sessions[indexPath.row])?.grade?.value ?? "0")"
+		viewModel.duration = AppDelegate.shared.user.sessions[indexPath.row].duration ?? 0
+		viewModel.climbs = AppDelegate.shared.user.sessions[indexPath.row].climbs ?? []
+		cell.viewModel = viewModel
         return cell
     }
 }

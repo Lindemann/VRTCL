@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal struct TimelineTableViewCellViewModel {
+struct TimelineTableViewCellViewModel {
 	var photo = #imageLiteral(resourceName: "avatar")
 	var kind = Kind.bouldering
 	var name = "Judith Lindemann"
@@ -35,7 +35,7 @@ internal struct TimelineTableViewCellViewModel {
 		return ButtonGrid(itemsPerRow: 3, items: items, spaceing: 20)
 	}
 	
-	internal var climbsButtonGrid: ButtonGrid {
+	internal var climbsButtonGrid: ButtonGrid? {
 		var items: [CircleButton] = []
 		for climb in climbs {
 			let button = CircleButton(diameter: 30, text: climb.grade?.value ?? "0", color: UIColor(hex: climb.grade?.color))
@@ -44,12 +44,12 @@ internal struct TimelineTableViewCellViewModel {
 			}
 			items.append(button)
 		}
-		let button1 = CircleButton(diameter: 30, text: "15.5c", color: Colors.magenta)
-		let button2 = CircleButton(diameter: 30, text: "8+", color: Colors.babyBlue)
-		let button3 = CircleButton(diameter: 30, text: "5", color: Colors.orange)
-		let button4 = CircleButton(diameter: 30, text: "9a+", color: Colors.neonGreen)
-		let button5 = CircleButton(diameter: 30, text: "12", color: Colors.mint)
-		items = [button1, button2, button3, button4, button5]
+//		let button1 = CircleButton(diameter: 30, text: "15.5c", color: Colors.magenta)
+//		let button2 = CircleButton(diameter: 30, text: "8+", color: Colors.babyBlue)
+//		let button3 = CircleButton(diameter: 30, text: "5", color: Colors.orange)
+//		let button4 = CircleButton(diameter: 30, text: "9a+", color: Colors.neonGreen)
+//		let button5 = CircleButton(diameter: 30, text: "12", color: Colors.mint)
+//		items = [button1, button2, button3, button4, button5]
 		let itemsPerRow = items.count < 6 ? items.count : 6
 		return ButtonGrid(itemsPerRow: itemsPerRow, items: items, spaceing: 20)
 	}
@@ -169,6 +169,7 @@ class TimelineTableViewCell: UITableViewCell {
 	}
 	
 	func setup() {
+		subviews.forEach { $0.removeFromSuperview() }
 		selectionStyle = .none
 		photoButton = PhotoButton(diameter: 80, image: viewModel.photo)
 		kindBadge = CircleButton(diameter: 40, text: viewModel.kindBadgeText, color: viewModel.kindBadgeColor, presentingViewBackgroundColor: UIColor.white)
