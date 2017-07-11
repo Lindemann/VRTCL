@@ -30,12 +30,14 @@ class CircleButtonWithText: UIView {
 	let buttonText: String
 	let labelText: String
 	let color: UIColor
+	let image: UIImage?
 	
-	init(mode: Mode, center: CGPoint = CGPoint.zero, buttonText: String, labelText: String, color: UIColor = UIColor.gray) {
+	init(mode: Mode, center: CGPoint = CGPoint.zero, buttonText: String, labelText: String, color: UIColor = UIColor.gray, image: UIImage? = nil) {
 		self.mode = mode
 		self.buttonText = buttonText
 		self.labelText = labelText
 		self.color = color
+		self.image = image
 		super.init(frame: CGRect.zero)
 		self.center = center
 		setup()
@@ -79,9 +81,9 @@ class CircleButtonWithText: UIView {
 		// Button
 		switch mode {
 		case .outlineSmall:
-			circleButton = CircleButton(center: CGPoint.zero, diameter: buttonSizeSmall, text: buttonText, color: Colors.lightGray, appearanceMode: .outlined, interactionMode: .highlightable)
+			circleButton = CircleButton(center: CGPoint.zero, diameter: buttonSizeSmall, text: buttonText, color: Colors.lightGray, appearanceMode: .outlined, interactionMode: .highlightable, image: image)
 		case .filledMedium:
-			circleButton = CircleButton(center: CGPoint.zero, diameter: buttonSizeMedium, text: buttonText, color: color, appearanceMode: .filled, interactionMode: .highlightable)
+			circleButton = CircleButton(center: CGPoint.zero, diameter: buttonSizeMedium, text: buttonText, color: color, appearanceMode: .filled, interactionMode: .highlightable, image: image)
 		}
 		
 		guard let circleButton = circleButton else { return }

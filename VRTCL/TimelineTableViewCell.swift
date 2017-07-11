@@ -17,6 +17,7 @@ struct TimelineTableViewCellViewModel {
 	var bestEffort = "15.5c"
 	var duration = 0
 	var climbs: [Climb] = []
+	var mood: Mood?
 	
 	internal var kindBadgeText: String {
 		return kind == .bouldering ? "B" : "SC"
@@ -31,8 +32,14 @@ struct TimelineTableViewCellViewModel {
 		let climbsButton = CircleButtonWithText(mode: .outlineSmall, buttonText: "\(numberOfClimbs)", labelText: climbsLabel, color: Colors.lightGray)
 		let bestEffortButton = CircleButtonWithText(mode: .outlineSmall, buttonText: bestEffort, labelText: "Best Effort", color: Colors.lightGray)
 		let durationButton = CircleButtonWithText(mode: .outlineSmall, buttonText: "\(duration)", labelText: "Duration", color: Colors.lightGray)
-		let items = [climbsButton, bestEffortButton, durationButton]
-		return ButtonGrid(itemsPerRow: 3, items: items, spaceing: 20)
+		var items = [climbsButton, bestEffortButton, durationButton]
+		var itemsPerRow = 3
+		if let mood = mood {
+			itemsPerRow = 4
+			let moodButton = CircleButtonWithText(mode: .outlineSmall, buttonText: "\(duration)", labelText: "Duration", color: Colors.lightGray, image: UIImage(named: mood.rawValue))
+			items.append(moodButton)
+		}
+		return ButtonGrid(itemsPerRow: itemsPerRow, items: items, spaceing: 20)
 	}
 	
 	internal var climbsButtonGrid: ButtonGrid? {
@@ -44,12 +51,6 @@ struct TimelineTableViewCellViewModel {
 			}
 			items.append(button)
 		}
-//		let button1 = CircleButton(diameter: 30, text: "15.5c", color: Colors.magenta)
-//		let button2 = CircleButton(diameter: 30, text: "8+", color: Colors.babyBlue)
-//		let button3 = CircleButton(diameter: 30, text: "5", color: Colors.orange)
-//		let button4 = CircleButton(diameter: 30, text: "9a+", color: Colors.neonGreen)
-//		let button5 = CircleButton(diameter: 30, text: "12", color: Colors.mint)
-//		items = [button1, button2, button3, button4, button5]
 		let itemsPerRow = items.count < 6 ? items.count : 6
 		return ButtonGrid(itemsPerRow: itemsPerRow, items: items, spaceing: 20)
 	}
@@ -149,6 +150,18 @@ class TimelineTableViewCell: UITableViewCell {
 		}
 	}
 	
+	private var seperator: UIView! {
+		didSet {
+			seperator.backgroundColor = Colors.lightGray
+			addSubview(seperator)
+			seperator.translatesAutoresizingMaskIntoConstraints = false
+			seperator.heightAnchor.constraint(equalToConstant: 1).isActive = true
+			seperator.widthAnchor.constraint(equalTo: widthAnchor, constant: -60).isActive = true
+			seperator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+			seperator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+		}
+	}
+	
 	var height: CGFloat {
 		return specialTopSpacing + photoButton.frame.height + spacing + nameLabel.frame.height + spacing + performanceButtonGrid.frame.height + spacing + climbsButtonGrid.frame.height + spacing + locationLablel.frame.height + spacing
 	}
@@ -177,7 +190,7 @@ class TimelineTableViewCell: UITableViewCell {
 		performanceButtonGrid = viewModel.performanceButtonGrid
 		climbsButtonGrid = viewModel.climbsButtonGrid
 		locationLablel = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 20))
-		
+		seperator = UIView()
 		heightAnchor.constraint(equalToConstant: height).isActive = true
     }
 }

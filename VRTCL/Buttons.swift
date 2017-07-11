@@ -181,6 +181,10 @@ class CircleButton: Button {
 		titleEdgeInsets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
 		
 		if let image = image {
+			imageView?.contentMode = .scaleAspectFit
+			// TODO: Fix me with small images
+			let inset: CGFloat = 8 // Ugly AF...shriks the image for the small face button
+			imageEdgeInsets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
 			setImage(image.withRenderingMode(.alwaysTemplate), for: UIControlState())
 			adjustsImageWhenHighlighted = false
 		}

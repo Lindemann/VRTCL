@@ -24,9 +24,7 @@ class TimelineTableViewController: UITableViewController {
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.register(TimelineTableViewCell.self, forCellReuseIdentifier: TimelineTableViewCell.nibAndReuseIdentifier)
 		
-		tableView.separatorColor = Colors.lightGray
 		tableView.separatorStyle = .none
-//		tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -62,6 +60,7 @@ class TimelineTableViewController: UITableViewController {
 		viewModel.numberOfClimbs = AppDelegate.shared.user.sessions[indexPath.row].climbs?.count ?? 0
 		viewModel.bestEffort = "\(Statistics.bestEffort(session: AppDelegate.shared.user.sessions[indexPath.row])?.grade?.value ?? "0")"
 		viewModel.duration = AppDelegate.shared.user.sessions[indexPath.row].duration ?? 0
+		viewModel.mood = AppDelegate.shared.user.sessions[indexPath.row].mood
 		viewModel.climbs = AppDelegate.shared.user.sessions[indexPath.row].climbs ?? []
 		cell.viewModel = viewModel
         return cell

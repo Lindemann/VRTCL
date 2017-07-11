@@ -190,7 +190,7 @@ extension EditSessionViewControllerViewModel {
 	}
 	
 	internal var moodButtonGrid: ButtonGrid? {
-		let smile = CircleButton(diameter: 60, text: "", color: Colors.lightGray, appearanceMode: .outlined, image: #imageLiteral(resourceName: "smile"))
+		let smile = CircleButton(diameter: 60, text: "", color: Colors.lightGray, appearanceMode: .outlined, image: #imageLiteral(resourceName: "good"))
 		let nah = CircleButton(diameter: 60, text: "", color: Colors.lightGray, appearanceMode: .outlined, image: #imageLiteral(resourceName: "nah"))
 		let dead = CircleButton(diameter: 60, text: "", color: Colors.lightGray, appearanceMode: .outlined, image: #imageLiteral(resourceName: "dead"))
 		smile.tag = 0
@@ -282,6 +282,7 @@ extension EditSessionViewController: DurationViewDelegate {
 		cell.heading = "Duration"
 		let durationView = DurationView()
 		durationView.duration = viewModel.estimatedDuration
+		durationView.delegate = self
 		cell.content = durationView
 		cell.hasBottomSpacing = false
 		return cell
