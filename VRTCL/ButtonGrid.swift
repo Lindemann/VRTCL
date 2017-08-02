@@ -30,7 +30,6 @@ class ButtonGrid: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 	
 	var itemSize: CGFloat {
 		guard items.count > 0 else {
-			print("⚠️ ButtonGrid has no items!")
 			return 20
 		}
 		return items[0].frame.size.width

@@ -18,8 +18,12 @@ class DurationView: UIView {
 		didSet {
 			if duration > 24 {
 				duration = 24
+				let generator = UIImpactFeedbackGenerator(style: .heavy)
+				generator.impactOccurred()
 			} else if duration < 0 {
 				duration = 0
+				let generator = UIImpactFeedbackGenerator(style: .heavy)
+				generator.impactOccurred()
 			}
 			label.text = "\(duration)h"
 		}

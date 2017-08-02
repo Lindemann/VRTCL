@@ -36,7 +36,7 @@ struct TimelineTableViewCellViewModel {
 		var itemsPerRow = 3
 		if let mood = mood {
 			itemsPerRow = 4
-			let moodButton = CircleButtonWithText(mode: .outlineSmall, buttonText: "\(duration)", labelText: "Duration", color: Colors.lightGray, image: UIImage(named: mood.rawValue))
+			let moodButton = CircleButtonWithText(mode: .outlineSmall, buttonText: "\(duration)", labelText: "Mood", color: Colors.lightGray, image: UIImage(named: mood.rawValue))
 			items.append(moodButton)
 		}
 		return ButtonGrid(itemsPerRow: itemsPerRow, items: items, spaceing: 20)

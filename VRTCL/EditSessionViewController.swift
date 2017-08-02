@@ -127,6 +127,12 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 	// MARK: Helper
 	
 	@objc private func save() {
+		guard let count = viewModel.session.climbs?.count, count > 0 else {
+			let generator = UIImpactFeedbackGenerator(style: .heavy)
+			generator.impactOccurred()
+			return
+		}
+		
 		if viewModel.session.duration == nil {
 			viewModel.session.duration = viewModel.estimatedDuration
 		}

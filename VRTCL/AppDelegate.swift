@@ -102,6 +102,7 @@ extension AppDelegate: CLLocationManagerDelegate {
 		}
 		if distance(from: sportClimbingInitialLocation, to: locations.last, isBiggerThan: maxDistance) {
 			initialLocationDelegate?.userHasLeftInitialLocation()
+			sportClimbingSessionLocationManager.stopUpdatingLocation()
 		}
 		
 		if boulderingInitialLocation == nil && manager === bouleringSessionLocationManager {
@@ -109,6 +110,7 @@ extension AppDelegate: CLLocationManagerDelegate {
 		}
 		if distance(from: boulderingInitialLocation, to: locations.last, isBiggerThan: maxDistance) {
 			initialLocationDelegate?.userHasLeftInitialLocation()
+			bouleringSessionLocationManager.stopUpdatingLocation()
 		}
 	}
 }
