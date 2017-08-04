@@ -36,6 +36,7 @@
 		82C12A821C24827800D9AC45 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C12A811C24827800D9AC45 /* Constants.swift */; };
 		82C139E71F12C0E70027FB1D /* JsonIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C139E61F12C0E70027FB1D /* JsonIO.swift */; };
 		82DA1CD51F02E15400135394 /* FatTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DA1CD41F02E15400135394 /* FatTextField.swift */; };
+		82E763BB1F3302F9008FC10D /* iBeaconTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E763BA1F3302F9008FC10D /* iBeaconTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		82C12A811C24827800D9AC45 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		82C139E61F12C0E70027FB1D /* JsonIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonIO.swift; sourceTree = "<group>"; };
 		82DA1CD41F02E15400135394 /* FatTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatTextField.swift; sourceTree = "<group>"; };
+		82E763BA1F3302F9008FC10D /* iBeaconTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iBeaconTableViewController.swift; sourceTree = "<group>"; };
 		A15E55CEF4005197D304EF55 /* Pods-VRTCL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VRTCL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VRTCL/Pods-VRTCL.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -225,6 +227,7 @@
 				829EC0B21EEECB1200AB055F /* AddRouteTableViewController.swift */,
 				8227CA601EF5157B00EF236A /* SessionsTableViewCell.swift */,
 				828C5DF81F07F5D000CB7468 /* DurationView.swift */,
+				82E763BA1F3302F9008FC10D /* iBeaconTableViewController.swift */,
 			);
 			name = Sessions;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				82541A311EF265D10020032C /* ButtonGrid.swift in Sources */,
 				82C12A801C24811100D9AC45 /* TabBarController.swift in Sources */,
 				82AAC0C71EEF5ED800B7E6A3 /* CircleButtonWithText.swift in Sources */,
+				82E763BB1F3302F9008FC10D /* iBeaconTableViewController.swift in Sources */,
 				82B986701F0FD1FA001BD4B5 /* TimelineTableViewCell.swift in Sources */,
 				82AAC0C51EEF5C9E00B7E6A3 /* ViewController.swift in Sources */,
 				82DA1CD51F02E15400135394 /* FatTextField.swift in Sources */,
