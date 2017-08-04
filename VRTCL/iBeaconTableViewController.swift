@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 // MARK: - View model
 struct iBeaconTableViewControllerViewModell {
@@ -28,7 +29,7 @@ struct iBeaconTableViewControllerViewModell {
 		}
 	}
 	
-	var hasStartedClimb = true
+	var hasStartedClimb = false
 	var hasTopedClimb = false
 }
 
@@ -36,6 +37,12 @@ struct iBeaconTableViewControllerViewModell {
 class iBeaconTableViewController: UITableViewController {
 	
 	var viewModel = iBeaconTableViewControllerViewModell()
+	
+	var locationManager = CLLocationManager()
+	let proximityUUID = UUID(uuidString: "f7826da6-4fa2-4e98-8024-bc5b71e0893e")
+	let majorID: CLBeaconMajorValue = 0
+	let beaconID = "beacon"
+	var region: CLBeaconRegion { return CLBeaconRegion(proximityUUID: proximityUUID!, major: majorID, identifier: beaconID) }
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -52,6 +59,8 @@ class iBeaconTableViewController: UITableViewController {
 		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
 		navigationItem.title = viewModel.navigationBarTitle
 		navigationController?.navigationBar.barTintColor = viewModel.navigationBarColor
+		
+		setupIBeaconStuff()
 	}
 	
 	
@@ -83,8 +92,59 @@ class iBeaconTableViewController: UITableViewController {
 	}
 }
 
-// MARK: - Cells
+// MARK: - iBeacon
+extension iBeaconTableViewController: CLLocationManagerDelegate {
+	
+	func setupIBeaconStuff() {
+		locationManager.delegate = self
+		if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
+			locationManager.startMonitoring(for: region)
+			locationManager.startRangingBeacons(in: region)
+		}
+	}
+	
+	func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+		if region is CLBeaconRegion {
+			if CLLocationManager.isRangingAvailable() {
+				manager.startRangingBeacons(in: region as! CLBeaconRegion)
+			}
+		}
+	}
+	
+	func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
+		if beacons.count > 0 {
+			for beacon in beacons {
+				let minor = CLBeaconMinorValue(truncating: beacon.minor)
+				func rangedIBeacon() {
+					tableView.reloadData()
+					if viewModel.hasStartedClimb && viewModel.hasTopedClimb {
+						manager.stopRangingBeacons(in: region)
+						navigationItem.rightBarButtonItem?.isEnabled = true
+					}
+				}
+				
+//				if beacon.proximity == .near {
+//					print("near \(minor), accuracy \(beacon.accuracy)")
+//				}
+//				if beacon.proximity == .immediate {
+//					print("immediate \(minor), accuracy \(beacon.accuracy)")
+//				}
+				// Start
+				if minor == 0  && ( beacon.proximity == .immediate || beacon.proximity == .near ) {
+					viewModel.hasStartedClimb = true
+					rangedIBeacon()
+				}
+				// Top
+				if minor == 1 && beacon.proximity == .immediate && viewModel.hasStartedClimb {
+					viewModel.hasTopedClimb = true
+					rangedIBeacon()
+				}
+			}
+		}
+	}
+}
 
+// MARK: - Cells
 extension iBeaconTableViewControllerViewModell {
 	var startColor: UIColor {
 		return hasStartedClimb ? Colors.mint : Colors.lightGray
