@@ -1,5 +1,5 @@
 //
-//  iBeaconTableViewController.swift
+//  IBeaconTableViewController.swift
 //  VRTCL
 //
 //  Created by Lindemann on 03.08.17.
@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 
 // MARK: - View model
-struct iBeaconTableViewControllerViewModell {
+struct IBeaconTableViewControllerViewModell {
 	
 	var session: Session = Session(kind: .sportClimbing)
 	var climb: Climb = Climb()
@@ -34,9 +34,9 @@ struct iBeaconTableViewControllerViewModell {
 }
 
 // MARK: - Controller
-class iBeaconTableViewController: UITableViewController {
+class IBeaconTableViewController: UITableViewController {
 	
-	var viewModel = iBeaconTableViewControllerViewModell()
+	var viewModel = IBeaconTableViewControllerViewModell()
 	
 	var locationManager = CLLocationManager()
 	let proximityUUID = UUID(uuidString: "f7826da6-4fa2-4e98-8024-bc5b71e0893e")
@@ -88,12 +88,12 @@ class iBeaconTableViewController: UITableViewController {
 	}
 	
 	@objc func cancel() {
-		dismiss(animated: true, completion: nil)
+		navigationController?.dismiss(animated: true, completion: nil)
 	}
 }
 
 // MARK: - iBeacon
-extension iBeaconTableViewController: CLLocationManagerDelegate {
+extension IBeaconTableViewController: CLLocationManagerDelegate {
 	
 	func setupIBeaconStuff() {
 		locationManager.delegate = self
@@ -145,7 +145,7 @@ extension iBeaconTableViewController: CLLocationManagerDelegate {
 }
 
 // MARK: - Cells
-extension iBeaconTableViewControllerViewModell {
+extension IBeaconTableViewControllerViewModell {
 	var startColor: UIColor {
 		return hasStartedClimb ? Colors.mint : Colors.lightGray
 	}
@@ -195,7 +195,7 @@ class iBeaconTableViewCell: UITableViewCell {
 	}
 }
 
-extension iBeaconTableViewController {
+extension IBeaconTableViewController {
 	
 	private var startTableViewCell: iBeaconTableViewCell {
 		let cell = iBeaconTableViewCell()

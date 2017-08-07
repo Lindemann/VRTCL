@@ -154,10 +154,9 @@ extension AddSessionTableViewController: SessionsButtonTableviewCellDelegate {
 			AppDelegate.shared.sportClimbingSession = Session(kind: .sportClimbing)
 			tableView.reloadData()
 		}
+		
 		guard let sportClimbingSession =  AppDelegate.shared.sportClimbingSession else { return }
-		let editSessionTableViewController = EditSessionViewController()
-		editSessionTableViewController.viewModel.session = sportClimbingSession
-		navigationController?.pushViewController(editSessionTableViewController, animated: true)
+		pushViewControllerWith(session: sportClimbingSession)
 		
 		if AppDelegate.shared.sportClimbingSession?.date == nil {
 			AppDelegate.shared.sportClimbingSession?.date = Date()
@@ -169,14 +168,23 @@ extension AddSessionTableViewController: SessionsButtonTableviewCellDelegate {
 			AppDelegate.shared.boulderingSession = Session(kind: .bouldering)
 			tableView.reloadData()
 		}
+		
 		guard let boulderingSession =  AppDelegate.shared.boulderingSession else { return }
-		let editSessionTableViewController = EditSessionViewController()
-		editSessionTableViewController.viewModel.session = boulderingSession
-		navigationController?.pushViewController(editSessionTableViewController, animated: true)
+		pushViewControllerWith(session: boulderingSession)
 		
 		if AppDelegate.shared.boulderingSession?.date == nil {
 			AppDelegate.shared.boulderingSession?.date = Date()
 		}
+	}
+	
+	private func pushViewControllerWith(session: Session) {
+		// TODO: Remove InputMethodViewController
+//		let editSessionTableViewController = EditSessionViewController()
+//		editSessionTableViewController.viewModel.session = session
+//		navigationController?.pushViewController(editSessionTableViewController, animated: true)
+		let inputMethodViewController = InputMethodViewController()
+		inputMethodViewController.viewModel.session = session
+		navigationController?.pushViewController(inputMethodViewController, animated: true)
 	}
 }
 

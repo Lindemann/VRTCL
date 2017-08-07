@@ -8,25 +8,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Beacon Table View Controller-->
-        <scene sceneID="mJ3-1S-sZz">
-            <objects>
-                <tableViewController id="Eba-vV-As4" customClass="iBeaconTableViewController" customModule="VRTCL" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DTk-Dy-Clf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <connections>
-                            <outlet property="dataSource" destination="Eba-vV-As4" id="id6-tK-WMz"/>
-                            <outlet property="delegate" destination="Eba-vV-As4" id="kEB-BT-9UY"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="z5T-iP-d0g"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1wQ-QC-TcI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="993" y="130"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="lAD-6v-qvG">
             <objects>
@@ -42,12 +23,31 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Eba-vV-As4" kind="relationship" relationship="rootViewController" id="Kag-aT-42L"/>
+                        <segue destination="QdA-p6-b0K" kind="relationship" relationship="rootViewController" id="GOS-Sr-U8n"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2lB-Oj-3hL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="129.98500749625188"/>
+        </scene>
+        <!--Input Method View Controller-->
+        <scene sceneID="oa0-AP-Urs">
+            <objects>
+                <viewController id="QdA-p6-b0K" customClass="InputMethodViewController" customModule="VRTCL" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ceQ-6b-CSU"/>
+                        <viewControllerLayoutGuide type="bottom" id="OKz-CH-JIg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Y61-PZ-oXc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="0Yf-j2-EVp"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8wy-8s-wXq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="888" y="128"/>
         </scene>
     </scenes>
     <resources>

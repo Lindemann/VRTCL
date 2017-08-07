@@ -101,10 +101,11 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		}
 	}
 	
-	override func willMove(toParentViewController parent: UIViewController?) {
-		super.willMove(toParentViewController: parent)
-		self.navigationController?.navigationBar.barTintColor = Colors.bar
-	}
+	// TODO: Uncomment this!
+//	override func willMove(toParentViewController parent: UIViewController?) {
+//		super.willMove(toParentViewController: parent)
+//		self.navigationController?.navigationBar.barTintColor = Colors.bar
+//	}
 	
 	// MARK: Table view data source + delegate
 	

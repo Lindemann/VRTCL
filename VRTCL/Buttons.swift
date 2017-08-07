@@ -222,7 +222,7 @@ class FatButton: UIButton {
 		setup()
 	}
 	
-	init(origin: CGPoint, color: UIColor?, title: String, hasArrow: Bool = false) {
+	init(origin: CGPoint = CGPoint.zero, color: UIColor = UIColor.yellow, title: String, hasArrow: Bool = false) {
 		super.init(frame: CGRect.zero)
 		self.frame = CGRect(origin: origin, size: self.intrinsicContentSize)
 		self.color = color
