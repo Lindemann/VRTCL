@@ -31,6 +31,20 @@ struct IBeaconTableViewControllerViewModell {
 	
 	var hasStartedClimb = false
 	var hasTopedClimb = false
+	
+	internal var estimatedDuration: Int {
+		guard let date = session.date else { return 0 }
+		return Calendar.current.dateComponents([.hour], from: date, to: Date()).hour ?? 0
+	}
+	
+	internal func setSessionToNil() {
+		switch kind {
+		case .bouldering:
+			AppDelegate.shared.boulderingSession = nil
+		case .sportClimbing:
+			AppDelegate.shared.sportClimbingSession = nil
+		}
+	}
 }
 
 // MARK: - Controller
@@ -55,14 +69,13 @@ class IBeaconTableViewController: UITableViewController {
 		tableView.allowsSelection = false
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
-		navigationItem.rightBarButtonItem?.isEnabled = false
+//		navigationItem.rightBarButtonItem?.isEnabled = false
 		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
 		navigationItem.title = viewModel.navigationBarTitle
 		navigationController?.navigationBar.barTintColor = viewModel.navigationBarColor
 		
 		setupIBeaconStuff()
 	}
-	
 	
 	// MARK: - Table view data source
 
@@ -84,10 +97,30 @@ class IBeaconTableViewController: UITableViewController {
 	// MARK: Helper
 	
 	@objc func save() {
-		dismiss(animated: true, completion: nil)
+		let grade = viewModel.kind == .sportClimbing ? GradeScales.gradeScaleFor(system: .uiaa)[7] : GradeScales.gradeScaleFor(system: .font)[7]
+		let climb = Climb(style: .redpoint, grade: grade, index: 0)
+		viewModel.session.climbs?.append(climb)
+		viewModel.session.duration = viewModel.estimatedDuration
+		viewModel.session.mood = .good
+		viewModel.session.location = Location(venue: .gym, name: "Berlin", coordinate: nil)
+		
+		AppDelegate.shared.user.sessions.insert(viewModel.session, at: 0)
+		// Store sessions to JSON cache
+		if AppDelegate.shared.user.sessions.count > 0 {
+			JsonIO.save(codable: AppDelegate.shared.user.sessions)
+		}
+		viewModel.setSessionToNil()
+		
+		locationManager.stopUpdatingLocation()
+
+		navigationController?.dismiss(animated: true, completion: {
+			self.navigationController?.navigationController?.popToRootViewController(animated: true)
+		})
 	}
 	
 	@objc func cancel() {
+		viewModel.setSessionToNil()
+		locationManager.stopUpdatingLocation()
 		navigationController?.dismiss(animated: true, completion: nil)
 	}
 }

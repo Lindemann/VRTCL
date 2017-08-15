@@ -137,7 +137,7 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		if viewModel.session.duration == nil {
 			viewModel.session.duration = viewModel.estimatedDuration
 		}
-		AppDelegate.shared.user.sessions.append(viewModel.session)
+		AppDelegate.shared.user.sessions.insert(viewModel.session, at: 0)
 		// Store sessions to JSON cache
 		if AppDelegate.shared.user.sessions.count > 0 {
 			JsonIO.save(codable: AppDelegate.shared.user.sessions)
