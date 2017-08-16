@@ -10,16 +10,8 @@ import UIKit
 import CoreLocation
 
 // MARK: - View model
-struct IBeaconTableViewControllerViewModell {
-	
-	var session: Session = Session(kind: .sportClimbing)
-	var climb: Climb = Climb()
-	var kind: Kind { return session.kind }
-	
-	internal var navigationBarColor: UIColor {
-		return kind == .sportClimbing ? Colors.purple : Colors.discoBlue
-	}
-	
+class IBeaconTableViewControllerViewModell: SessionViewModel {
+
 	internal var navigationBarTitle: String {
 		switch kind {
 		case .sportClimbing:
@@ -31,20 +23,6 @@ struct IBeaconTableViewControllerViewModell {
 	
 	var hasStartedClimb = false
 	var hasTopedClimb = false
-	
-	internal var estimatedDuration: Int {
-		guard let date = session.date else { return 0 }
-		return Calendar.current.dateComponents([.hour], from: date, to: Date()).hour ?? 0
-	}
-	
-	internal func setSessionToNil() {
-		switch kind {
-		case .bouldering:
-			AppDelegate.shared.boulderingSession = nil
-		case .sportClimbing:
-			AppDelegate.shared.sportClimbingSession = nil
-		}
-	}
 }
 
 // MARK: - Controller
@@ -69,7 +47,7 @@ class IBeaconTableViewController: UITableViewController {
 		tableView.allowsSelection = false
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(save))
-//		navigationItem.rightBarButtonItem?.isEnabled = false
+		navigationItem.rightBarButtonItem?.isEnabled = false
 		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
 		navigationItem.title = viewModel.navigationBarTitle
 		navigationController?.navigationBar.barTintColor = viewModel.navigationBarColor
@@ -110,12 +88,8 @@ class IBeaconTableViewController: UITableViewController {
 			JsonIO.save(codable: AppDelegate.shared.user.sessions)
 		}
 		viewModel.setSessionToNil()
-		
 		locationManager.stopUpdatingLocation()
-
-		navigationController?.dismiss(animated: true, completion: {
-			self.navigationController?.navigationController?.popToRootViewController(animated: true)
-		})
+		navigationController?.dismiss(animated: true, completion: nil)
 	}
 	
 	@objc func cancel() {

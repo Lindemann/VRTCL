@@ -11,16 +11,10 @@ import UIKit
 import CoreLocation
 
 // MARK: - View model
-struct EditSessionViewControllerViewModel {
-	var session: Session = Session(kind: .sportClimbing)
-	internal var kind: Kind { return session.kind }
-	
+class EditSessionViewControllerViewModel: SessionViewModel {
+
 	internal var navigationBarTitle: String {
 		return kind == .sportClimbing ? "Sport Climbing Session" : "Bouldering Session"
-	}
-	
-	internal var navigationBarColor: UIColor {
-		return kind == .sportClimbing ? Colors.purple : Colors.discoBlue
 	}
 	
 	internal var addButton: FatButton {
@@ -29,20 +23,6 @@ struct EditSessionViewControllerViewModel {
 			return FatButton(origin: CGPoint.zero, color: Colors.purple, title: "Add Route")
 		case .bouldering:
 			return FatButton(origin: CGPoint.zero, color: Colors.discoBlue, title: "Add Boulder")
-		}
-	}
-	
-	internal var estimatedDuration: Int {
-		guard let date = session.date else { return 0 }
-		return Calendar.current.dateComponents([.hour], from: date, to: Date()).hour ?? 0
-	}
-	
-	internal func setSessionToNil() {
-		switch kind {
-		case .bouldering:
-			AppDelegate.shared.boulderingSession = nil
-		case .sportClimbing:
-			AppDelegate.shared.sportClimbingSession = nil
 		}
 	}
 }

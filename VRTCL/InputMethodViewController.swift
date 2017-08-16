@@ -8,18 +8,9 @@
 
 import UIKit
 
-struct InputMethodViewControllerViewModel {
-	var session: Session = Session(kind: .sportClimbing)
-	internal var kind: Kind { return session.kind }
-	
-	internal var navigationBarColor: UIColor {
-		return kind == .sportClimbing ? Colors.purple : Colors.discoBlue
-	}
-}
-
 class InputMethodViewController: UIViewController {
 
-	var viewModel = InputMethodViewControllerViewModel()
+	var viewModel = SessionViewModel()
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +61,11 @@ class InputMethodViewController: UIViewController {
 	}
 	
 	@objc private func altimeterTracking() {
-		
+		let altimeterViewController = AltimeterViewController()
+		altimeterViewController.viewModel.session = viewModel.session
+		let navigationController = NavigationController()
+		navigationController.setViewControllers([altimeterViewController], animated: false)
+		present(navigationController, animated: true, completion: nil)
 	}
 
 }

@@ -9,10 +9,8 @@
 import UIKit
 
 // MARK: - View model
-struct AddRouteTableViewControllerViewModel {
-	var session: Session = Session(kind: .sportClimbing)
-	var climb: Climb = Climb()
-	var kind: Kind { return session.kind }
+class AddRouteTableViewControllerViewModel: SessionViewModel {
+
 	var isInEditMode: Bool = false
 	
 	internal var navigationBarTitle: String {
@@ -26,10 +24,6 @@ struct AddRouteTableViewControllerViewModel {
 		case (.bouldering, true):
 			return "Edit Boulder"
 		}
-	}
-	
-	internal var navigationBarColor: UIColor {
-		return kind == .sportClimbing ? Colors.purple : Colors.discoBlue
 	}
 	
 	internal func leftBarButtonItemWith(target: AddRouteTableViewController) -> UIBarButtonItem {

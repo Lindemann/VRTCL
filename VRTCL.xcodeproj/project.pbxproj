@@ -16,6 +16,7 @@
 		821812181C2461CF004726DC /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821812171C2461CF004726DC /* Buttons.swift */; };
 		8227CA611EF5157B00EF236A /* SessionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8227CA601EF5157B00EF236A /* SessionsTableViewCell.swift */; };
 		82430AE31EB3DFD300160D15 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82430AE21EB3DFD300160D15 /* Extensions.swift */; };
+		824AB5411F42820400AD35FD /* AltimeterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824AB5401F42820400AD35FD /* AltimeterViewController.swift */; };
 		82541A311EF265D10020032C /* ButtonGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82541A301EF265D10020032C /* ButtonGrid.swift */; };
 		82834E341BD002400006793C /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82834E331BD002400006793C /* DataModel.swift */; };
 		828C5DF91F07F5D000CB7468 /* DurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828C5DF81F07F5D000CB7468 /* DurationView.swift */; };
@@ -36,6 +37,7 @@
 		82C12A821C24827800D9AC45 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C12A811C24827800D9AC45 /* Constants.swift */; };
 		82C139E71F12C0E70027FB1D /* JsonIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C139E61F12C0E70027FB1D /* JsonIO.swift */; };
 		82DA1CD51F02E15400135394 /* FatTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DA1CD41F02E15400135394 /* FatTextField.swift */; };
+		82DE827A1F4402B800047A77 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DE82791F4402B800047A77 /* SessionViewModel.swift */; };
 		82E763BB1F3302F9008FC10D /* IBeaconTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E763BA1F3302F9008FC10D /* IBeaconTableViewController.swift */; };
 		82E763BD1F351A1C008FC10D /* InputMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E763BC1F351A1C008FC10D /* InputMethodViewController.swift */; };
 /* End PBXBuildFile section */
@@ -51,6 +53,7 @@
 		821812171C2461CF004726DC /* Buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		8227CA601EF5157B00EF236A /* SessionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsTableViewCell.swift; sourceTree = "<group>"; };
 		82430AE21EB3DFD300160D15 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		824AB5401F42820400AD35FD /* AltimeterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltimeterViewController.swift; sourceTree = "<group>"; };
 		82541A301EF265D10020032C /* ButtonGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonGrid.swift; sourceTree = "<group>"; };
 		82834E331BD002400006793C /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		828C5DF81F07F5D000CB7468 /* DurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationView.swift; sourceTree = "<group>"; };
@@ -73,6 +76,7 @@
 		82C12A811C24827800D9AC45 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		82C139E61F12C0E70027FB1D /* JsonIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonIO.swift; sourceTree = "<group>"; };
 		82DA1CD41F02E15400135394 /* FatTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatTextField.swift; sourceTree = "<group>"; };
+		82DE82791F4402B800047A77 /* SessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
 		82E763BA1F3302F9008FC10D /* IBeaconTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBeaconTableViewController.swift; sourceTree = "<group>"; };
 		82E763BC1F351A1C008FC10D /* InputMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputMethodViewController.swift; sourceTree = "<group>"; };
 		A15E55CEF4005197D304EF55 /* Pods-VRTCL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VRTCL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VRTCL/Pods-VRTCL.debug.xcconfig"; sourceTree = "<group>"; };
@@ -231,6 +235,8 @@
 				828C5DF81F07F5D000CB7468 /* DurationView.swift */,
 				82E763BA1F3302F9008FC10D /* IBeaconTableViewController.swift */,
 				82E763BC1F351A1C008FC10D /* InputMethodViewController.swift */,
+				824AB5401F42820400AD35FD /* AltimeterViewController.swift */,
+				82DE82791F4402B800047A77 /* SessionViewModel.swift */,
 			);
 			name = Sessions;
 			sourceTree = "<group>";
@@ -378,8 +384,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				824AB5411F42820400AD35FD /* AltimeterViewController.swift in Sources */,
 				8227CA611EF5157B00EF236A /* SessionsTableViewCell.swift in Sources */,
 				821812181C2461CF004726DC /* Buttons.swift in Sources */,
+				82DE827A1F4402B800047A77 /* SessionViewModel.swift in Sources */,
 				82430AE31EB3DFD300160D15 /* Extensions.swift in Sources */,
 				82B9866E1F0FD1BA001BD4B5 /* TimelineTableViewController.swift in Sources */,
 				82834E341BD002400006793C /* DataModel.swift in Sources */,
