@@ -37,9 +37,11 @@ class AltimeterViewController: UIViewController {
 	
 	@objc func save() {
 		if routeCounter.routesCount > 0 {
-			let grade = viewModel.kind == .sportClimbing ? GradeScales.gradeScaleFor(system: .uiaa)[7] : GradeScales.gradeScaleFor(system: .font)[7]
-			let climb = Climb(style: .redpoint, grade: grade, index: 0)
-			viewModel.session.climbs?.append(climb)
+			for _ in 0...routeCounter.routesCount {
+				let grade = viewModel.kind == .sportClimbing ? GradeScales.gradeScaleFor(system: .uiaa)[8] : GradeScales.gradeScaleFor(system: .font)[9]
+				let climb = Climb(style: .redpoint, grade: grade, index: 0)
+				viewModel.session.climbs?.append(climb)
+			}
 			viewModel.session.duration = viewModel.estimatedDuration
 			viewModel.session.mood = .good
 			viewModel.session.location = Location(venue: .gym, name: "Berlin", coordinate: nil)
@@ -125,6 +127,9 @@ extension AltimeterViewController {
 	
 	func startAltimeter() {
 		print("Started relative altitude updates.")
+		
+		routeCounter.kind = viewModel.kind
+		
 		// Check if altimeter feature is available
 		if (CMAltimeter.isRelativeAltitudeAvailable()) {
 			// Start altimeter updates, add it to the main queue
@@ -139,6 +144,10 @@ extension AltimeterViewController {
 					
 					self?.routeCounter.monitor(altitude: altitude)
 					self?.counterLabel.text = "\(self?.routeCounter.routesCount ?? 0)"
+					
+					if (self?.routeCounter.routesCount ?? 0) > 0 {
+						self?.navigationItem.rightBarButtonItem?.isEnabled = true
+					}
 				}
 			})
 		} else {
@@ -150,7 +159,7 @@ extension AltimeterViewController {
 		altitudeLabel.text = "0.0 m"
 		altimeter.stopRelativeAltitudeUpdates()
 		print("Stopped relative altitude updates.")
-//		routeCounter.hasReachedThreshold = false
+		routeCounter.hasReachedThreshold = false
 //		routeCounter.routesCount = 0
 		altimeter = CMAltimeter()
 		startAltimeter()
@@ -159,10 +168,16 @@ extension AltimeterViewController {
 
 internal class RouteCounter {
 	
-	let threshold = 0.4
+	var threshold = 0.1
 	var routesCount = 0
 	var hasReachedThreshold = false
 	let relativeGroundRange = -100 ... 0.3
+	
+	var kind: Kind? {
+		didSet {
+			threshold = (kind == .sportClimbing) ? 10 : 4
+		}
+	}
 	
 	func monitor(altitude: Double) {
 		if altitude > threshold {
