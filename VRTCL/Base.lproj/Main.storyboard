@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13178.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13156.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -38,10 +38,10 @@
             </objects>
             <point key="canvasLocation" x="787" y="-1495"/>
         </scene>
-        <!--Statistics-->
+        <!--Analytics-->
         <scene sceneID="DhX-3N-lIM">
             <objects>
-                <viewControllerPlaceholder storyboardName="Statistics" id="CRb-Ac-4qR" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Analytics" id="CRb-Ac-4qR" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="VnD-wz-vYh"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gla-js-qdE" userLabel="First Responder" sceneMemberID="firstResponder"/>

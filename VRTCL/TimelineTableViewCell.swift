@@ -29,14 +29,14 @@ struct TimelineTableViewCellViewModel {
 	
 	internal var performanceButtonGrid: ButtonGrid {
 		let climbsLabel = kind == .bouldering ? "Boulder" : "Routes"
-		let climbsButton = CircleButtonWithText(mode: .outlineSmall, buttonText: "\(numberOfClimbs)", labelText: climbsLabel, color: Colors.lightGray)
-		let bestEffortButton = CircleButtonWithText(mode: .outlineSmall, buttonText: bestEffort, labelText: "Best Effort", color: Colors.lightGray)
-		let durationButton = CircleButtonWithText(mode: .outlineSmall, buttonText: "\(duration)", labelText: "Duration", color: Colors.lightGray)
+		let climbsButton = CircleButtonWithText(mode: .outlinedSmall, buttonText: "\(numberOfClimbs)", labelText: climbsLabel, color: Colors.lightGray)
+		let bestEffortButton = CircleButtonWithText(mode: .outlinedSmall, buttonText: bestEffort, labelText: "Best Effort", color: Colors.lightGray)
+		let durationButton = CircleButtonWithText(mode: .outlinedSmall, buttonText: "\(duration)", labelText: "Duration", color: Colors.lightGray)
 		var items = [climbsButton, bestEffortButton, durationButton]
 		var itemsPerRow = 3
 		if let mood = mood {
 			itemsPerRow = 4
-			let moodButton = CircleButtonWithText(mode: .outlineSmall, buttonText: "\(duration)", labelText: "Mood", color: Colors.lightGray, image: UIImage(named: mood.rawValue))
+			let moodButton = CircleButtonWithText(mode: .outlinedSmall, buttonText: "\(duration)", labelText: "Mood", color: Colors.lightGray, image: UIImage(named: mood.rawValue))
 			items.append(moodButton)
 		}
 		return ButtonGrid(itemsPerRow: itemsPerRow, items: items, spaceing: 20)

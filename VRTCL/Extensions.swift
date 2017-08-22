@@ -15,9 +15,11 @@ extension UIColor {
 	convenience init(hex: String?) {
 		var string = hex ?? "#FF5778"
 		if string.hasPrefix("#") {
-			string = string.substring(from: string.index(string.startIndex, offsetBy: 1))
+            let index = string.index(string.startIndex, offsetBy: 1)
+            string = "\(string[index...])"
 		} else if string.hasPrefix("0x") {
-			string = string.substring(from: string.index(string.startIndex, offsetBy: 2))
+            let index = string.index(string.startIndex, offsetBy: 2)
+            string = "\(string[index...])"
 		}
 		let scanner = Scanner(string: string)
 		scanner.scanLocation = 0

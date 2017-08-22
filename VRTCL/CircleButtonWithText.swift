@@ -11,17 +11,20 @@ import UIKit
 class CircleButtonWithText: UIView {
 	
 	enum Mode {
-		case outlineSmall
+		case outlinedSmall
 		case filledMedium
+        case outlinedLarge
 	}
 	
 	private let buttonSizeSmall: CGFloat = 40
 	private let buttonSizeMedium: CGFloat = 60
+    private let buttonSizeLarge: CGFloat = 80
 	private let fontSizeSmall: CGFloat = 12
 	private let fontSizeMedium: CGFloat = 16
-	private let sizeSmall: CGFloat = 62 // LOL 60 + 2 to make "Best Efford" fit
+    private let fontSizeLarge: CGFloat = 16
+	private let sizeSmall: CGFloat = 62 // LOL 60 + 2 to make the string "Best Efford" fit
 	private let sizeMedium: CGFloat = 90
-	
+	private let sizeLarge: CGFloat = 150
 	
 	var circleButton: CircleButton?
 	var label: UILabel?
@@ -51,10 +54,12 @@ class CircleButtonWithText: UIView {
 		
 		// Frame
 		switch mode {
-		case .outlineSmall:
+		case .outlinedSmall:
 			frame.size = CGSize(width: sizeSmall, height: sizeSmall)
 		case .filledMedium:
 			frame.size = CGSize(width: sizeMedium, height: sizeMedium)
+        case .outlinedLarge:
+            frame.size = CGSize(width: sizeMedium, height: sizeLarge)
 		}
 		
 		// Label
@@ -72,18 +77,23 @@ class CircleButtonWithText: UIView {
 		label.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
 		
 		switch mode {
-		case .outlineSmall:
+		case .outlinedSmall:
 			label.font = UIFont.systemFont(ofSize: fontSizeSmall, weight: .medium)
 		case .filledMedium:
 			label.font = UIFont.systemFont(ofSize: fontSizeMedium, weight: .medium)
+        case .outlinedLarge:
+            label.font = UIFont.systemFont(ofSize: fontSizeLarge, weight: .medium)
 		}
 		
 		// Button
 		switch mode {
-		case .outlineSmall:
-			circleButton = CircleButton(center: CGPoint.zero, diameter: buttonSizeSmall, text: buttonText, color: Colors.lightGray, appearanceMode: .outlined, interactionMode: .highlightable, image: image)
+		case .outlinedSmall:
+			circleButton = CircleButton(diameter: buttonSizeSmall, text: buttonText, color: Colors.lightGray, appearanceMode: .outlined, interactionMode: .highlightable, image: image)
 		case .filledMedium:
-			circleButton = CircleButton(center: CGPoint.zero, diameter: buttonSizeMedium, text: buttonText, color: color, appearanceMode: .filled, interactionMode: .highlightable, image: image)
+			circleButton = CircleButton(diameter: buttonSizeMedium, text: buttonText, color: color, appearanceMode: .filled, interactionMode: .highlightable, image: image)
+        case .outlinedLarge:
+            circleButton = CircleButton(diameter: buttonSizeLarge, text: buttonText, color: color, appearanceMode: .outlined, interactionMode: .highlightable, image: image)
+            circleButton?.titleLabel?.font = UIFont.systemFont(ofSize: 36, weight: .medium)
 		}
 		
 		guard let circleButton = circleButton else { return }
@@ -91,6 +101,21 @@ class CircleButtonWithText: UIView {
 		circleButton.translatesAutoresizingMaskIntoConstraints = false
 		circleButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
 		circleButton.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        
+        // Constraints Foo
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        switch mode {
+        case .outlinedSmall:
+            heightAnchor.constraint(equalToConstant: sizeSmall).isActive = true
+            widthAnchor.constraint(equalToConstant: sizeSmall).isActive = true
+        case .filledMedium:
+            heightAnchor.constraint(equalToConstant: sizeMedium).isActive = true
+            widthAnchor.constraint(equalToConstant: sizeMedium).isActive = true
+        case .outlinedLarge:
+            heightAnchor.constraint(equalToConstant: sizeLarge * 0.8).isActive = true
+            widthAnchor.constraint(equalToConstant: sizeLarge).isActive = true
+        }
 	}
 }
 
