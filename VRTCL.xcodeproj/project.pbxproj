@@ -16,6 +16,7 @@
 		821812181C2461CF004726DC /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821812171C2461CF004726DC /* Buttons.swift */; };
 		8227CA611EF5157B00EF236A /* SessionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8227CA601EF5157B00EF236A /* SessionsTableViewCell.swift */; };
 		8233F7081F4B9D7B00508B52 /* AnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233F7071F4B9D7B00508B52 /* AnalyticsViewController.swift */; };
+		8233F70A1F4CCF7F00508B52 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233F7091F4CCF7F00508B52 /* PieChartView.swift */; };
 		82430AE31EB3DFD300160D15 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82430AE21EB3DFD300160D15 /* Extensions.swift */; };
 		824AB5411F42820400AD35FD /* AltimeterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824AB5401F42820400AD35FD /* AltimeterViewController.swift */; };
 		82541A311EF265D10020032C /* ButtonGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82541A301EF265D10020032C /* ButtonGrid.swift */; };
@@ -54,6 +55,7 @@
 		821812171C2461CF004726DC /* Buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		8227CA601EF5157B00EF236A /* SessionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsTableViewCell.swift; sourceTree = "<group>"; };
 		8233F7071F4B9D7B00508B52 /* AnalyticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsViewController.swift; sourceTree = "<group>"; };
+		8233F7091F4CCF7F00508B52 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		82430AE21EB3DFD300160D15 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		824AB5401F42820400AD35FD /* AltimeterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltimeterViewController.swift; sourceTree = "<group>"; };
 		82541A301EF265D10020032C /* ButtonGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonGrid.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			children = (
 				8211D5D01EDA575E00DF3F48 /* Analytics.storyboard */,
 				8233F7071F4B9D7B00508B52 /* AnalyticsViewController.swift */,
+				8233F7091F4CCF7F00508B52 /* PieChartView.swift */,
 			);
 			name = Analytics;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				82DE827A1F4402B800047A77 /* SessionViewModel.swift in Sources */,
 				82430AE31EB3DFD300160D15 /* Extensions.swift in Sources */,
 				82B9866E1F0FD1BA001BD4B5 /* TimelineTableViewController.swift in Sources */,
+				8233F70A1F4CCF7F00508B52 /* PieChartView.swift in Sources */,
 				82834E341BD002400006793C /* DataModel.swift in Sources */,
 				82C12A7E1C2480F900D9AC45 /* NavigationController.swift in Sources */,
 				82BAE5E91EEA49BB00383585 /* AddSessionTableViewController.swift in Sources */,

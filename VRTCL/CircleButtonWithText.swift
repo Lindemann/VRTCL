@@ -113,7 +113,7 @@ class CircleButtonWithText: UIView {
             heightAnchor.constraint(equalToConstant: sizeMedium).isActive = true
             widthAnchor.constraint(equalToConstant: sizeMedium).isActive = true
         case .outlinedLarge:
-            heightAnchor.constraint(equalToConstant: sizeLarge * 0.8).isActive = true
+            heightAnchor.constraint(equalToConstant: sizeLarge * 0.75).isActive = true
             widthAnchor.constraint(equalToConstant: sizeLarge).isActive = true
         }
 	}

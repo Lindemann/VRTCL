@@ -117,7 +117,7 @@ extension AltimeterViewController {
 		altitudeStackView.axis = .vertical
 		
 		let containerStackView = UIStackView(arrangedSubviews: [counterStackView, altitudeStackView])
-		containerStackView.spacing = 80
+        containerStackView.spacing = view.frame.height < 600 ? 20 : 40
 		containerStackView.axis = .vertical
 		view.addSubview(containerStackView)
 		containerStackView.translatesAutoresizingMaskIntoConstraints = false

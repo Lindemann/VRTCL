@@ -423,4 +423,46 @@ class User: Codable {
 			return System(rawValue: rawValue ?? "UIAA")
 		}
 	}
+    
+    var boulderingSessions: [Session] { return sessionsFor(kind: .bouldering) }
+    var sportClimbingSessions: [Session] { return sessionsFor(kind: .sportClimbing) }
+    
+    private func sessionsFor(kind: Kind) -> [Session] {
+        var sessions: [Session] = []
+        for session in self.sessions {
+            if session.kind == kind {
+                sessions.append(session)
+            }
+        }
+        return sessions
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
