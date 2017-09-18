@@ -20,7 +20,7 @@ struct JsonIO {
 			let data = try encoder.encode(codable)
 			try data.write(to: fileUrl, options: [])
 		} catch {
-			print("💥 \(error)")
+//			print("💥 \(error)")
 		}
 	}
 	
@@ -34,7 +34,7 @@ struct JsonIO {
 			let data = try Data(contentsOf: fileUrl, options: [])
 			result = try decoder.decode(type, from: data)
 		} catch {
-			print("💥 \(error)")
+//			print("💥 \(error)")
 		}
 		return result
 	}

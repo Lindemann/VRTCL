@@ -1,5 +1,5 @@
 //
-//  LoginViewController.swift
+//  SignupViewController.swift
 //  VRTCL
 //
 //  Created by Lindemann on 18.09.17.
@@ -8,32 +8,32 @@
 
 import UIKit
 
-struct LoginViewControllerViewModel {
+struct SignupViewControllerViewModel {
 	var email: String?
 	var password: String?
 }
 
-class LoginViewController: UIViewController {
+class SignupViewController: UIViewController {
 	
 	var viewModel = LoginViewControllerViewModel()
 	
 	var stackView: UIStackView!
 	lazy var centerConstraint = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-	lazy var centerConstraint80 = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -80)
+	lazy var centerConstraint120 = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -120)
 	
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
 		view.backgroundColor = Colors.darkGray
-		navigationController?.title = "Login"
+		navigationController?.title = "Sign up"
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
 		setup()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+	}
+	
+	override func didReceiveMemoryWarning() {
+		super.didReceiveMemoryWarning()
+		// Dispose of any resources that can be recreated.
+	}
 	
 	private func setup() {
 		let emailTextField = FatTextField(origin: CGPoint.zero)
@@ -41,23 +41,20 @@ class LoginViewController: UIViewController {
 		emailTextField.tag = 0
 		emailTextField.delegate = self
 		
+		let nameTextField = FatTextField(origin: CGPoint.zero)
+		nameTextField.placeholder = "User Name"
+		nameTextField.tag = 1
+		nameTextField.delegate = self
+		
 		let passwordTextField = FatTextField(origin: CGPoint.zero)
 		passwordTextField.placeholder = "Password"
-		passwordTextField.tag = 1
+		passwordTextField.tag = 2
 		passwordTextField.delegate = self
 		
-		let loginButton = FatButton(color: Colors.purple, title: "Login")
-		loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
-		
-		let forgottPasswordButton = UIButton(type: .system)
-		forgottPasswordButton.setTitle("Forgott Password?", for: .normal)
-		forgottPasswordButton.tintColor = Colors.lightGray
-		forgottPasswordButton.addTarget(self, action: #selector(forgottPassword), for: .touchUpInside)
-		
-		let signupButton = FatButton(color: Colors.purple, title: "Sign up", hasArrow: true)
+		let signupButton = FatButton(color: Colors.purple, title: "Sign up")
 		signupButton.addTarget(self, action: #selector(signup), for: .touchUpInside)
 		
-		stackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, loginButton, signupButton, forgottPasswordButton])
+		stackView = UIStackView(arrangedSubviews: [emailTextField, nameTextField, passwordTextField, signupButton])
 		view.addSubview(stackView)
 		stackView.spacing = 30
 		stackView.axis = .vertical
@@ -79,8 +76,6 @@ class LoginViewController: UIViewController {
 	
 	@objc private func signup() {
 		view.endEditing(true)
-		let signupViewController = SignupViewController()
-		navigationController?.pushViewController(signupViewController, animated: true)
 	}
 	
 	@objc private func forgottPassword() {
@@ -88,12 +83,12 @@ class LoginViewController: UIViewController {
 	}
 }
 
-extension LoginViewController: UITextFieldDelegate {
+extension SignupViewController: UITextFieldDelegate {
 	
 	private func slideUp() {
 		UIView.animate(withDuration: 0.4, animations: {
 			self.centerConstraint.isActive = false
-			self.centerConstraint80.isActive = true
+			self.centerConstraint120.isActive = true
 			self.view.layoutIfNeeded()
 		})
 	}
@@ -101,7 +96,7 @@ extension LoginViewController: UITextFieldDelegate {
 	private func slideDown() {
 		UIView.animate(withDuration: 0.4, animations: {
 			self.centerConstraint.isActive = true
-			self.centerConstraint80.isActive = false
+			self.centerConstraint120.isActive = false
 			self.view.layoutIfNeeded()
 		})
 	}
@@ -129,7 +124,7 @@ extension LoginViewController: UITextFieldDelegate {
 	}
 	
 	func textFieldDidBeginEditing(_ textField: UITextField) {
-		if textField.tag == 1 {
+		if textField.tag != 0 {
 			slideUp()
 		}
 	}
