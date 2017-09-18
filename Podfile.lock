@@ -1,15 +1,12 @@
 PODS:
   - Alamofire (4.5.0)
-  - ResearchKit (1.5.2)
 
 DEPENDENCIES:
   - Alamofire (= 4.5)
-  - ResearchKit (= 1.5.2)
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
-  ResearchKit: a5770681dd61afddd3d1f24d232b9abf00cba454
 
-PODFILE CHECKSUM: 0be7fad9087a487ac0bae71b88b925091fdb1658
+PODFILE CHECKSUM: 5550b6d1eb61de1345cec0aa5db7afd473a7406b
 
 COCOAPODS: 1.2.1

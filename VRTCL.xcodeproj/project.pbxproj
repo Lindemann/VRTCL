@@ -12,7 +12,6 @@
 		8211D5D11EDA575E00DF3F48 /* Analytics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8211D5D01EDA575E00DF3F48 /* Analytics.storyboard */; };
 		8211D5D31EDA576D00DF3F48 /* Friends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8211D5D21EDA576D00DF3F48 /* Friends.storyboard */; };
 		8211D5D51EDA577D00DF3F48 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8211D5D41EDA577D00DF3F48 /* Settings.storyboard */; };
-		8211D5D81EDA580200DF3F48 /* LoginSignup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8211D5D71EDA580200DF3F48 /* LoginSignup.storyboard */; };
 		821812181C2461CF004726DC /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821812171C2461CF004726DC /* Buttons.swift */; };
 		8227CA611EF5157B00EF236A /* SessionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8227CA601EF5157B00EF236A /* SessionsTableViewCell.swift */; };
 		8233F7081F4B9D7B00508B52 /* AnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233F7071F4B9D7B00508B52 /* AnalyticsViewController.swift */; };
@@ -38,6 +37,8 @@
 		82C12A801C24811100D9AC45 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C12A7F1C24811100D9AC45 /* TabBarController.swift */; };
 		82C12A821C24827800D9AC45 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C12A811C24827800D9AC45 /* Constants.swift */; };
 		82C139E71F12C0E70027FB1D /* JsonIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C139E61F12C0E70027FB1D /* JsonIO.swift */; };
+		82C20C671F6F34BC00EFD799 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C20C661F6F34BC00EFD799 /* LoginViewController.swift */; };
+		82C20C6A1F6F445E00EFD799 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C20C691F6F445E00EFD799 /* APIController.swift */; };
 		82DA1CD51F02E15400135394 /* FatTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DA1CD41F02E15400135394 /* FatTextField.swift */; };
 		82DE827A1F4402B800047A77 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DE82791F4402B800047A77 /* SessionViewModel.swift */; };
 		82E763BB1F3302F9008FC10D /* IBeaconTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E763BA1F3302F9008FC10D /* IBeaconTableViewController.swift */; };
@@ -51,7 +52,6 @@
 		8211D5D01EDA575E00DF3F48 /* Analytics.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Analytics.storyboard; sourceTree = "<group>"; };
 		8211D5D21EDA576D00DF3F48 /* Friends.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Friends.storyboard; sourceTree = "<group>"; };
 		8211D5D41EDA577D00DF3F48 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
-		8211D5D71EDA580200DF3F48 /* LoginSignup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginSignup.storyboard; sourceTree = "<group>"; };
 		821812171C2461CF004726DC /* Buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		8227CA601EF5157B00EF236A /* SessionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsTableViewCell.swift; sourceTree = "<group>"; };
 		8233F7071F4B9D7B00508B52 /* AnalyticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +79,8 @@
 		82C12A7F1C24811100D9AC45 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		82C12A811C24827800D9AC45 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		82C139E61F12C0E70027FB1D /* JsonIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonIO.swift; sourceTree = "<group>"; };
+		82C20C661F6F34BC00EFD799 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		82C20C691F6F445E00EFD799 /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 		82DA1CD41F02E15400135394 /* FatTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatTextField.swift; sourceTree = "<group>"; };
 		82DE82791F4402B800047A77 /* SessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
 		82E763BA1F3302F9008FC10D /* IBeaconTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBeaconTableViewController.swift; sourceTree = "<group>"; };
@@ -146,7 +148,7 @@
 		8211D5D61EDA57AD00DF3F48 /* Login/Signup */ = {
 			isa = PBXGroup;
 			children = (
-				8211D5D71EDA580200DF3F48 /* LoginSignup.storyboard */,
+				82C20C661F6F34BC00EFD799 /* LoginViewController.swift */,
 			);
 			name = Login/Signup;
 			sourceTree = "<group>";
@@ -212,6 +214,7 @@
 				829F24751B0021EB00BDF443 /* AppDelegate.swift */,
 				82C12A811C24827800D9AC45 /* Constants.swift */,
 				82430AE21EB3DFD300160D15 /* Extensions.swift */,
+				82C20C681F6F444400EFD799 /* API */,
 				826960731E9995FC0050B663 /* UI Elements */,
 				826960721E9995A30050B663 /* Data Models */,
 				826960711E9995860050B663 /* Tabs */,
@@ -245,6 +248,14 @@
 				82DE82791F4402B800047A77 /* SessionViewModel.swift */,
 			);
 			name = Sessions;
+			sourceTree = "<group>";
+		};
+		82C20C681F6F444400EFD799 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				82C20C691F6F445E00EFD799 /* APIController.swift */,
+			);
+			name = API;
 			sourceTree = "<group>";
 		};
 		E2A50A2325129DDFE5272BB6 /* Frameworks */ = {
@@ -327,7 +338,6 @@
 				8211D5D31EDA576D00DF3F48 /* Friends.storyboard in Resources */,
 				82B3033F1EB6F7F6001DD730 /* Sessions.storyboard in Resources */,
 				8211D5D51EDA577D00DF3F48 /* Settings.storyboard in Resources */,
-				8211D5D81EDA580200DF3F48 /* LoginSignup.storyboard in Resources */,
 				8211D5CF1EDA571900DF3F48 /* Timeline.storyboard in Resources */,
 				8211D5D11EDA575E00DF3F48 /* Analytics.storyboard in Resources */,
 				829F24821B0021EB00BDF443 /* LaunchScreen.xib in Resources */,
@@ -407,6 +417,7 @@
 				82B986701F0FD1FA001BD4B5 /* TimelineTableViewCell.swift in Sources */,
 				82AAC0C51EEF5C9E00B7E6A3 /* ViewController.swift in Sources */,
 				82DA1CD51F02E15400135394 /* FatTextField.swift in Sources */,
+				82C20C6A1F6F445E00EFD799 /* APIController.swift in Sources */,
 				82C12A821C24827800D9AC45 /* Constants.swift in Sources */,
 				829F24761B0021EB00BDF443 /* AppDelegate.swift in Sources */,
 				82E763BD1F351A1C008FC10D /* InputMethodViewController.swift in Sources */,
@@ -414,6 +425,7 @@
 				829EC0B31EEECB1200AB055F /* AddRouteTableViewController.swift in Sources */,
 				828C5DF91F07F5D000CB7468 /* DurationView.swift in Sources */,
 				829EC0B11EEECAF200AB055F /* EditSessionViewController.swift in Sources */,
+				82C20C671F6F34BC00EFD799 /* LoginViewController.swift in Sources */,
 				8233F7081F4B9D7B00508B52 /* AnalyticsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

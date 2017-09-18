@@ -15,9 +15,13 @@ class TabBarController: UITabBarController {
 
 		tabBar.tintColor = UIColor.white
 		tabBar.barTintColor = Colors.bar
-
-//        UITabBar.appearance().shadowImage = UIImage()
-//        UITabBar.appearance().backgroundImage = UIImage()
-//        UITabBar.appearance().backgroundColor = ColorConstants.VeryDarkGray
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		if !AppDelegate.shared.user.isAuthenticated {
+			let loginViewControler = LoginViewController()
+			let navigationViewController = NavigationController(rootViewController: loginViewControler)
+			present(navigationViewController, animated: true, completion: nil)
+		}
 	}
 }

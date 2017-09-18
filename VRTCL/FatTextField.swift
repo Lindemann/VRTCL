@@ -12,6 +12,14 @@ class FatTextField: UITextField {
 	
 	private var inset: CGFloat = 20
 	
+	override var placeholder: String? {
+		didSet {
+			if let placeholder = placeholder {
+				attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedStringKey.foregroundColor: Colors.lightGray.darker(by: 20)])
+			}
+		}
+	}
+	
 	convenience init(origin: CGPoint = CGPoint.zero) {
 		let frame = CGRect(origin: origin, size: CGSize(width: 300, height: 40))
 		self.init(frame: frame)
@@ -37,6 +45,9 @@ class FatTextField: UITextField {
 		backgroundColor = Colors.lightGray.withAlphaComponent(0.14)
 		keyboardAppearance = .dark
 		clearButtonMode = .whileEditing
+		
+		widthAnchor.constraint(equalToConstant: frame.size.width).isActive = true
+		heightAnchor.constraint(equalToConstant: frame.size.height).isActive = true
 	}
 	
 	override func textRect(forBounds bounds: CGRect) -> CGRect {

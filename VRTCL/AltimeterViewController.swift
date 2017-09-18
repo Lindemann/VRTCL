@@ -175,7 +175,7 @@ internal class RouteCounter {
 	
 	var kind: Kind? {
 		didSet {
-			threshold = (kind == .sportClimbing) ? 10 : 4
+			threshold = (kind == .sportClimbing) ? 11 : 3
 		}
 	}
 	

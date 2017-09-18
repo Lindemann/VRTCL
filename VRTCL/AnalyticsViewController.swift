@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ResearchKit
 
 internal class AnalyticsViewControllerViewModel {
     

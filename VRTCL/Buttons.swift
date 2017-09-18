@@ -245,6 +245,9 @@ class FatButton: UIButton {
 		setTitleColor(UIColor.white, for: .highlighted)
 		setTitleColor(UIColor.white, for: .selected)
 		
+		widthAnchor.constraint(equalToConstant: frame.size.width).isActive = true
+		heightAnchor.constraint(equalToConstant: frame.size.height).isActive = true
+		
 		if hasArrow {
 			let imageView = UIImageView(image: #imageLiteral(resourceName: "fatButtonArrow"))
 			imageView.tintColor = UIColor.white
