@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct LoginViewControllerViewModel {
+internal struct LoginViewControllerViewModel {
 	var email: String?
 	var password: String?
 }
@@ -25,7 +25,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
 		view.backgroundColor = Colors.darkGray
-		navigationController?.title = "Login"
+		navigationItem.title = "Login"
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
 		setup()
     }
@@ -40,24 +40,28 @@ class LoginViewController: UIViewController {
 		emailTextField.placeholder = "Email"
 		emailTextField.tag = 0
 		emailTextField.delegate = self
+		emailTextField.textContentType = .emailAddress
+		emailTextField.keyboardType = .emailAddress
 		
 		let passwordTextField = FatTextField(origin: CGPoint.zero)
 		passwordTextField.placeholder = "Password"
 		passwordTextField.tag = 1
 		passwordTextField.delegate = self
+		passwordTextField.textContentType = .password
+		passwordTextField.isSecureTextEntry = true
 		
 		let loginButton = FatButton(color: Colors.purple, title: "Login")
 		loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
 		
-		let forgottPasswordButton = UIButton(type: .system)
-		forgottPasswordButton.setTitle("Forgott Password?", for: .normal)
-		forgottPasswordButton.tintColor = Colors.lightGray
-		forgottPasswordButton.addTarget(self, action: #selector(forgottPassword), for: .touchUpInside)
+		let forgotPasswordButton = UIButton(type: .system)
+		forgotPasswordButton.setTitle("Forgot Password?", for: .normal)
+		forgotPasswordButton.tintColor = Colors.lightGray
+		forgotPasswordButton.addTarget(self, action: #selector(forgotPassword), for: .touchUpInside)
 		
 		let signupButton = FatButton(color: Colors.purple, title: "Sign up", hasArrow: true)
 		signupButton.addTarget(self, action: #selector(signup), for: .touchUpInside)
 		
-		stackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, loginButton, signupButton, forgottPasswordButton])
+		stackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, loginButton, signupButton, forgotPasswordButton])
 		view.addSubview(stackView)
 		stackView.spacing = 30
 		stackView.axis = .vertical
@@ -75,6 +79,10 @@ class LoginViewController: UIViewController {
 	
 	@objc private func login() {
 		view.endEditing(true)
+		if viewModel.password == nil || viewModel.email == nil || viewModel.password?.count == 0 || viewModel.email?.count == 0 {
+			let generator = UIImpactFeedbackGenerator(style: .heavy)
+			generator.impactOccurred()
+		}
 	}
 	
 	@objc private func signup() {
@@ -83,7 +91,7 @@ class LoginViewController: UIViewController {
 		navigationController?.pushViewController(signupViewController, animated: true)
 	}
 	
-	@objc private func forgottPassword() {
+	@objc private func forgotPassword() {
 		view.endEditing(true)
 	}
 }

@@ -400,12 +400,29 @@ class Session: Codable {
 }
 
 class User: Codable {
+	
 	static let shared = User()
 	var sessions: [Session] = []
 	var isAuthenticated = false
+	var photo: String?
+	var name: String? { return UserDefaults().string(forKey: "name") }
+	var email: String? { return UserDefaults().string(forKey: "email") }
+	var token: String? { return UserDefaults().string(forKey: "token") }
 	
-	let ud_boulderingGradeSystem = "ud_boulderingGradeSystem"
-	let ud_sportClimbingGradeSystem = "ud_sportClimbingGradeSystem"
+	var password: String? {
+		do {
+			let email = UserDefaults().string(forKey: "email") ?? ""
+			let passwordItem = KeychainPasswordItem(service:"VRTCL", account: email, accessGroup: nil)
+			let keychainPassword = try passwordItem.readPassword()
+			return keychainPassword
+		}
+		catch {
+			fatalError("Error reading password from keychain - \(error)")
+		}
+	}
+	
+	private let ud_boulderingGradeSystem = "ud_boulderingGradeSystem"
+	private let ud_sportClimbingGradeSystem = "ud_sportClimbingGradeSystem"
 	var boulderingGradeSystem: System? {
 		set {
 			UserDefaults().set(newValue?.rawValue, forKey: ud_boulderingGradeSystem)
@@ -437,6 +454,20 @@ class User: Codable {
         }
         return sessions
     }
+	
+	static func saveCrdentials(email: String, password: String, name: String, token: String) {
+		do {
+			let passwordItem = KeychainPasswordItem(service: "VRTCL", account: email, accessGroup: nil)
+			try passwordItem.savePassword(password)
+			
+			UserDefaults().set(email, forKey: "email")
+			UserDefaults().set(token, forKey: "token")
+			UserDefaults().set(name, forKey: "name")
+			
+		} catch {
+			fatalError("Error updating keychain - \(error)")
+		}
+	}
 }
 
 

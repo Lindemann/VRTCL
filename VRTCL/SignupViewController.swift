@@ -8,14 +8,15 @@
 
 import UIKit
 
-struct SignupViewControllerViewModel {
+internal struct SignupViewControllerViewModel {
 	var email: String?
 	var password: String?
+	var name: String?
 }
 
 class SignupViewController: UIViewController {
 	
-	var viewModel = LoginViewControllerViewModel()
+	var viewModel = SignupViewControllerViewModel()
 	
 	var stackView: UIStackView!
 	lazy var centerConstraint = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
@@ -25,7 +26,7 @@ class SignupViewController: UIViewController {
 		super.viewDidLoad()
 		
 		view.backgroundColor = Colors.darkGray
-		navigationController?.title = "Sign up"
+		navigationItem.title = "Sign up"
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
 		setup()
 	}
@@ -40,16 +41,20 @@ class SignupViewController: UIViewController {
 		emailTextField.placeholder = "Email"
 		emailTextField.tag = 0
 		emailTextField.delegate = self
+		emailTextField.textContentType = .emailAddress
+		emailTextField.keyboardType = .emailAddress
 		
 		let nameTextField = FatTextField(origin: CGPoint.zero)
 		nameTextField.placeholder = "User Name"
 		nameTextField.tag = 1
 		nameTextField.delegate = self
+		nameTextField.textContentType = .name
 		
 		let passwordTextField = FatTextField(origin: CGPoint.zero)
 		passwordTextField.placeholder = "Password"
 		passwordTextField.tag = 2
 		passwordTextField.delegate = self
+		passwordTextField.isSecureTextEntry = true
 		
 		let signupButton = FatButton(color: Colors.purple, title: "Sign up")
 		signupButton.addTarget(self, action: #selector(signup), for: .touchUpInside)
@@ -70,12 +75,15 @@ class SignupViewController: UIViewController {
 		dismiss(animated: true, completion: nil)
 	}
 	
-	@objc private func login() {
-		view.endEditing(true)
-	}
-	
 	@objc private func signup() {
 		view.endEditing(true)
+		guard let password = viewModel.password, let name = viewModel.name, let email = viewModel.email, viewModel.password?.count != 0 || viewModel.email?.count != 0 || viewModel.name?.count != 0 else {
+			let generator = UIImpactFeedbackGenerator(style: .heavy)
+			generator.impactOccurred()
+			return
+		}
+		User.saveCrdentials(email: email, password: password, name: name, token: "token")
+		print(AppDelegate.shared.user.password)
 	}
 	
 	@objc private func forgottPassword() {
@@ -111,8 +119,12 @@ extension SignupViewController: UITextFieldDelegate {
 			switch textField.tag {
 			case 0:
 				viewModel.email = textField.text
-			default:
+			case 1:
+				viewModel.name = textField.text
+			case 2:
 				viewModel.password = textField.text
+			default:
+				break
 			}
 		}
 		slideDown()

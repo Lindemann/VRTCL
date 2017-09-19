@@ -7,3 +7,10 @@
 //
 
 import Foundation
+import Alamofire
+
+struct APIController {
+	
+	let user = AppDelegate.shared.user
+	var authorizationHeader: HTTPHeaders { return ["Authorization": "Basic \(user.token ?? "")"] }
+}
