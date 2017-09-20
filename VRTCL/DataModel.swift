@@ -403,11 +403,23 @@ class User: Codable {
 	
 	static let shared = User()
 	var sessions: [Session] = []
-	var isAuthenticated = false
 	var photo: String?
-	var name: String? { return UserDefaults().string(forKey: "name") }
-	var email: String? { return UserDefaults().string(forKey: "email") }
-	var token: String? { return UserDefaults().string(forKey: "token") }
+	var isAuthenticated: Bool { return token != nil }
+	
+	var name: String? {
+		get { return UserDefaults().string(forKey: "name") }
+		set { UserDefaults().set(newValue, forKey: "name") }
+	}
+	
+	var email: String? {
+		get { return UserDefaults().string(forKey: "email") }
+		set { UserDefaults().set(newValue, forKey: "email") }
+	}
+	
+	var token: String? {
+		get { return UserDefaults().string(forKey: "token") }
+		set { UserDefaults().set(newValue, forKey: "token") }
+	}
 	
 	var password: String? {
 		do {
@@ -424,18 +436,14 @@ class User: Codable {
 	private let ud_boulderingGradeSystem = "ud_boulderingGradeSystem"
 	private let ud_sportClimbingGradeSystem = "ud_sportClimbingGradeSystem"
 	var boulderingGradeSystem: System? {
-		set {
-			UserDefaults().set(newValue?.rawValue, forKey: ud_boulderingGradeSystem)
-		}
+		set { UserDefaults().set(newValue?.rawValue, forKey: ud_boulderingGradeSystem) }
 		get {
 			let rawValue = UserDefaults().string(forKey: ud_boulderingGradeSystem)
 			return System(rawValue: rawValue ?? "Font")
 		}
 	}
 	var sportClimbingGradeSystem: System? {
-		set {
-			UserDefaults().set(newValue?.rawValue, forKey: ud_sportClimbingGradeSystem)
-		}
+		set { UserDefaults().set(newValue?.rawValue, forKey: ud_sportClimbingGradeSystem) }
 		get {
 			let rawValue = UserDefaults().string(forKey: ud_sportClimbingGradeSystem)
 			return System(rawValue: rawValue ?? "UIAA")
@@ -455,18 +463,25 @@ class User: Codable {
         return sessions
     }
 	
-	static func saveCrdentials(email: String, password: String, name: String, token: String) {
+	func saveCrdentials(email: String, password: String, name: String, token: String) {
 		do {
 			let passwordItem = KeychainPasswordItem(service: "VRTCL", account: email, accessGroup: nil)
 			try passwordItem.savePassword(password)
 			
-			UserDefaults().set(email, forKey: "email")
-			UserDefaults().set(token, forKey: "token")
-			UserDefaults().set(name, forKey: "name")
+			self.email = email
+			self.token = token
+			self.name = name
 			
 		} catch {
 			fatalError("Error updating keychain - \(error)")
 		}
+	}
+	
+	func logout() {
+		// Destroy UserDefaults -> isAuthenticated == false
+		let appDomain = Bundle.main.bundleIdentifier!
+		UserDefaults.standard.removePersistentDomain(forName: appDomain)
+		sessions = []
 	}
 }
 

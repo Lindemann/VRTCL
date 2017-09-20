@@ -12,19 +12,28 @@ internal class AnalyticsViewControllerViewModel {
     
     var kind: Kind = .sportClimbing
     
-    var sessions: [Session] {
-        return kind == .sportClimbing ? AppDelegate.shared.user.sportClimbingSessions : AppDelegate.shared.user.boulderingSessions
+    var sessions: [Session]? {
+		let sessions = kind == .sportClimbing ? AppDelegate.shared.user.sportClimbingSessions : AppDelegate.shared.user.boulderingSessions
+		guard sessions.count > 0 else { return nil }
+        return sessions
     }
+	
+	var newestSessions: [Session]? {
+		guard var sessions = self.sessions else { return nil }
+		let newestSessions = sessions[0...maxSessionsCountForCalculation - 1]
+		return Array(newestSessions)
+	}
     
     var maxSessionsCountForCalculation: Int {
-        return sessions.count >= 5 ? 5 : sessions.count
+		guard let count = sessions?.count  else { return 0 }
+        return count >= 5 ? 5 : count
     }
     
     var onsightLevel: String {
-        let sessions = self.sessions[0...maxSessionsCountForCalculation - 1]
+		guard let newestSessions = newestSessions else { return "?"}
         var onSightsAndFlashesIndices: [Int] = []
         
-        for session in sessions {
+        for session in newestSessions {
             if let climbs = session.climbs, climbs.count > 0 {
                 for climb in climbs {
                     if climb.style == .onsight || climb.style == .flash {
@@ -57,10 +66,10 @@ internal class AnalyticsViewControllerViewModel {
          SR = 90% -> 1
          Result = 0
          */
-        let sessions = self.sessions[0...maxSessionsCountForCalculation - 1]
+        guard let newestSessions = newestSessions else { return "?"}
         var onSightsAndFlashesIndices: [Int] = []
         
-        for session in sessions {
+        for session in newestSessions {
             if let climbs = session.climbs, climbs.count > 0 {
                 for climb in climbs {
                     if climb.style == .onsight || climb.style == .flash {
@@ -117,28 +126,28 @@ internal class AnalyticsViewControllerViewModel {
     }
     
     var hoursPerSession: String {
-        let sessions = self.sessions[0...maxSessionsCountForCalculation - 1]
+        guard let newestSessions = newestSessions else { return "?"}
         var counter = 0
-        for session in sessions {
+        for session in newestSessions {
             counter += session.duration ?? 0
         }
         return "\(counter / maxSessionsCountForCalculation)"
     }
     
     var climbsPerSession: String {
-        let sessions = self.sessions[0...maxSessionsCountForCalculation - 1]
+        guard let newestSessions = newestSessions else { return "?"}
         var counter = 0
-        for session in sessions {
+        for session in newestSessions {
             counter += session.climbs?.count ?? 0
         }
-        return "\(counter / sessions.count)"
+        return "\(counter / newestSessions.count)"
     }
     
     var leadRate: Int {
-        let sessions = self.sessions[0...maxSessionsCountForCalculation - 1]
+        guard let newestSessions = newestSessions else { return 0}
         var leadedClimbs = 0
         var allClimbs = 0
-        for session in sessions {
+        for session in newestSessions {
             if let climbs = session.climbs, climbs.count > 0 {
                 allClimbs += climbs.count
                 for climb in climbs {
@@ -155,10 +164,10 @@ internal class AnalyticsViewControllerViewModel {
     }
     
     var successRate: Int {
-        let sessions = self.sessions[0...maxSessionsCountForCalculation - 1]
+        guard let newestSessions = newestSessions else { return 0}
         var successfulClimbs = 0
         var allClimbs = 0
-        for session in sessions {
+        for session in newestSessions {
             if let climbs = session.climbs, climbs.count > 0 {
                 allClimbs += climbs.count
                 for climb in climbs {

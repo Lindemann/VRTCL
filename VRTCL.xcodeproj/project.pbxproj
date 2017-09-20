@@ -45,6 +45,7 @@
 		82E763BD1F351A1C008FC10D /* InputMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E763BC1F351A1C008FC10D /* InputMethodViewController.swift */; };
 		82F7C98B1F700C8A00B490E0 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F7C98A1F700C8A00B490E0 /* SignupViewController.swift */; };
 		82F7C98D1F7043A400B490E0 /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F7C98C1F7043A400B490E0 /* KeychainPasswordItem.swift */; };
+		82F7C9911F714F7200B490E0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F7C9901F714F7200B490E0 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +90,7 @@
 		82E763BC1F351A1C008FC10D /* InputMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputMethodViewController.swift; sourceTree = "<group>"; };
 		82F7C98A1F700C8A00B490E0 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		82F7C98C1F7043A400B490E0 /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
+		82F7C9901F714F7200B490E0 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A15E55CEF4005197D304EF55 /* Pods-VRTCL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VRTCL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VRTCL/Pods-VRTCL.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				8211D5D41EDA577D00DF3F48 /* Settings.storyboard */,
+				82F7C9901F714F7200B490E0 /* SettingsViewController.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				82E763BD1F351A1C008FC10D /* InputMethodViewController.swift in Sources */,
 				82C139E71F12C0E70027FB1D /* JsonIO.swift in Sources */,
 				82F7C98B1F700C8A00B490E0 /* SignupViewController.swift in Sources */,
+				82F7C9911F714F7200B490E0 /* SettingsViewController.swift in Sources */,
 				829EC0B31EEECB1200AB055F /* AddRouteTableViewController.swift in Sources */,
 				82F7C98D1F7043A400B490E0 /* KeychainPasswordItem.swift in Sources */,
 				828C5DF91F07F5D000CB7468 /* DurationView.swift in Sources */,

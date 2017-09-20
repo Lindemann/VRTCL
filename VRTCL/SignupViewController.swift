@@ -20,22 +20,16 @@ class SignupViewController: UIViewController {
 	
 	var stackView: UIStackView!
 	lazy var centerConstraint = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-	lazy var centerConstraint120 = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -120)
+	lazy var centerConstraintWithConstant = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -120)
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		view.backgroundColor = Colors.darkGray
 		navigationItem.title = "Sign up"
-		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
 		setup()
 	}
-	
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-	
+
 	private func setup() {
 		let emailTextField = FatTextField(origin: CGPoint.zero)
 		emailTextField.placeholder = "Email"
@@ -71,19 +65,14 @@ class SignupViewController: UIViewController {
 		view.addGestureRecognizer(tapGestureRecognizer)
 	}
 	
-	@objc private func close() {
-		dismiss(animated: true, completion: nil)
-	}
-	
 	@objc private func signup() {
 		view.endEditing(true)
-		guard let password = viewModel.password, let name = viewModel.name, let email = viewModel.email, viewModel.password?.count != 0 || viewModel.email?.count != 0 || viewModel.name?.count != 0 else {
+		guard let password = viewModel.password, let name = viewModel.name, let email = viewModel.email else {
 			let generator = UIImpactFeedbackGenerator(style: .heavy)
 			generator.impactOccurred()
 			return
 		}
-		User.saveCrdentials(email: email, password: password, name: name, token: "token")
-		print(AppDelegate.shared.user.password)
+		AppDelegate.shared.user.saveCrdentials(email: email, password: password, name: name, token: "token")
 	}
 	
 	@objc private func forgottPassword() {
@@ -96,7 +85,7 @@ extension SignupViewController: UITextFieldDelegate {
 	private func slideUp() {
 		UIView.animate(withDuration: 0.4, animations: {
 			self.centerConstraint.isActive = false
-			self.centerConstraint120.isActive = true
+			self.centerConstraintWithConstant.isActive = true
 			self.view.layoutIfNeeded()
 		})
 	}
@@ -104,7 +93,7 @@ extension SignupViewController: UITextFieldDelegate {
 	private func slideDown() {
 		UIView.animate(withDuration: 0.4, animations: {
 			self.centerConstraint.isActive = true
-			self.centerConstraint120.isActive = false
+			self.centerConstraintWithConstant.isActive = false
 			self.view.layoutIfNeeded()
 		})
 	}
@@ -115,6 +104,7 @@ extension SignupViewController: UITextFieldDelegate {
 	}
 	
 	func textFieldDidEndEditing(_ textField: UITextField) {
+		slideDown()
 		if let count = textField.text?.characters.count, count > 0 {
 			switch textField.tag {
 			case 0:
@@ -126,8 +116,18 @@ extension SignupViewController: UITextFieldDelegate {
 			default:
 				break
 			}
+		} else {
+			switch textField.tag {
+			case 0:
+				viewModel.email = nil
+			case 1:
+				viewModel.name = nil
+			case 2:
+				viewModel.password = nil
+			default:
+				break
+			}
 		}
-		slideDown()
 	}
 	
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {

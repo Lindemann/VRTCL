@@ -19,20 +19,14 @@ class LoginViewController: UIViewController {
 	
 	var stackView: UIStackView!
 	lazy var centerConstraint = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-	lazy var centerConstraint80 = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -80)
+	lazy var centerConstraintWithConstant = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -80)
 	
     override func viewDidLoad() {
         super.viewDidLoad()
 
 		view.backgroundColor = Colors.darkGray
 		navigationItem.title = "Login"
-		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close))
 		setup()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 	
 	private func setup() {
@@ -42,6 +36,7 @@ class LoginViewController: UIViewController {
 		emailTextField.delegate = self
 		emailTextField.textContentType = .emailAddress
 		emailTextField.keyboardType = .emailAddress
+		emailTextField.autocapitalizationType = .none
 		
 		let passwordTextField = FatTextField(origin: CGPoint.zero)
 		passwordTextField.placeholder = "Password"
@@ -49,6 +44,7 @@ class LoginViewController: UIViewController {
 		passwordTextField.delegate = self
 		passwordTextField.textContentType = .password
 		passwordTextField.isSecureTextEntry = true
+		passwordTextField.autocapitalizationType = .none
 		
 		let loginButton = FatButton(color: Colors.purple, title: "Login")
 		loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
@@ -73,15 +69,25 @@ class LoginViewController: UIViewController {
 		view.addGestureRecognizer(tapGestureRecognizer)
 	}
 	
-	@objc private func close() {
-		dismiss(animated: true, completion: nil)
-	}
-	
 	@objc private func login() {
 		view.endEditing(true)
-		if viewModel.password == nil || viewModel.email == nil || viewModel.password?.count == 0 || viewModel.email?.count == 0 {
+		guard let password = viewModel.password, let email = viewModel.email else {
 			let generator = UIImpactFeedbackGenerator(style: .heavy)
 			generator.impactOccurred()
+			return
+		}
+		APIController.login(email: "g@j.de", password: "12345678") { (success, error, token) in
+			if success {
+				guard let token = token else { return }
+				AppDelegate.shared.user.token = token
+				APIController.user(token: token, completion: { (success, error, name) in
+					if success {
+						guard let name = name else { return }
+						AppDelegate.shared.user.saveCrdentials(email: email, password: password, name: name, token: token)
+						self.dismiss(animated: true, completion: nil)
+					}
+				})
+			}
 		}
 	}
 	
@@ -101,7 +107,7 @@ extension LoginViewController: UITextFieldDelegate {
 	private func slideUp() {
 		UIView.animate(withDuration: 0.4, animations: {
 			self.centerConstraint.isActive = false
-			self.centerConstraint80.isActive = true
+			self.centerConstraintWithConstant.isActive = true
 			self.view.layoutIfNeeded()
 		})
 	}
@@ -109,7 +115,7 @@ extension LoginViewController: UITextFieldDelegate {
 	private func slideDown() {
 		UIView.animate(withDuration: 0.4, animations: {
 			self.centerConstraint.isActive = true
-			self.centerConstraint80.isActive = false
+			self.centerConstraintWithConstant.isActive = false
 			self.view.layoutIfNeeded()
 		})
 	}
@@ -120,6 +126,7 @@ extension LoginViewController: UITextFieldDelegate {
 	}
 	
 	func textFieldDidEndEditing(_ textField: UITextField) {
+		slideDown()
 		if let count = textField.text?.characters.count, count > 0 {
 			switch textField.tag {
 			case 0:
@@ -127,8 +134,14 @@ extension LoginViewController: UITextFieldDelegate {
 			default:
 				viewModel.password = textField.text
 			}
+		} else {
+			switch textField.tag {
+			case 0:
+				viewModel.email = nil
+			default:
+				viewModel.password = nil
+			}
 		}
-		slideDown()
 	}
 	
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {

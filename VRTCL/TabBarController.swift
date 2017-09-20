@@ -18,6 +18,10 @@ class TabBarController: UITabBarController {
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
+		showLoginViewControllerIfNeeded()
+	}
+	
+	func showLoginViewControllerIfNeeded() {
 		if !AppDelegate.shared.user.isAuthenticated {
 			let loginViewControler = LoginViewController()
 			let navigationViewController = NavigationController(rootViewController: loginViewControler)
