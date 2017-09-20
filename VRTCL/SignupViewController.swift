@@ -12,6 +12,14 @@ internal struct SignupViewControllerViewModel {
 	var email: String?
 	var password: String?
 	var name: String?
+	
+	func isValidEmail(testStr:String) -> Bool {
+		// print("validate calendar: \(testStr)")
+		let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+		
+		let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+		return emailTest.evaluate(with: testStr)
+	}
 }
 
 class SignupViewController: UIViewController {
@@ -37,6 +45,7 @@ class SignupViewController: UIViewController {
 		emailTextField.delegate = self
 		emailTextField.textContentType = .emailAddress
 		emailTextField.keyboardType = .emailAddress
+		emailTextField.autocapitalizationType = .none
 		
 		let nameTextField = FatTextField(origin: CGPoint.zero)
 		nameTextField.placeholder = "User Name"
@@ -49,6 +58,7 @@ class SignupViewController: UIViewController {
 		passwordTextField.tag = 2
 		passwordTextField.delegate = self
 		passwordTextField.isSecureTextEntry = true
+		emailTextField.autocapitalizationType = .none
 		
 		let signupButton = FatButton(color: Colors.purple, title: "Sign up")
 		signupButton.addTarget(self, action: #selector(signup), for: .touchUpInside)
@@ -63,20 +73,6 @@ class SignupViewController: UIViewController {
 		
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
 		view.addGestureRecognizer(tapGestureRecognizer)
-	}
-	
-	@objc private func signup() {
-		view.endEditing(true)
-		guard let password = viewModel.password, let name = viewModel.name, let email = viewModel.email else {
-			let generator = UIImpactFeedbackGenerator(style: .heavy)
-			generator.impactOccurred()
-			return
-		}
-		AppDelegate.shared.user.saveCrdentials(email: email, password: password, name: name, token: "token")
-	}
-	
-	@objc private func forgottPassword() {
-		view.endEditing(true)
 	}
 }
 
@@ -141,4 +137,55 @@ extension SignupViewController: UITextFieldDelegate {
 		}
 	}
 }
+
+// MARK: API Stuff
+extension SignupViewController {
+	@objc private func signup() {
+		view.endEditing(true)
+		guard let password = viewModel.password, let name = viewModel.name, let email = viewModel.email else {
+			let generator = UIImpactFeedbackGenerator(style: .heavy)
+			generator.impactOccurred()
+			return
+		}
+		if !viewModel.isValidEmail(testStr: email) {
+			showAlertFor(reason: "Invalid Email Adress")
+			return
+		}
+		APIController.signup(email: email, name: name, password: password) { (success, error, user) in
+			if success {
+				guard let name = user?.name, let email = user?.email else { return }
+				APIController.login(email: email, password: password, completion: { (success, error, token) in
+					if success {
+						guard let token = token else { return }
+						AppDelegate.shared.user.saveCrdentials(email: email, password: password, name: name, token: token)
+						self.dismiss(animated: true, completion: nil)
+					} else {
+						self.showAlertFor(reason: "A problem while login occurred")
+					}
+				})
+			} else {
+				self.showAlertFor(reason: "A user with that email already exists")
+			}
+		}
+	}
+	
+	private func showAlertFor(reason: String) {
+		let alertController = UIAlertController(title: reason, message: "", preferredStyle: .alert)
+		let action = UIAlertAction(title: "Ok", style: .default)
+		alertController.addAction(action)
+		present(alertController, animated: true, completion: nil)
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
 

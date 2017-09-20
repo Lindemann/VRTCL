@@ -68,38 +68,6 @@ class LoginViewController: UIViewController {
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
 		view.addGestureRecognizer(tapGestureRecognizer)
 	}
-	
-	@objc private func login() {
-		view.endEditing(true)
-		guard let password = viewModel.password, let email = viewModel.email else {
-			let generator = UIImpactFeedbackGenerator(style: .heavy)
-			generator.impactOccurred()
-			return
-		}
-		APIController.login(email: "g@j.de", password: "12345678") { (success, error, token) in
-			if success {
-				guard let token = token else { return }
-				AppDelegate.shared.user.token = token
-				APIController.user(token: token, completion: { (success, error, name) in
-					if success {
-						guard let name = name else { return }
-						AppDelegate.shared.user.saveCrdentials(email: email, password: password, name: name, token: token)
-						self.dismiss(animated: true, completion: nil)
-					}
-				})
-			}
-		}
-	}
-	
-	@objc private func signup() {
-		view.endEditing(true)
-		let signupViewController = SignupViewController()
-		navigationController?.pushViewController(signupViewController, animated: true)
-	}
-	
-	@objc private func forgotPassword() {
-		view.endEditing(true)
-	}
 }
 
 extension LoginViewController: UITextFieldDelegate {
@@ -155,4 +123,62 @@ extension LoginViewController: UITextFieldDelegate {
 		}
 	}
 }
+
+// MARK: API Stuff
+extension LoginViewController {
+	@objc private func login() {
+		view.endEditing(true)
+		guard let password = viewModel.password, let email = viewModel.email else {
+			let generator = UIImpactFeedbackGenerator(style: .heavy)
+			generator.impactOccurred()
+			return
+		}
+		APIController.login(email: email, password: password) { (success, error, token) in
+//		APIController.login(email: "g@j.de", password: "12345678") { (success, error, token) in
+			if success {
+				guard let token = token else { return }
+				AppDelegate.shared.user.token = token
+				APIController.user(token: token, completion: { (success, error, user) in
+					if success {
+						guard let name = user?.name else { return }
+						AppDelegate.shared.user.saveCrdentials(email: email, password: password, name: name, token: token)
+						self.dismiss(animated: true, completion: nil)
+					} else {
+						self.invalidCredentialsAlert()
+					}
+				})
+			} else {
+				self.invalidCredentialsAlert()
+			}
+		}
+	}
+	
+	@objc private func signup() {
+		view.endEditing(true)
+		let signupViewController = SignupViewController()
+		navigationController?.pushViewController(signupViewController, animated: true)
+	}
+	
+	@objc private func forgotPassword() {
+		view.endEditing(true)
+	}
+	
+	private func invalidCredentialsAlert() {
+		let alertController = UIAlertController(title: "Invalid credentials", message: "", preferredStyle: .alert)
+		let action = UIAlertAction(title: "Ok", style: .default)
+		alertController.addAction(action)
+		present(alertController, animated: true, completion: nil)
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
 

@@ -28,7 +28,7 @@ class SettingsViewController: UIViewController {
 	
 	private func setup() {
 		
-		let logoutButton = FatButton(color: Colors.purple, title: "logout")
+		let logoutButton = FatButton(color: Colors.purple, title: "Logout")
 		logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
 		
 		let stackView = UIStackView(arrangedSubviews: [logoutButton])
