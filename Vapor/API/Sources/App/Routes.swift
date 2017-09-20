@@ -34,7 +34,7 @@ extension Droplet {
         //
         // POST /users
         // <json containing new user information>
-        post("users") { req in
+        post("signup") { req in
             // require that the request body be json
             guard let json = req.json else {
                 throw Abort(.badRequest)
@@ -107,9 +107,9 @@ extension Droplet {
         //
         // GET /me
         // Authorization: Bearer <token from /login>
-        token.get("me") { req in
+        token.get("user") { req in
             let user = try req.user()
-            return "Hello, \(user.name)"
+            return user
         }
     }
 }
