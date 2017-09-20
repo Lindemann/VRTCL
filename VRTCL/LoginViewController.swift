@@ -141,6 +141,7 @@ extension LoginViewController {
 				APIController.user(token: token, completion: { (success, error, user) in
 					if success {
 						guard let name = user?.name else { return }
+						guard let email = user?.email else { return }
 						AppDelegate.shared.user.saveCrdentials(email: email, password: password, name: name, token: token)
 						self.dismiss(animated: true, completion: nil)
 					} else {

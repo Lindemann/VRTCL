@@ -42,8 +42,12 @@ struct APIController {
 				if let name = dictionary["name"] as? String {
 					user.name = name
 					print("name: \(name)")
-					completion?(true, nil, user)
 				}
+				if let email = dictionary["email"] as? String {
+					user.email = email
+					print("email: \(email)")
+				}
+				completion?(true, nil, user)
 			}
 			if let error = response.error {
 				print("💥 User API: \(error)")

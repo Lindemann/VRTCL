@@ -16,6 +16,7 @@ internal struct SettingsViewControllerViewModel {
 
 class SettingsViewController: UIViewController {
 	
+	let user = AppDelegate.shared.user
 	var viewModel = SettingsViewControllerViewModel()
 	
 	override func viewDidLoad() {
@@ -26,12 +27,25 @@ class SettingsViewController: UIViewController {
 		setup()
 	}
 	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		setup()
+	}
+	
 	private func setup() {
+		view.subviews.forEach({ $0.removeFromSuperview() })
+		
+		let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 30))
+		label.textAlignment = .center
+		label.font = Fonts.h3
+		label.numberOfLines = 0;
+		label.textColor = Colors.lightGray
+		label.text = "\(user.name ?? "")\n\(user.email ?? "")"
 		
 		let logoutButton = FatButton(color: Colors.purple, title: "Logout")
 		logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
 		
-		let stackView = UIStackView(arrangedSubviews: [logoutButton])
+		let stackView = UIStackView(arrangedSubviews: [label, logoutButton])
 		view.addSubview(stackView)
 		stackView.spacing = 30
 		stackView.axis = .vertical
