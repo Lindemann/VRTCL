@@ -1,9 +1,0 @@
-version: "3"
-services:
-  vrtcl-api:
-    build: .
-    ports:
-      - 8080:8080
-    volumes:
-      - ./Sources:/Sources
-    command: bash -c "swift package clean && swift build && ./.build/debug/vrtcl-api"
