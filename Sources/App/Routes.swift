@@ -20,8 +20,8 @@ extension Droplet {
         }
 
         // a simple plaintext example response
-        get("plaintext") { req in
-            return "Hello, world!"
+        get() { req in
+            return "( ◕ ◡ ◕ ) LOL Server listening"
         }
 
         // response to requests to /info domain
