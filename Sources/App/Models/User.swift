@@ -14,12 +14,18 @@ final class User: Model {
 
     /// The user's _hashed_ password
     var password: String?
+	
+	// String representation of Sessions JSON from the app
+	// Fluent can't work with JSON directly, therefor it's a String here
+	// Postgres DB saves it as JSON type and allows advanced manipultion
+	var sessions: String?
 
     /// Creates a new User
-    init(name: String, email: String, password: String? = nil) {
+	init(name: String, email: String, password: String? = nil, sessions: String? = nil) {
         self.name = name
         self.email = email
         self.password = password
+		self.sessions = sessions
     }
 
     // MARK: Row
@@ -30,6 +36,7 @@ final class User: Model {
         name = try row.get("name")
         email = try row.get("email")
         password = try row.get("password")
+		sessions = try row.get("sessions")
     }
 
     // Serializes the Post to the database
@@ -38,6 +45,7 @@ final class User: Model {
         try row.set("name", name)
         try row.set("email", email)
         try row.set("password", password)
+		try row.set("sessions", sessions)
         return row
     }
 }
@@ -53,6 +61,7 @@ extension User: Preparation {
             builder.string("name")
             builder.string("email")
             builder.string("password")
+			builder.custom("sessions", type: "json", optional: true)
         }
     }
 
@@ -72,7 +81,8 @@ extension User: JSONConvertible {
     convenience init(json: JSON) throws {
         try self.init(
             name: json.get("name"),
-            email: json.get("email")
+            email: json.get("email"),
+			sessions: json.get("sessions")
         )
         id = try json.get("id")
     }
@@ -82,6 +92,7 @@ extension User: JSONConvertible {
         try json.set("id", id)
         try json.set("name", name)
         try json.set("email", email)
+		try json.set("sessions", sessions)
         return json
     }
 }

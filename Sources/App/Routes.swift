@@ -21,7 +21,7 @@ extension Droplet {
 
         // a simple plaintext example response
         get() { req in
-            return "( ◕ ◡ ◕ ) LOL Server listening"
+            return "( ◕ ◡ ◕ ) Server listening"
         }
 
         // response to requests to /info domain
@@ -111,5 +111,26 @@ extension Droplet {
             let user = try req.user()
             return user
         }
+		// POST /sessions
+		// Authorization: Bearer <token from /login>
+		// Body: <sessions JSON>
+		token.post("sessions") { req in
+			// require that the request body be json
+			guard let json = req.json else {
+				throw Abort(.badRequest, reason: "No sessions data was submitted.")
+			}
+			print(json)
+			// JSON -> String
+			let data = try json.serialize(prettyPrint: true)
+			let sessionsString = data.makeString()
+			
+			// Get user
+			let user = try req.user()
+			user.sessions = sessionsString
+			try user.save()
+			
+			let response = Response(status: .ok, body: "sessions saved")
+			return response
+		}
     }
 }
