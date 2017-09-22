@@ -19,24 +19,10 @@ extension Droplet {
             try json.set("hello", "world")
             return json
         }
-
 		
+		// a simple plaintext example response
         get() { req in
-			let client = try SMTPClient.makeGmailClient()
-			let credentials = SMTPCredentials(user: "detlef3000@gmail.com", pass: "1978szdnoorange")
-			let email = Email(from: "detlef3000@gmail.com", to: "judith.lindemann@gmail.com", subject: "VAPOR API TEST", body: "HI FROM VAPOR")
-			try client.send(email, using: credentials)
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			// a simple plaintext example response
-            return "( ◕ ◡ ◕ ) Server listening"
+            return "▲△ VRTCL Server is running ( ◕ ◡ ◕ )"
         }
 
         // response to requests to /info domain
@@ -156,11 +142,13 @@ extension Droplet {
 			let user = try req.user()
 			// String -> JSON
 			guard let sessionsString = user.sessions else {
-				throw Abort(.badRequest, reason: "No sessions available")
+				var json = JSON()
+				try json.set("sessions", [])
+				return json
 			}
-			let bytes = sessionsString.bytes
-			let json = try JSON(bytes: bytes)
-			return json
+			let json = JSON(sessionsString)
+			print(sessionsString)
+			return sessionsString
 		}
     }
 	

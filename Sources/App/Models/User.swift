@@ -36,7 +36,13 @@ final class User: Model {
         name = try row.get("name")
         email = try row.get("email")
         password = try row.get("password")
-		sessions = try row.get("sessions")
+		
+		let json = try row.get("sessions") as JSON
+		let bytes = try json.serialize(prettyPrint: true)
+		var sessionsString = bytes.makeString()
+		sessionsString = String(sessionsString.dropFirst())
+		sessionsString = String(sessionsString.dropLast())
+		sessions = sessionsString
     }
 
     // Serializes the Post to the database
