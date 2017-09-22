@@ -52,7 +52,6 @@ class SettingsViewController: UIViewController {
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 		stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-
 	}
 	
 	@objc private func logout() {

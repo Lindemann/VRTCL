@@ -46,19 +46,22 @@ class SignupViewController: UIViewController {
 		emailTextField.textContentType = .emailAddress
 		emailTextField.keyboardType = .emailAddress
 		emailTextField.autocapitalizationType = .none
+		emailTextField.spellCheckingType = .no
 		
 		let nameTextField = FatTextField(origin: CGPoint.zero)
 		nameTextField.placeholder = "User Name"
 		nameTextField.tag = 1
 		nameTextField.delegate = self
 		nameTextField.textContentType = .name
+		nameTextField.spellCheckingType = .no
 		
 		let passwordTextField = FatTextField(origin: CGPoint.zero)
 		passwordTextField.placeholder = "Password"
 		passwordTextField.tag = 2
 		passwordTextField.delegate = self
 		passwordTextField.isSecureTextEntry = true
-		emailTextField.autocapitalizationType = .none
+		passwordTextField.autocapitalizationType = .none
+		passwordTextField.spellCheckingType = .no
 		
 		let signupButton = FatButton(color: Colors.purple, title: "Sign up")
 		signupButton.addTarget(self, action: #selector(signup), for: .touchUpInside)
@@ -148,7 +151,7 @@ extension SignupViewController {
 			return
 		}
 		if !viewModel.isValidEmail(testStr: email) {
-			showAlertFor(reason: "Invalid Email Adress")
+			APIController.showAlertFor(reason: "Invalid Email Adress", In: self)
 			return
 		}
 		APIController.signup(email: email, name: name, password: password) { (success, error, user) in
@@ -160,20 +163,13 @@ extension SignupViewController {
 						AppDelegate.shared.user.saveCrdentials(email: email, password: password, name: name, token: token)
 						self.dismiss(animated: true, completion: nil)
 					} else {
-						self.showAlertFor(reason: "A problem while login occurred")
+						APIController.showAlertFor(reason: "A problem occurred while login", In: self)
 					}
 				})
 			} else {
-				self.showAlertFor(reason: "A user with that email already exists")
+				APIController.showAlertFor(reason: "A user with that email already exists", In: self)
 			}
 		}
-	}
-	
-	private func showAlertFor(reason: String) {
-		let alertController = UIAlertController(title: reason, message: "", preferredStyle: .alert)
-		let action = UIAlertAction(title: "Ok", style: .default)
-		alertController.addAction(action)
-		present(alertController, animated: true, completion: nil)
 	}
 }
 

@@ -403,8 +403,15 @@ class User: Codable {
 	
 	static let shared = User()
 	var sessions: [Session] = []
+	var following: [User] = []
+	var followers: [User] = []
 	var photo: String?
 	var isAuthenticated: Bool { return token != nil }
+	
+	var id: String? {
+		get { return UserDefaults().string(forKey: "id") }
+		set { UserDefaults().set(newValue, forKey: "id") }
+	}
 	
 	var name: String? {
 		get { return UserDefaults().string(forKey: "name") }
@@ -452,6 +459,21 @@ class User: Codable {
     
     var boulderingSessions: [Session] { return sessionsFor(kind: .bouldering) }
     var sportClimbingSessions: [Session] { return sessionsFor(kind: .sportClimbing) }
+	
+	// For Alamofire...it needs [String : Any] as parameters type
+	// TODO: Remove when Alamofire supports Codable
+	var sessionsJSON: [String : Any]? {
+		let encoder = JSONEncoder()
+		encoder.outputFormatting = .prettyPrinted
+		do {
+			let data = try encoder.encode(sessions)
+			let json = try JSONSerialization.jsonObject(with: data, options: [])
+			return ["sessions" : json]
+		} catch {
+			print("💥 \(error)")
+		}
+		return nil
+	}
     
     private func sessionsFor(kind: Kind) -> [Session] {
         var sessions: [Session] = []

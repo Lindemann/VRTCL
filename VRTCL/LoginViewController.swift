@@ -37,6 +37,7 @@ class LoginViewController: UIViewController {
 		emailTextField.textContentType = .emailAddress
 		emailTextField.keyboardType = .emailAddress
 		emailTextField.autocapitalizationType = .none
+		emailTextField.spellCheckingType = .no
 		
 		let passwordTextField = FatTextField(origin: CGPoint.zero)
 		passwordTextField.placeholder = "Password"
@@ -45,6 +46,7 @@ class LoginViewController: UIViewController {
 		passwordTextField.textContentType = .password
 		passwordTextField.isSecureTextEntry = true
 		passwordTextField.autocapitalizationType = .none
+		passwordTextField.spellCheckingType = .no
 		
 		let loginButton = FatButton(color: Colors.purple, title: "Login")
 		loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
@@ -54,7 +56,7 @@ class LoginViewController: UIViewController {
 		forgotPasswordButton.tintColor = Colors.lightGray
 		forgotPasswordButton.addTarget(self, action: #selector(forgotPassword), for: .touchUpInside)
 		
-		let signupButton = FatButton(color: Colors.purple, title: "Sign up", hasArrow: true)
+		let signupButton = FatButton(color: Colors.lightGray, title: "Sign up", hasArrow: true)
 		signupButton.addTarget(self, action: #selector(signup), for: .touchUpInside)
 		
 		stackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, loginButton, signupButton, forgotPasswordButton])
@@ -134,7 +136,6 @@ extension LoginViewController {
 			return
 		}
 		APIController.login(email: email, password: password) { (success, error, token) in
-//		APIController.login(email: "g@j.de", password: "12345678") { (success, error, token) in
 			if success {
 				guard let token = token else { return }
 				AppDelegate.shared.user.token = token
@@ -145,11 +146,11 @@ extension LoginViewController {
 						AppDelegate.shared.user.saveCrdentials(email: email, password: password, name: name, token: token)
 						self.dismiss(animated: true, completion: nil)
 					} else {
-						self.invalidCredentialsAlert()
+						APIController.showAlertFor(reason: "Invalid Credentials", In: self)
 					}
 				})
 			} else {
-				self.invalidCredentialsAlert()
+				APIController.showAlertFor(reason: "Invalid Credentials", In: self)
 			}
 		}
 	}
@@ -162,13 +163,6 @@ extension LoginViewController {
 	
 	@objc private func forgotPassword() {
 		view.endEditing(true)
-	}
-	
-	private func invalidCredentialsAlert() {
-		let alertController = UIAlertController(title: "Invalid credentials", message: "", preferredStyle: .alert)
-		let action = UIAlertAction(title: "Ok", style: .default)
-		alertController.addAction(action)
-		present(alertController, animated: true, completion: nil)
 	}
 }
 

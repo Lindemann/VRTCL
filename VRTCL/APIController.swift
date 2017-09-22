@@ -11,14 +11,17 @@ import Alamofire
 
 struct APIController {
 	
-	static let localhostURL = "http://localhost:8080/"
-	static let herokuURL = ""
+	#if (arch(i386) || arch(x86_64)) && os(iOS) //Simulator
+		static let baseURL = "http://localhost:8080/"
+	#else //Device
+		static let baseURL = "https://vrtcl.herokuapp.com/"
+	#endif
 	
 	static func login(email: String, password: String, completion: ((Bool, Error?, String?) -> Void)?) {
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		let base64 = Data((email + ":" + password).utf8).base64EncodedString()
 		let passwordHeader: HTTPHeaders = ["Authorization": "Basic \(base64)"]
-		Alamofire.request(localhostURL + "login", method: .post, headers: passwordHeader).validate().responseJSON { response in
+		Alamofire.request(baseURL + "login", method: .post, headers: passwordHeader).validate().responseJSON { response in
 			if let dictionary = response.result.value as? [String: Any] {
 				if let token = dictionary["token"] as? String {
 					print("token: \(token)")
@@ -36,7 +39,7 @@ struct APIController {
 	static func user(token: String,  completion: ((Bool, Error?, User?) -> Void)?) {
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(token)"]
-		Alamofire.request(localhostURL + "user", method: .get, headers: tokenHeader).validate().responseJSON { response in
+		Alamofire.request(baseURL + "user", method: .get, headers: tokenHeader).validate().responseJSON { response in
 			if let dictionary = response.result.value as? [String: Any] {
 				let user = User()
 				if let name = dictionary["name"] as? String {
@@ -60,7 +63,7 @@ struct APIController {
 	static func signup(email: String, name: String, password: String, completion: ((Bool, Error?, User?) -> Void)?) {
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		let parameters: Parameters = ["name" : name, "email" : email, "password" : password]
-		Alamofire.request(localhostURL + "signup", method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseJSON { (response) in
+		Alamofire.request(baseURL + "signup", method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseJSON { response in
 			if let dictionary = response.result.value as? [String: Any] {
 				let user = User()
 				if let name = dictionary["name"] as? String {
@@ -80,4 +83,50 @@ struct APIController {
 			UIApplication.shared.isNetworkActivityIndicatorVisible = false
 		}
 	}
+	
+	static func postSessions(completion: ((Bool, Error?) -> Void)?) {
+		UIApplication.shared.isNetworkActivityIndicatorVisible = true
+		let user = AppDelegate.shared.user
+		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(user.token ?? "")"]
+		Alamofire.request(baseURL + "sessions", method: .post, parameters: user.sessionsJSON, encoding: JSONEncoding.default, headers: tokenHeader).validate().responseString { response in
+			if let error = response.error {
+				print("💥 Post Sessions API: \(error)")
+				completion?(false, response.error)
+			}
+			completion?(true, nil)
+			UIApplication.shared.isNetworkActivityIndicatorVisible = false
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	static func showAlertFor(reason: String, In viewController: UIViewController) {
+		let alertController = UIAlertController(title: reason, message: "", preferredStyle: .alert)
+		let action = UIAlertAction(title: "Ok", style: .default)
+		alertController.addAction(action)
+		viewController.present(alertController, animated: true, completion: nil)
+	}
+	
 }
