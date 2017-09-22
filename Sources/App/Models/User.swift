@@ -38,10 +38,11 @@ final class User: Model {
         password = try row.get("password")
 		
 		let json = try row.get("sessions") as JSON
-		let bytes = try json.serialize(prettyPrint: true)
+		let bytes = try json.makeBytes()
 		var sessionsString = bytes.makeString()
 		sessionsString = String(sessionsString.dropFirst())
 		sessionsString = String(sessionsString.dropLast())
+		print(sessionsString)
 		sessions = sessionsString
     }
 

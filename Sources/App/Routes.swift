@@ -123,7 +123,7 @@ extension Droplet {
 			}
 			print(json)
 			// JSON -> String
-			let data = try json.serialize(prettyPrint: true)
+			let data = try json.makeBytes()
 			let sessionsString = data.makeString()
 			
 			// Get user
@@ -147,8 +147,8 @@ extension Droplet {
 				return json
 			}
 			let json = JSON(sessionsString)
-			print(sessionsString)
-			return sessionsString
+			print(json)
+			return json
 		}
     }
 	
