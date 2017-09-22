@@ -111,6 +111,7 @@ extension Droplet {
             let user = try req.user()
             return user
         }
+		
 		// POST /sessions
 		// Authorization: Bearer <token from /login>
 		// Body: <sessions JSON>
@@ -132,5 +133,57 @@ extension Droplet {
 			let response = Response(status: .ok, body: "sessions saved")
 			return response
 		}
+		
+		// GET /sessions
+		// Authorization: Bearer <token from /login>
+		token.get("sessions") { req in
+			// Get user
+			let user = try req.user()
+			// String -> JSON
+			guard let sessionsString = user.sessions else {
+				throw Abort(.badRequest, reason: "No sessions available")
+			}
+			let bytes = sessionsString.bytes
+			let json = try JSON(bytes: bytes)
+			return json
+		}
     }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
