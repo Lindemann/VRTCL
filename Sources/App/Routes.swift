@@ -1,5 +1,6 @@
 import Vapor
 import AuthProvider
+import SMTP
 
 extension Droplet {
     func setupRoutes() throws {
@@ -19,8 +20,22 @@ extension Droplet {
             return json
         }
 
-        // a simple plaintext example response
+		
         get() { req in
+			let client = try SMTPClient.makeGmailClient()
+			let credentials = SMTPCredentials(user: "detlef3000@gmail.com", pass: "1978szdnoorange")
+			let email = Email(from: "detlef3000@gmail.com", to: "judith.lindemann@gmail.com", subject: "VAPOR API TEST", body: "HI FROM VAPOR")
+			try client.send(email, using: credentials)
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			// a simple plaintext example response
             return "( ◕ ◡ ◕ ) Server listening"
         }
 
