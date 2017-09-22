@@ -90,7 +90,7 @@ struct APIController {
 		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(user.token ?? "")"]
 		Alamofire.request(baseURL + "sessions", method: .post, parameters: user.sessionsJSON, encoding: JSONEncoding.default, headers: tokenHeader).validate().responseString { response in
 			if let error = response.error {
-				print("💥 Post Sessions API: \(error)")
+				print("💥 .POST Sessions API: \(error)")
 				completion?(false, response.error)
 			}
 			completion?(true, nil)
@@ -98,6 +98,30 @@ struct APIController {
 		}
 	}
 	
+	static func getSessions(completion: ((Bool, Error?, [Session]?) -> Void)?) {
+		UIApplication.shared.isNetworkActivityIndicatorVisible = true
+		let user = AppDelegate.shared.user
+		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(user.token ?? "")"]
+		Alamofire.request(baseURL + "sessions", method: .get, headers: tokenHeader).validate().responseJSON { response in
+			if let dictionary = response.result.value as? [String: Any] {
+				if let sessionsArray = dictionary["sessions"] {
+					do {
+						let data = try JSONSerialization.data(withJSONObject: sessionsArray, options: [])
+						let decoder = JSONDecoder()
+						let sessions = try decoder.decode([Session].self, from: data)
+						completion?(true, nil, sessions)
+					} catch {
+						print("💥 JSON Serialization \(error)")
+					}
+				}
+			}
+			if let error = response.error {
+				print("💥 .GET Sessions API: \(error)")
+				completion?(false, response.error, nil)
+			}
+			UIApplication.shared.isNetworkActivityIndicatorVisible = false
+		}
+	}
 	
 	
 	

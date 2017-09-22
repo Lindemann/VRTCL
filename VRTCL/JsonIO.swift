@@ -10,7 +10,7 @@ import Foundation
 
 struct JsonIO {
 	
-	static func save<T>(codable: T, toFile file: String? = nil) where T : Codable {
+	static func save<T>(codable: T, toFile file: String? = nil) where T: Codable {
 		let fileName = file == nil ? String(describing: T.self) + ".json" : file!
 		guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
 		let fileUrl = documentDirectoryUrl.appendingPathComponent(fileName)
@@ -24,7 +24,7 @@ struct JsonIO {
 		}
 	}
 	
-	static func codableType<T>(_ type: T.Type, fromFile file: String? = nil) -> T? where T : Codable {
+	static func codableType<T>(_ type: T.Type, fromFile file: String? = nil) -> T? where T: Codable {
 		let fileName = file == nil ? String(describing: T.self) + ".json" : file!
 		guard let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil }
 		let fileUrl = documentsDirectoryUrl.appendingPathComponent(fileName)
@@ -35,6 +35,13 @@ struct JsonIO {
 			result = try decoder.decode(type, from: data)
 		} catch {
 //			print("💥 \(error)")
+			var t: T?
+			APIController.getSessions(completion: { (success, error, sessions) in
+				if success {
+					t = sessions as? T
+				}
+			})
+			return t
 		}
 		return result
 	}
