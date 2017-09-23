@@ -32,3 +32,8 @@ struct Fonts {
 	static let h3 = UIFont.systemFont(ofSize: 20, weight: .regular)
 	static let text = UIFont.systemFont(ofSize: 16, weight: .regular)
 }
+
+struct Keys {
+	static let cloudinaryURL = "cloudinary://317316397765825:ylzywTSYnx4mP06l31hIB8WB5Zg@vrtcl"
+	static let cloudinaryUploadPreset = "xdewk2a8"
+}

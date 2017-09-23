@@ -34,7 +34,6 @@ class TimelineTableViewController: UITableViewController {
 	
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
-		dch_checkDeallocation()
 	}
 
     override func didReceiveMemoryWarning() {

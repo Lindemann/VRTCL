@@ -6,6 +6,8 @@ target 'VRTCL' do
   use_frameworks!
 
   # Pods for VRTCL
-  pod 'Alamofire', '4.5.1'
+  pod 'Alamofire', '4.5.1';
+  pod 'Kingfisher', '4.0.1';
+  pod 'Cloudinary', '2.0.2'
 
 end

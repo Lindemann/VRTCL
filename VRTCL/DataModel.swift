@@ -13,8 +13,8 @@ struct Grade: Codable, Equatable {
 	let system: System
 	let value: String?
 	let color: String?
-	// Shoud be Bool but thanks to JSONSerialization which turns all bools to int its not possible at the moment...
-	// TODO: Change to Bool when Alomofire supports Codable
+	// Should be Bool but thanks to JSONSerialization which turns all bools to int its not possible at the moment...
+	// TODO: Change to Bool when Alamofire supports Codable
 	let isRealGrade: Int
 	
 	static func == (left: Grade, right: Grade) -> Bool {
@@ -407,7 +407,7 @@ class User: Codable {
 	var sessions: [Session] = []
 	var following: [User] = []
 	var followers: [User] = []
-	var photo: String?
+	var photoURL: String?
 	var isAuthenticated: Bool { return token != nil }
 	
 	var id: String? {
@@ -513,8 +513,8 @@ class User: Codable {
 			if success {
 				guard let sessions = sessions else { return }
 				// Download sessions from Server when
-				// no sessions on device
-				// fewer sessions on device than on Server
+				// - no sessions on device
+				// - fewer sessions on device than on Server
 				if sessions.count > self.sessions.count {
 					self.sessions = sessions
 				}

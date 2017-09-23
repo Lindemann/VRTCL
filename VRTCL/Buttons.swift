@@ -268,6 +268,16 @@ class FatButton: UIButton {
 
 class PhotoButton: UIButton {
 	
+	override var isHighlighted: Bool {
+		didSet {
+			if isHighlighted {
+				backgroundColor = Colors.lightGray.darker(by: 20)
+			} else {
+				backgroundColor = Colors.lightGray
+			}
+		}
+	}
+	
 	init(center: CGPoint = CGPoint.zero, diameter: CGFloat = 80, image: UIImage? = nil) {
 		super.init(frame: CGRect(x: 0, y: 0, width: diameter, height: diameter))
 		self.center = center
@@ -276,8 +286,16 @@ class PhotoButton: UIButton {
 		
 		layer.cornerRadius = frame.size.height / CGFloat(2)
 		clipsToBounds = true
-		setImage(image, for: UIControlState())
-		imageView?.contentMode = .scaleAspectFill
+		
+		if let image = image {
+			setImage(image, for: UIControlState())
+			imageView?.contentMode = .scaleAspectFill
+		}
+		
+		self.setTitle("Add Photo", for: .normal)
+		titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+		setTitleColor(UIColor.white, for: .normal)
+		backgroundColor = Colors.lightGray
 	}
 	
 	required init?(coder aDecoder: NSCoder) {

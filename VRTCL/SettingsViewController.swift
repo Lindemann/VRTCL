@@ -6,8 +6,7 @@
 //  Copyright © 2017 Lindemann. All rights reserved.
 //
 
-import Foundation
-
+import Cloudinary
 import UIKit
 
 internal struct SettingsViewControllerViewModel {
@@ -18,6 +17,7 @@ class SettingsViewController: UIViewController {
 	
 	let user = AppDelegate.shared.user
 	var viewModel = SettingsViewControllerViewModel()
+	var photoButton: PhotoButton!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -35,7 +35,8 @@ class SettingsViewController: UIViewController {
 	private func setup() {
 		view.subviews.forEach({ $0.removeFromSuperview() })
 		
-		let photoButton = PhotoButton(diameter: 120, image: #imageLiteral(resourceName: "avatar"))
+		photoButton = PhotoButton(diameter: 130, image: nil)
+		photoButton.addTarget(self, action: #selector(addPhoto), for: .touchUpInside)
 		
 		let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 30))
 		label.textAlignment = .center
@@ -62,5 +63,47 @@ class SettingsViewController: UIViewController {
 		if let tabBarController = tabBarController as? TabBarController {
 			tabBarController.showLoginViewControllerIfNeeded()
 		}
+	}
+}
+
+extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+	
+	@objc private func addPhoto() {
+		presentImagePickerView()
+	}
+	
+	private func presentImagePickerView() {
+		let picker = UIImagePickerController()
+		picker.delegate = self
+		picker.allowsEditing = false
+		picker.sourceType = .photoLibrary
+		picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+		present(picker, animated: true, completion: nil)
+	}
+	
+	internal func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+		dismiss(animated: true, completion: nil)
+	}
+	
+	internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+		if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+			
+			if let smallImage = image.resizeTo(max: 300) {
+				// Cloudinary
+				if let config = CLDConfiguration(cloudinaryUrl: Keys.cloudinaryURL), let data = UIImagePNGRepresentation(smallImage) as Data? {
+					let cloudinary = CLDCloudinary(configuration: config)
+					UIApplication.shared.isNetworkActivityIndicatorVisible = true
+					cloudinary.createUploader().upload(data: data, uploadPreset: Keys.cloudinaryUploadPreset, params: nil, progress: nil, completionHandler: { (result, error) in
+						if let url = result?.url {
+							AppDelegate.shared.user.photoURL = url
+							self.photoButton.setImage(smallImage, for: .normal)
+						}
+						UIApplication.shared.isNetworkActivityIndicatorVisible = false
+					})
+				}
+			}
+
+		}
+		dismiss(animated: true, completion: nil)
 	}
 }

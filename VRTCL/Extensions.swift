@@ -77,31 +77,34 @@ extension CLLocation {
 	}
 }
 
-// Find view controller retain cycles
-// Source: http://holko.pl/2017/06/26/checking-uiviewcontroller-deallocation/?utm_campaign=iOS%2BDev%2BWeekly&utm_medium=email&utm_source=iOS_Dev_Weekly_Issue_307
-extension UIViewController {
-	public func dch_checkDeallocation(afterDelay delay: TimeInterval = 2.0) {
-		let rootParentViewController = dch_rootParentViewController
-		
-		// We don’t check `isBeingDismissed` simply on this view controller because it’s common
-		// to wrap a view controller in another view controller (e.g. in UINavigationController)
-		// and present the wrapping view controller instead.
-		if isMovingFromParentViewController || rootParentViewController.isBeingDismissed {
-			let viewControllerType = type(of: self)
-			let disappearanceSource: String = isMovingFromParentViewController ? "removed from its parent" : "dismissed"
-			
-			DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: { [weak self] in
-				assert(self == nil, "\(viewControllerType) not deallocated after being \(disappearanceSource)")
-			})
-		}
+extension UIImage {
+	func resized(withPercentage percentage: CGFloat) -> UIImage? {
+		let canvasSize = CGSize(width: size.width * percentage, height: size.height * percentage)
+		UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
+		defer { UIGraphicsEndImageContext() }
+		draw(in: CGRect(origin: .zero, size: canvasSize))
+		return UIGraphicsGetImageFromCurrentImageContext()
 	}
-	
-	private var dch_rootParentViewController: UIViewController {
-		var root = self
-		
-		while let parent = root.parent {
-			root = parent
+	func resized(toWidth width: CGFloat) -> UIImage? {
+		let canvasSize = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
+		UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
+		defer { UIGraphicsEndImageContext() }
+		draw(in: CGRect(origin: .zero, size: canvasSize))
+		return UIGraphicsGetImageFromCurrentImageContext()
+	}
+	func resized(toHeight height: CGFloat) -> UIImage? {
+		let canvasSize = CGSize(width: CGFloat(ceil(height/size.height * size.width)), height: height)
+		UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
+		defer { UIGraphicsEndImageContext() }
+		draw(in: CGRect(origin: .zero, size: canvasSize))
+		return UIGraphicsGetImageFromCurrentImageContext()
+	}
+	func resizeTo(max: CGFloat) -> UIImage? {
+		if size.width < max || size.height < max { return self }
+		if size.width > size.height {
+			return resized(toHeight: max)
+		} else {
+			return resized(toWidth: max)
 		}
-		return root
 	}
 }
