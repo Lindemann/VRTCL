@@ -163,7 +163,8 @@ extension SignupViewController {
 				APIController.login(email: email, password: password, completion: { (success, error, token) in
 					if success {
 						guard let token = token else { return }
-						AppDelegate.shared.user.saveCrdentials(email: email, password: password, name: name, token: token)
+						guard let id = user?.id else { return }
+						AppDelegate.shared.user.saveCrdentials(email: email, password: password, name: name, token: token, photoURL: nil, id: id)
 						self.dismiss(animated: true, completion: nil)
 					} else {
 						APIController.showAlertFor(reason: "A problem occurred while login", In: self)

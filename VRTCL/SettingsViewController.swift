@@ -106,7 +106,9 @@ extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationC
 							self.photoButton.setImage(smallImage, for: .normal)
 							UIApplication.shared.isNetworkActivityIndicatorVisible = true
 							APIController.post(photoURL: url, completion: { (success, error) in
-								if !success {
+								if success {
+									UserDefaults().set(url, forKey: "photoURL")
+								} else {
 									APIController.showAlertFor(reason: "Error while updating photo", In: self)
 								}
 								UIApplication.shared.isNetworkActivityIndicatorVisible = false

@@ -59,6 +59,10 @@ struct APIController {
 					user.photoURL = photoURL
 					print("photoURL: \(photoURL)")
 				}
+				if let id = dictionary["id"] as? Int {
+					user.id = id
+					print("id: \(id)")
+				}
 				completion?(true, nil, user)
 			}
 			if let error = response.error {
@@ -82,6 +86,10 @@ struct APIController {
 				if let email = dictionary["email"] as? String {
 					user.email = email
 					print("email: \(email)")
+				}
+				if let id = dictionary["id"] as? Int {
+					user.id = id
+					print("id: \(id)")
 				}
 				completion?(true, nil, user)
 			}

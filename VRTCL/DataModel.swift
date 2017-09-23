@@ -395,7 +395,6 @@ class Session: Codable {
 	var date: Date?
 	var likes: Likes?
 	var comments: Comments?
-//	var aaa: String? = "jkkjhjkhkjlhkjhkjhjkhlkh"
 	
 	init(kind: Kind) {
 		self.kind = kind
@@ -406,35 +405,17 @@ class User: Codable {
 	
 	static let shared = User()
 	var sessions: [Session] = []
-	var following: [User] = []
-	var followers: [User] = []
+	var following: [User]? = []
+	var followers: [User]? = []
 	var isAuthenticated: Bool { return token != nil }
-	
-	var photoURL: String? {
-		get { return UserDefaults().string(forKey: "photoURL") }
-		set { UserDefaults().set(newValue, forKey: "photoURL") }
-	}
-	
-	var id: String? {
-		get { return UserDefaults().string(forKey: "id") }
-		set { UserDefaults().set(newValue, forKey: "id") }
-	}
-	
-	var name: String? {
-		get { return UserDefaults().string(forKey: "name") }
-		set { UserDefaults().set(newValue, forKey: "name") }
-	}
-	
-	var email: String? {
-		get { return UserDefaults().string(forKey: "email") }
-		set { UserDefaults().set(newValue, forKey: "email") }
-	}
-	
+	var photoURL: String?
+	var id: Int?
+	var name: String?
+	var email: String?
 	var token: String? {
 		get { return UserDefaults().string(forKey: "token") }
 		set { UserDefaults().set(newValue, forKey: "token") }
 	}
-	
 	var password: String? {
 		do {
 			let email = UserDefaults().string(forKey: "email") ?? ""
@@ -491,14 +472,24 @@ class User: Codable {
         return sessions
     }
 	
-	func saveCrdentials(email: String, password: String, name: String, token: String) {
+	func setupFromUserDefaults() {
+		User.shared.photoURL = UserDefaults().string(forKey: "photoURL")
+		User.shared.email = UserDefaults().string(forKey: "email")
+		User.shared.name = UserDefaults().string(forKey: "name")
+		User.shared.token = UserDefaults().string(forKey: "token")
+		User.shared.id = UserDefaults().integer(forKey: "id")
+	}
+	
+	func saveCrdentials(email: String, password: String, name: String, token: String, photoURL: String?, id: Int) {
 		do {
 			let passwordItem = KeychainPasswordItem(service: "VRTCL", account: email, accessGroup: nil)
 			try passwordItem.savePassword(password)
 			
-			self.email = email
-			self.token = token
-			self.name = name
+			UserDefaults().set(email, forKey: "email")
+			UserDefaults().set(token, forKey: "token")
+			UserDefaults().set(name, forKey: "name")
+			UserDefaults().set(photoURL, forKey: "photoURL")
+			UserDefaults().set(id, forKey: "id")
 			
 		} catch {
 			fatalError("Error updating keychain - \(error)")

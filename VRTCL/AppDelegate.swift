@@ -37,6 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	weak var initialLocationDelegate: InitialLocationDelegate?
 
 	func applicationDidFinishLaunching(_ application: UIApplication) {
+		// Setup user data from UserDefaults
+		user.setupFromUserDefaults()
 		// Restore sessions from JSON cache
 		user.sessions = JsonIO.codableType([Session].self) ?? []
 		// Update local sessions with server

@@ -9,15 +9,17 @@
 import UIKit
 
 struct TimelineTableViewCellViewModel {
-	var photo = #imageLiteral(resourceName: "avatar")
+	var user = User()
 	var kind = Kind.bouldering
-	var name = "Judith Lindemann"
-	var location = "Berlin, DAV Halle"
-	var numberOfClimbs = 0
-	var bestEffort = "15.5c"
-	var duration = 0
-	var climbs: [Climb] = []
-	var mood: Mood?
+	
+	internal var photoURL: String? { return user.photoURL }
+	internal var name: String? { return user.name }
+	internal var location = "Berlin, DAV Halle"
+	internal var numberOfClimbs = 0
+	internal var bestEffort = "15.5c"
+	internal var duration = 0
+	internal var climbs: [Climb] = []
+	internal var mood: Mood?
 	
 	internal var kindBadgeText: String {
 		return kind == .bouldering ? "B" : "SC"
@@ -184,7 +186,12 @@ class TimelineTableViewCell: UITableViewCell {
 	func setup() {
 		subviews.forEach { $0.removeFromSuperview() }
 		selectionStyle = .none
-		photoButton = PhotoButton(diameter: 80, image: viewModel.photo)
+		
+		photoButton = PhotoButton(diameter: 80)
+		if let photoURL = viewModel.user.photoURL {
+			photoButton.kf.setImage(with: URL(string: photoURL), for: .normal)
+		}
+		
 		kindBadge = CircleButton(diameter: 40, text: viewModel.kindBadgeText, color: viewModel.kindBadgeColor, presentingViewBackgroundColor: UIColor.white)
 		nameLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 30))
 		performanceButtonGrid = viewModel.performanceButtonGrid

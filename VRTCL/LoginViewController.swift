@@ -144,9 +144,12 @@ extension LoginViewController {
 					if success {
 						guard let name = user?.name else { return }
 						guard let email = user?.email else { return }
+						guard let id = user?.id else { return }
+						let photoURL = user?.photoURL
 						let user = AppDelegate.shared.user
-						user.saveCrdentials(email: email, password: password, name: name, token: token)
+						user.saveCrdentials(email: email, password: password, name: name, token: token, photoURL: photoURL, id: id)
 						user.updateSessionsWithAPI()
+						user.setupFromUserDefaults()
 						self.dismiss(animated: true, completion: nil)
 					} else {
 						APIController.showAlertFor(reason: "Invalid Credentials", In: self)
