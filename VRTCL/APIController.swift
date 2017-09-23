@@ -55,6 +55,10 @@ struct APIController {
 					user.email = email
 					print("email: \(email)")
 				}
+				if let photoURL = dictionary["photoURL"] as? String {
+					user.photoURL = photoURL
+					print("photoURL: \(photoURL)")
+				}
 				completion?(true, nil, user)
 			}
 			if let error = response.error {
@@ -128,7 +132,20 @@ struct APIController {
 		}
 	}
 	
-	
+	static func post(photoURL: String, completion: ((Bool, APIError?) -> Void)?) {
+		UIApplication.shared.isNetworkActivityIndicatorVisible = true
+		let user = AppDelegate.shared.user
+		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(user.token ?? "")"]
+		let parameters: Parameters = ["photoURL" : photoURL]
+		Alamofire.request(baseURL + "photoURL", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: tokenHeader).validate().responseString { response in
+			if let error = response.error {
+				print("💥 .POST pohotoURL API: \(error)")
+				completion?(false, APIError(error: error, statusCode: response.response?.statusCode))
+			}
+			completion?(true, nil)
+			UIApplication.shared.isNetworkActivityIndicatorVisible = false
+		}
+	}
 	
 	
 	

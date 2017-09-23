@@ -395,6 +395,7 @@ class Session: Codable {
 	var date: Date?
 	var likes: Likes?
 	var comments: Comments?
+//	var aaa: String? = "jkkjhjkhkjlhkjhkjhjkhlkh"
 	
 	init(kind: Kind) {
 		self.kind = kind

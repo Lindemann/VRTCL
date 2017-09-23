@@ -28,8 +28,8 @@ class SettingsViewController: UIViewController {
 		setup()
 	}
 	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
 		setup()
 	}
 	
@@ -100,9 +100,17 @@ extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationC
 					let cloudinary = CLDCloudinary(configuration: config)
 					UIApplication.shared.isNetworkActivityIndicatorVisible = true
 					cloudinary.createUploader().upload(data: data, uploadPreset: Keys.cloudinaryUploadPreset, params: nil, progress: nil, completionHandler: { (result, error) in
-						if let url = result?.url {
+						if var url = result?.url {
+							url = url.replacingOccurrences(of: "http://", with: "https://")
 							AppDelegate.shared.user.photoURL = url
 							self.photoButton.setImage(smallImage, for: .normal)
+							UIApplication.shared.isNetworkActivityIndicatorVisible = true
+							APIController.post(photoURL: url, completion: { (success, error) in
+								if !success {
+									APIController.showAlertFor(reason: "Error while updating photo", In: self)
+								}
+								UIApplication.shared.isNetworkActivityIndicatorVisible = false
+							})
 						}
 						UIApplication.shared.isNetworkActivityIndicatorVisible = false
 					})
