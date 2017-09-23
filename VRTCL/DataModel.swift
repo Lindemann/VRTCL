@@ -407,8 +407,12 @@ class User: Codable {
 	var sessions: [Session] = []
 	var following: [User] = []
 	var followers: [User] = []
-	var photoURL: String?
 	var isAuthenticated: Bool { return token != nil }
+	
+	var photoURL: String? {
+		get { return UserDefaults().string(forKey: "photoURL") }
+		set { UserDefaults().set(newValue, forKey: "photoURL") }
+	}
 	
 	var id: String? {
 		get { return UserDefaults().string(forKey: "id") }

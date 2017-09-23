@@ -8,6 +8,7 @@
 
 import Cloudinary
 import UIKit
+import Kingfisher
 
 internal struct SettingsViewControllerViewModel {
 
@@ -37,6 +38,11 @@ class SettingsViewController: UIViewController {
 		
 		photoButton = PhotoButton(diameter: 130, image: nil)
 		photoButton.addTarget(self, action: #selector(addPhoto), for: .touchUpInside)
+		
+		if let photoURL = AppDelegate.shared.user.photoURL {
+			let url = URL(string: photoURL)
+			photoButton.kf.setImage(with: url, for: .normal)
+		}
 		
 		let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 30))
 		label.textAlignment = .center

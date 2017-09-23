@@ -85,6 +85,7 @@ extension UIImage {
 		draw(in: CGRect(origin: .zero, size: canvasSize))
 		return UIGraphicsGetImageFromCurrentImageContext()
 	}
+	
 	func resized(toWidth width: CGFloat) -> UIImage? {
 		let canvasSize = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
 		UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
@@ -92,6 +93,7 @@ extension UIImage {
 		draw(in: CGRect(origin: .zero, size: canvasSize))
 		return UIGraphicsGetImageFromCurrentImageContext()
 	}
+	
 	func resized(toHeight height: CGFloat) -> UIImage? {
 		let canvasSize = CGSize(width: CGFloat(ceil(height/size.height * size.width)), height: height)
 		UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
@@ -99,6 +101,7 @@ extension UIImage {
 		draw(in: CGRect(origin: .zero, size: canvasSize))
 		return UIGraphicsGetImageFromCurrentImageContext()
 	}
+	
 	func resizeTo(max: CGFloat) -> UIImage? {
 		if size.width < max || size.height < max { return self }
 		if size.width > size.height {
