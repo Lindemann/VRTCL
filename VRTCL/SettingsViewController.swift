@@ -35,6 +35,8 @@ class SettingsViewController: UIViewController {
 	private func setup() {
 		view.subviews.forEach({ $0.removeFromSuperview() })
 		
+		let photoButton = PhotoButton(diameter: 120, image: #imageLiteral(resourceName: "avatar"))
+		
 		let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 30))
 		label.textAlignment = .center
 		label.font = Fonts.h3
@@ -45,13 +47,14 @@ class SettingsViewController: UIViewController {
 		let logoutButton = FatButton(color: Colors.purple, title: "Logout")
 		logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
 		
-		let stackView = UIStackView(arrangedSubviews: [label, logoutButton])
+		let stackView = UIStackView(arrangedSubviews: [photoButton, label, logoutButton])
 		view.addSubview(stackView)
 		stackView.spacing = 30
 		stackView.axis = .vertical
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 		stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+		stackView.alignment = .center
 	}
 	
 	@objc private func logout() {

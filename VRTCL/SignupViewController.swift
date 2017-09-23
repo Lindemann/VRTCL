@@ -172,7 +172,11 @@ extension SignupViewController {
 				sender.isUserInteractionEnabled = true
 			} else {
 				sender.isUserInteractionEnabled = true
-				APIController.showAlertFor(reason: "A user with that email already exists", In: self)
+				if error?.statusCode == nil {
+					APIController.showAlertFor(reason: "No connection to server", In: self)
+				} else {
+					APIController.showAlertFor(reason: "A user with that email already exists", In: self)
+				}
 			}
 		}
 	}

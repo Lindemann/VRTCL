@@ -65,6 +65,7 @@ class LoginViewController: UIViewController {
 		stackView.axis = .vertical
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+		stackView.alignment = .center
 		centerConstraint.isActive = true
 		
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
@@ -152,7 +153,11 @@ extension LoginViewController {
 					}
 				})
 			} else {
-				APIController.showAlertFor(reason: "Invalid Credentials", In: self)
+				if error?.statusCode == nil {
+					APIController.showAlertFor(reason: "No connection to server", In: self)
+				} else {
+					APIController.showAlertFor(reason: "Invalid Credentials", In: self)
+				}
 			}
 		}
 	}

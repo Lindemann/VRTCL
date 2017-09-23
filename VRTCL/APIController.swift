@@ -9,6 +9,11 @@
 import Foundation
 import Alamofire
 
+struct APIError {
+	var error: Error?
+	var statusCode: Int?
+}
+
 struct APIController {
 	
 	#if (arch(i386) || arch(x86_64)) && os(iOS) //Simulator
@@ -17,7 +22,7 @@ struct APIController {
 		static let baseURL = "https://vrtcl.herokuapp.com/"
 	#endif
 	
-	static func login(email: String, password: String, completion: ((Bool, Error?, String?) -> Void)?) {
+	static func login(email: String, password: String, completion: ((Bool, APIError?, String?) -> Void)?) {
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		let base64 = Data((email + ":" + password).utf8).base64EncodedString()
 		let passwordHeader: HTTPHeaders = ["Authorization": "Basic \(base64)"]
@@ -30,13 +35,13 @@ struct APIController {
 			}
 			if let error = response.error {
 				print("💥 Login API: \(error)")
-				completion?(false, response.error, nil)
+				completion?(false, APIError(error: error, statusCode: response.response?.statusCode), nil)
 			}
 			UIApplication.shared.isNetworkActivityIndicatorVisible = false
 		}
 	}
 	
-	static func user(token: String,  completion: ((Bool, Error?, User?) -> Void)?) {
+	static func user(token: String,  completion: ((Bool, APIError?, User?) -> Void)?) {
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(token)"]
 		Alamofire.request(baseURL + "user", method: .get, headers: tokenHeader).validate().responseJSON { response in
@@ -54,13 +59,13 @@ struct APIController {
 			}
 			if let error = response.error {
 				print("💥 User API: \(error)")
-				completion?(false, response.error, nil)
+				completion?(false, APIError(error: error, statusCode: response.response?.statusCode), nil)
 			}
 			UIApplication.shared.isNetworkActivityIndicatorVisible = false
 		}
 	}
 	
-	static func signup(email: String, name: String, password: String, completion: ((Bool, Error?, User?) -> Void)?) {
+	static func signup(email: String, name: String, password: String, completion: ((Bool, APIError?, User?) -> Void)?) {
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		let parameters: Parameters = ["name" : name, "email" : email, "password" : password]
 		Alamofire.request(baseURL + "signup", method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseJSON { response in
@@ -78,27 +83,27 @@ struct APIController {
 			}
 			if let error = response.error {
 				print("💥 Signup API: \(error)")
-				completion?(false, response.error, nil)
+				completion?(false, APIError(error: error, statusCode: response.response?.statusCode), nil)
 			}
 			UIApplication.shared.isNetworkActivityIndicatorVisible = false
 		}
 	}
 	
-	static func postSessions(completion: ((Bool, Error?) -> Void)?) {
+	static func postSessions(completion: ((Bool, APIError?) -> Void)?) {
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		let user = AppDelegate.shared.user
 		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(user.token ?? "")"]
 		Alamofire.request(baseURL + "sessions", method: .post, parameters: user.sessionsJSON, encoding: JSONEncoding.default, headers: tokenHeader).validate().responseString { response in
 			if let error = response.error {
 				print("💥 .POST Sessions API: \(error)")
-				completion?(false, response.error)
+				completion?(false, APIError(error: error, statusCode: response.response?.statusCode))
 			}
 			completion?(true, nil)
 			UIApplication.shared.isNetworkActivityIndicatorVisible = false
 		}
 	}
 	
-	static func getSessions(completion: ((Bool, Error?, [Session]?) -> Void)?) {
+	static func getSessions(completion: ((Bool, APIError?, [Session]?) -> Void)?) {
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		let user = AppDelegate.shared.user
 		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(user.token ?? "")"]
@@ -117,7 +122,7 @@ struct APIController {
 			}
 			if let error = response.error {
 				print("💥 .GET Sessions API: \(error)")
-				completion?(false, response.error, nil)
+				completion?(false, APIError(error: error, statusCode: response.response?.statusCode), nil)
 			}
 			UIApplication.shared.isNetworkActivityIndicatorVisible = false
 		}
