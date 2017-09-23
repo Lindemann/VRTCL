@@ -42,7 +42,7 @@ final class User: Model {
 		var sessionsString = bytes.makeString()
 		sessionsString = String(sessionsString.dropFirst())
 		sessionsString = String(sessionsString.dropLast())
-		print(sessionsString)
+//		print(sessionsString)
 		sessions = sessionsString
     }
 
@@ -68,7 +68,7 @@ extension User: Preparation {
             builder.string("name")
             builder.string("email")
             builder.string("password")
-			builder.custom("sessions", type: "json", optional: true)
+			builder.custom("sessions", type: "text", optional: true)
         }
     }
 

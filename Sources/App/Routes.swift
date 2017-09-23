@@ -121,7 +121,6 @@ extension Droplet {
 			guard let json = req.json else {
 				throw Abort(.badRequest, reason: "No sessions data was submitted.")
 			}
-			print(json)
 			// JSON -> String
 			let data = try json.makeBytes()
 			let sessionsString = data.makeString()
@@ -146,8 +145,8 @@ extension Droplet {
 				try json.set("sessions", [])
 				return json
 			}
-			let json = JSON(sessionsString)
-			print(json)
+			let bytes = sessionsString.makeBytes()
+			let json = try JSON(bytes: bytes)
 			return json
 		}
     }
