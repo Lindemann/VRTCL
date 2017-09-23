@@ -82,11 +82,10 @@ class IBeaconTableViewController: UITableViewController {
 		viewModel.session.mood = .good
 		viewModel.session.location = Location(venue: .gym, name: "Berlin", coordinate: nil)
 		
-		AppDelegate.shared.user.sessions.insert(viewModel.session, at: 0)
-		// Store sessions to JSON cache
-		if AppDelegate.shared.user.sessions.count > 0 {
-			JsonIO.save(codable: AppDelegate.shared.user.sessions)
-		}
+		viewModel.saveSession()
+	
+		// Send all sessions to API
+		viewModel.postSessions()
 		viewModel.setSessionToNil()
 		locationManager.stopUpdatingLocation()
 		navigationController?.dismiss(animated: true, completion: nil)

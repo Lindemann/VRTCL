@@ -48,7 +48,7 @@ internal class AnalyticsViewControllerViewModel {
         let max = onSightsAndFlashesIndices.max() ?? 0
         guard let gradeSystem = kind == .sportClimbing ? AppDelegate.shared.user.sportClimbingGradeSystem : AppDelegate.shared.user.boulderingGradeSystem else { return "?" }
         let resultGrade = GradeScales.gradeScaleFor(system: gradeSystem)[max]
-        let normalizedResultGrade = resultGrade.isRealGrade ? resultGrade : GradeScales.gradeScaleFor(system: gradeSystem)[max - 1]
+        let normalizedResultGrade = resultGrade.isRealGrade == 1 ? resultGrade : GradeScales.gradeScaleFor(system: gradeSystem)[max - 1]
         return normalizedResultGrade.value ?? "?"
     }
     

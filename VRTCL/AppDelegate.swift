@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationDidFinishLaunching(_ application: UIApplication) {
 		// Restore sessions from JSON cache
 		user.sessions = JsonIO.codableType([Session].self) ?? []
+		user.updateSessionsWithAPI()
 		setupLocationTracking()
 	}
 	
@@ -62,6 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationWillTerminate(_ application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+		user.updateSessionsWithAPI()
 	}
 }
 

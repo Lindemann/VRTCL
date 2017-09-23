@@ -64,7 +64,7 @@ class SignupViewController: UIViewController {
 		passwordTextField.spellCheckingType = .no
 		
 		let signupButton = FatButton(color: Colors.purple, title: "Sign up")
-		signupButton.addTarget(self, action: #selector(signup), for: .touchUpInside)
+		signupButton.addTarget(self, action: #selector(signup(sender:)), for: .touchUpInside)
 		
 		stackView = UIStackView(arrangedSubviews: [emailTextField, nameTextField, passwordTextField, signupButton])
 		view.addSubview(stackView)
@@ -143,7 +143,7 @@ extension SignupViewController: UITextFieldDelegate {
 
 // MARK: API Stuff
 extension SignupViewController {
-	@objc private func signup() {
+	@objc private func signup(sender: UIButton) {
 		view.endEditing(true)
 		guard let password = viewModel.password, let name = viewModel.name, let email = viewModel.email else {
 			let generator = UIImpactFeedbackGenerator(style: .heavy)
@@ -154,6 +154,9 @@ extension SignupViewController {
 			APIController.showAlertFor(reason: "Invalid Email Adress", In: self)
 			return
 		}
+		// Needed to prevent puhing the signup button several times, which leads to
+		// "A user with that email already exists" error
+		sender.isUserInteractionEnabled = false
 		APIController.signup(email: email, name: name, password: password) { (success, error, user) in
 			if success {
 				guard let name = user?.name, let email = user?.email else { return }
@@ -166,7 +169,9 @@ extension SignupViewController {
 						APIController.showAlertFor(reason: "A problem occurred while login", In: self)
 					}
 				})
+				sender.isUserInteractionEnabled = true
 			} else {
+				sender.isUserInteractionEnabled = true
 				APIController.showAlertFor(reason: "A user with that email already exists", In: self)
 			}
 		}

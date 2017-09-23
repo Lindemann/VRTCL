@@ -143,7 +143,9 @@ extension LoginViewController {
 					if success {
 						guard let name = user?.name else { return }
 						guard let email = user?.email else { return }
-						AppDelegate.shared.user.saveCrdentials(email: email, password: password, name: name, token: token)
+						let user = AppDelegate.shared.user
+						user.saveCrdentials(email: email, password: password, name: name, token: token)
+						user.updateSessionsWithAPI()
 						self.dismiss(animated: true, completion: nil)
 					} else {
 						APIController.showAlertFor(reason: "Invalid Credentials", In: self)
@@ -164,6 +166,7 @@ extension LoginViewController {
 	@objc private func forgotPassword() {
 		view.endEditing(true)
 	}
+
 }
 
 

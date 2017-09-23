@@ -45,12 +45,11 @@ class AltimeterViewController: UIViewController {
 			viewModel.session.duration = viewModel.estimatedDuration
 			viewModel.session.mood = .good
 			viewModel.session.location = Location(venue: .gym, name: "Berlin", coordinate: nil)
+		
+			viewModel.saveSession()
 			
-			AppDelegate.shared.user.sessions.insert(viewModel.session, at: 0)
-			// Store sessions to JSON cache
-			if AppDelegate.shared.user.sessions.count > 0 {
-				JsonIO.save(codable: AppDelegate.shared.user.sessions)
-			}
+			// Send all sessions to API
+			viewModel.postSessions()
 			viewModel.setSessionToNil()
 			navigationController?.dismiss(animated: true, completion: nil)
 		}

@@ -35,13 +35,6 @@ struct JsonIO {
 			result = try decoder.decode(type, from: data)
 		} catch {
 //			print("💥 \(error)")
-			var t: T?
-			APIController.getSessions(completion: { (success, error, sessions) in
-				if success {
-					t = sessions as? T
-				}
-			})
-			return t
 		}
 		return result
 	}

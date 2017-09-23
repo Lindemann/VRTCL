@@ -113,28 +113,16 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 			generator.impactOccurred()
 			return
 		}
-		
 		if viewModel.session.duration == nil {
 			viewModel.session.duration = viewModel.estimatedDuration
 		}
-		
-		AppDelegate.shared.user.sessions.insert(viewModel.session, at: 0)
-		
-		// Store sessions to JSON cache
-		if AppDelegate.shared.user.sessions.count > 0 {
-			JsonIO.save(codable: AppDelegate.shared.user.sessions)
-		}
+		viewModel.saveSession()
 		
 		// Send all sessions to API
-		APIController.postSessions { (success, error) in
-			if success {
-				
-			}
-		}
-		
-		
+		viewModel.postSessions()
 		viewModel.setSessionToNil()
-		navigationController?.popViewController(animated: true)
+		//TODO: set to normal pop after InputMethodViewController is gone
+		navigationController?.popToRootViewController(animated: true)
 	}
 }
 

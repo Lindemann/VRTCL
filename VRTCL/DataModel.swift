@@ -13,7 +13,9 @@ struct Grade: Codable, Equatable {
 	let system: System
 	let value: String?
 	let color: String?
-	let isRealGrade: Bool
+	// Shoud be Bool but thanks to JSONSerialization which turns all bools to int its not possible at the moment...
+	// TODO: Change to Bool when Alomofire supports Codable
+	let isRealGrade: Int
 	
 	static func == (left: Grade, right: Grade) -> Bool {
 		return left.system == right.system && left.value == right.value
@@ -172,215 +174,215 @@ struct GradeScales: Codable {
 	}
 	
 	static let uiaa: [Grade] = [
-		Grade(system: .uiaa, value: "3-", color: Colors.mauve.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "3", color: Colors.mauve.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "3+", color: Colors.mauve.toHexString, isRealGrade: true),
+		Grade(system: .uiaa, value: "3-", color: Colors.mauve.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "3", color: Colors.mauve.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "3+", color: Colors.mauve.toHexString, isRealGrade: 1),
 		
-		Grade(system: .uiaa, value: "4-", color: Colors.discoBlue.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "4", color: Colors.discoBlue.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "4+", color: Colors.discoBlue.toHexString, isRealGrade: true),
+		Grade(system: .uiaa, value: "4-", color: Colors.discoBlue.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "4", color: Colors.discoBlue.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "4+", color: Colors.discoBlue.toHexString, isRealGrade: 1),
 		
-		Grade(system: .uiaa, value: "5-", color: Colors.neonGreen.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "5", color: Colors.neonGreen.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "5+", color: Colors.neonGreen.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .uiaa, value: "5-", color: Colors.neonGreen.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "5", color: Colors.neonGreen.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "5+", color: Colors.neonGreen.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: 0),
 		
-		Grade(system: .uiaa, value: "6-", color: Colors.purple.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "6", color: Colors.purple.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "6+", color: Colors.purple.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .uiaa, value: "6-", color: Colors.purple.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "6", color: Colors.purple.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "6+", color: Colors.purple.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: 0),
 		
-		Grade(system: .uiaa, value: "7-", color: Colors.babyBlue.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "7", color: Colors.babyBlue.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "7+", color: Colors.babyBlue.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .uiaa, value: "7-", color: Colors.babyBlue.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "7", color: Colors.babyBlue.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "7+", color: Colors.babyBlue.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: 0),
 		
-		Grade(system: .uiaa, value: "8-", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "8", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "8+", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .uiaa, value: "8-", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "8", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "8+", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: 0),
 		
-		Grade(system: .uiaa, value: "9-", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "9", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "9+", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .uiaa, value: "9-", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "9", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "9+", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: 0),
 		
-		Grade(system: .uiaa, value: "10-", color: Colors.orange.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "10", color: Colors.orange.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "10+", color: Colors.orange.toHexString, isRealGrade: true),
+		Grade(system: .uiaa, value: "10-", color: Colors.orange.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "10", color: Colors.orange.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "10+", color: Colors.orange.toHexString, isRealGrade: 1),
 		
-		Grade(system: .uiaa, value: "11-", color: Colors.hardPurple.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: false),
-		Grade(system: .uiaa, value: "11", color: Colors.hardPurple.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "11+", color: Colors.hardPurple.toHexString, isRealGrade: true),
+		Grade(system: .uiaa, value: "11-", color: Colors.hardPurple.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: nil, color: nil, isRealGrade: 0),
+		Grade(system: .uiaa, value: "11", color: Colors.hardPurple.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "11+", color: Colors.hardPurple.toHexString, isRealGrade: 1),
 		
-		Grade(system: .uiaa, value: "12-", color: Colors.pink.toHexString, isRealGrade: true),
-		Grade(system: .uiaa, value: "12", color: Colors.pink.toHexString, isRealGrade: true),
+		Grade(system: .uiaa, value: "12-", color: Colors.pink.toHexString, isRealGrade: 1),
+		Grade(system: .uiaa, value: "12", color: Colors.pink.toHexString, isRealGrade: 1),
 	]
 	
 	static let french: [Grade] = [
-		Grade(system: .french, value: "3a", color: Colors.neonGreen.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "3b", color: Colors.neonGreen.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "3c", color: Colors.neonGreen.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "4a", color: Colors.neonGreen.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "4b", color: Colors.neonGreen.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "4c", color: Colors.neonGreen.toHexString, isRealGrade: true),
+		Grade(system: .french, value: "3a", color: Colors.neonGreen.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "3b", color: Colors.neonGreen.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "3c", color: Colors.neonGreen.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "4a", color: Colors.neonGreen.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "4b", color: Colors.neonGreen.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "4c", color: Colors.neonGreen.toHexString, isRealGrade: 1),
 		
-		Grade(system: .french, value: "5a", color: Colors.purple.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "5a+", color: Colors.purple.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "5b", color: Colors.purple.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "5b+", color: Colors.purple.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "5c", color: Colors.purple.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "5c+", color: Colors.purple.toHexString, isRealGrade: true),
+		Grade(system: .french, value: "5a", color: Colors.purple.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "5a+", color: Colors.purple.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "5b", color: Colors.purple.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "5b+", color: Colors.purple.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "5c", color: Colors.purple.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "5c+", color: Colors.purple.toHexString, isRealGrade: 1),
 		
-		Grade(system: .french, value: "6a", color: Colors.babyBlue.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "6a+", color: Colors.babyBlue.toHexString, isRealGrade: true),
-		Grade(system: .french, value: nil, color: nil, isRealGrade: false),
-		Grade(system: .french, value: "6b", color: Colors.babyBlue.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "6b+", color: Colors.babyBlue.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "6c", color: Colors.babyBlue.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "6c+", color: Colors.babyBlue.toHexString, isRealGrade: true),
+		Grade(system: .french, value: "6a", color: Colors.babyBlue.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "6a+", color: Colors.babyBlue.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: nil, color: nil, isRealGrade: 0),
+		Grade(system: .french, value: "6b", color: Colors.babyBlue.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "6b+", color: Colors.babyBlue.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "6c", color: Colors.babyBlue.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "6c+", color: Colors.babyBlue.toHexString, isRealGrade: 1),
 		
-		Grade(system: .french, value: "7a", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "7a+", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "7b", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "7b+", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "7c", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "7c+", color: Colors.magenta.toHexString, isRealGrade: true),
+		Grade(system: .french, value: "7a", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "7a+", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "7b", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "7b+", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "7c", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "7c+", color: Colors.magenta.toHexString, isRealGrade: 1),
 		
-		Grade(system: .french, value: "8a", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "8a+", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "8b", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "8b+", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "8c", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "8c+", color: Colors.mint.toHexString, isRealGrade: true),
+		Grade(system: .french, value: "8a", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "8a+", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "8b", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "8b+", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "8c", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "8c+", color: Colors.mint.toHexString, isRealGrade: 1),
 		
-		Grade(system: .french, value: "9a", color: Colors.orange.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "9a+", color: Colors.orange.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "9b", color: Colors.orange.toHexString, isRealGrade: true),
-		Grade(system: .french, value: "9b+", color: Colors.orange.toHexString, isRealGrade: true)
+		Grade(system: .french, value: "9a", color: Colors.orange.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "9a+", color: Colors.orange.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "9b", color: Colors.orange.toHexString, isRealGrade: 1),
+		Grade(system: .french, value: "9b+", color: Colors.orange.toHexString, isRealGrade: 1)
 	]
 	
 	static let yds: [Grade] = [
-		Grade(system: .yds, value: "5.2", color: Colors.discoBlue.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.3", color: Colors.discoBlue.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.4", color: Colors.discoBlue.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.5", color: Colors.discoBlue.toHexString, isRealGrade: true),
+		Grade(system: .yds, value: "5.2", color: Colors.discoBlue.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.3", color: Colors.discoBlue.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.4", color: Colors.discoBlue.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.5", color: Colors.discoBlue.toHexString, isRealGrade: 1),
 		
-		Grade(system: .yds, value: "5.6", color: Colors.neonGreen.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: nil, color: nil, isRealGrade: false),
-		Grade(system: .yds, value: "5.7", color: Colors.neonGreen.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: nil, color: nil, isRealGrade: false),
-		Grade(system: .yds, value: "5.8", color: Colors.neonGreen.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: nil, color: nil, isRealGrade: false),
-		Grade(system: .yds, value: "5.9", color: Colors.neonGreen.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .yds, value: "5.6", color: Colors.neonGreen.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: nil, color: nil, isRealGrade: 0),
+		Grade(system: .yds, value: "5.7", color: Colors.neonGreen.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: nil, color: nil, isRealGrade: 0),
+		Grade(system: .yds, value: "5.8", color: Colors.neonGreen.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: nil, color: nil, isRealGrade: 0),
+		Grade(system: .yds, value: "5.9", color: Colors.neonGreen.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: nil, color: nil, isRealGrade: 0),
 		
-		Grade(system: .yds, value: "5.10a", color: Colors.purple.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.10b", color: Colors.purple.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.10c", color: Colors.purple.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.10d", color: Colors.purple.toHexString, isRealGrade: true),
+		Grade(system: .yds, value: "5.10a", color: Colors.purple.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.10b", color: Colors.purple.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.10c", color: Colors.purple.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.10d", color: Colors.purple.toHexString, isRealGrade: 1),
 		
-		Grade(system: .yds, value: "5.11a", color: Colors.babyBlue.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.11b", color: Colors.babyBlue.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.11c", color: Colors.babyBlue.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.11d", color: Colors.babyBlue.toHexString, isRealGrade: true),
+		Grade(system: .yds, value: "5.11a", color: Colors.babyBlue.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.11b", color: Colors.babyBlue.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.11c", color: Colors.babyBlue.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.11d", color: Colors.babyBlue.toHexString, isRealGrade: 1),
 		
-		Grade(system: .yds, value: "5.12a", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.12b", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.12c", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.12d", color: Colors.magenta.toHexString, isRealGrade: true),
+		Grade(system: .yds, value: "5.12a", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.12b", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.12c", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.12d", color: Colors.magenta.toHexString, isRealGrade: 1),
 		
-		Grade(system: .yds, value: "5.13a", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.13b", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.13c", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.13d", color: Colors.mint.toHexString, isRealGrade: true),
+		Grade(system: .yds, value: "5.13a", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.13b", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.13c", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.13d", color: Colors.mint.toHexString, isRealGrade: 1),
 		
-		Grade(system: .yds, value: "5.14a", color: Colors.orange.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.14b", color: Colors.orange.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.14c", color: Colors.orange.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.14d", color: Colors.orange.toHexString, isRealGrade: true),
+		Grade(system: .yds, value: "5.14a", color: Colors.orange.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.14b", color: Colors.orange.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.14c", color: Colors.orange.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.14d", color: Colors.orange.toHexString, isRealGrade: 1),
 		
-		Grade(system: .yds, value: "5.15a", color: Colors.hardPurple.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.15b", color: Colors.hardPurple.toHexString, isRealGrade: true),
-		Grade(system: .yds, value: "5.15c", color: Colors.hardPurple.toHexString, isRealGrade: true)
+		Grade(system: .yds, value: "5.15a", color: Colors.hardPurple.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.15b", color: Colors.hardPurple.toHexString, isRealGrade: 1),
+		Grade(system: .yds, value: "5.15c", color: Colors.hardPurple.toHexString, isRealGrade: 1)
 	]
 	
 	static let font: [Grade] = [
-		Grade(system: .font, value: "3", color: Colors.neonGreen.toHexString, isRealGrade: true),
+		Grade(system: .font, value: "3", color: Colors.neonGreen.toHexString, isRealGrade: 1),
 		
-		Grade(system: .font, value: "4-", color: Colors.purple.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "4", color: Colors.purple.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "4+", color: Colors.purple.toHexString, isRealGrade: true),
+		Grade(system: .font, value: "4-", color: Colors.purple.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "4", color: Colors.purple.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "4+", color: Colors.purple.toHexString, isRealGrade: 1),
 		
-		Grade(system: .font, value: "5-", color: Colors.babyBlue.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "5", color: Colors.babyBlue.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "5+", color: Colors.babyBlue.toHexString, isRealGrade: true),
-		Grade(system: .font, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .font, value: "5-", color: Colors.babyBlue.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "5", color: Colors.babyBlue.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "5+", color: Colors.babyBlue.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: nil, color: nil, isRealGrade: 0),
 		
-		Grade(system: .font, value: "6A", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "6A+", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "6B", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "6B+", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "6C", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "6C+", color: Colors.magenta.toHexString, isRealGrade: true),
+		Grade(system: .font, value: "6A", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "6A+", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "6B", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "6B+", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "6C", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "6C+", color: Colors.magenta.toHexString, isRealGrade: 1),
 		
-		Grade(system: .font, value: "7A", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "7A+", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "7B", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "7B+", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "7C", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "7C+", color: Colors.mint.toHexString, isRealGrade: true),
+		Grade(system: .font, value: "7A", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "7A+", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "7B", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "7B+", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "7C", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "7C+", color: Colors.mint.toHexString, isRealGrade: 1),
 		
-		Grade(system: .font, value: "8A", color: Colors.orange.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "8A+", color: Colors.orange.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "8B", color: Colors.orange.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "8B+", color: Colors.orange.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "8C", color: Colors.orange.toHexString, isRealGrade: true),
-		Grade(system: .font, value: "8C+", color: Colors.orange.toHexString, isRealGrade: true),
+		Grade(system: .font, value: "8A", color: Colors.orange.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "8A+", color: Colors.orange.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "8B", color: Colors.orange.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "8B+", color: Colors.orange.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "8C", color: Colors.orange.toHexString, isRealGrade: 1),
+		Grade(system: .font, value: "8C+", color: Colors.orange.toHexString, isRealGrade: 1),
 	]
 	
 	static let hueco: [Grade] = [
-		Grade(system: .hueco, value: "VB", color: Colors.discoBlue.toHexString, isRealGrade: true),
+		Grade(system: .hueco, value: "VB", color: Colors.discoBlue.toHexString, isRealGrade: 1),
 		
-		Grade(system: .hueco, value: "V0-", color: Colors.neonGreen.toHexString, isRealGrade: true),
-		Grade(system: .hueco, value: nil, color: nil, isRealGrade: false),
-		Grade(system: .hueco, value: "V0", color: Colors.neonGreen.toHexString, isRealGrade: true),
-		Grade(system: .hueco, value: nil, color: nil, isRealGrade: false),
-		Grade(system: .hueco, value: "V0+", color: Colors.neonGreen.toHexString, isRealGrade: true),
-		Grade(system: .hueco, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .hueco, value: "V0-", color: Colors.neonGreen.toHexString, isRealGrade: 1),
+		Grade(system: .hueco, value: nil, color: nil, isRealGrade: 0),
+		Grade(system: .hueco, value: "V0", color: Colors.neonGreen.toHexString, isRealGrade: 1),
+		Grade(system: .hueco, value: nil, color: nil, isRealGrade: 0),
+		Grade(system: .hueco, value: "V0+", color: Colors.neonGreen.toHexString, isRealGrade: 1),
+		Grade(system: .hueco, value: nil, color: nil, isRealGrade: 0),
 		
-		Grade(system: .hueco, value: "V1", color: Colors.purple.toHexString, isRealGrade: true),
-		Grade(system: .hueco, value: "V2", color: Colors.purple.toHexString, isRealGrade: true),
-		Grade(system: .hueco, value: "V3", color: Colors.purple.toHexString, isRealGrade: true),
-		Grade(system: .hueco, value: nil, color: nil, isRealGrade: false),
+		Grade(system: .hueco, value: "V1", color: Colors.purple.toHexString, isRealGrade: 1),
+		Grade(system: .hueco, value: "V2", color: Colors.purple.toHexString, isRealGrade: 1),
+		Grade(system: .hueco, value: "V3", color: Colors.purple.toHexString, isRealGrade: 1),
+		Grade(system: .hueco, value: nil, color: nil, isRealGrade: 0),
 		
-		Grade(system: .hueco, value: "V4", color: Colors.babyBlue.toHexString, isRealGrade: true),
-		Grade(system: .hueco, value: nil, color: nil, isRealGrade: false),
-		Grade(system: .hueco, value: "V5", color: Colors.babyBlue.toHexString, isRealGrade: true),
-		Grade(system: .hueco, value: "V6", color: Colors.babyBlue.toHexString, isRealGrade: true),
+		Grade(system: .hueco, value: "V4", color: Colors.babyBlue.toHexString, isRealGrade: 1),
+		Grade(system: .hueco, value: nil, color: nil, isRealGrade: 0),
+		Grade(system: .hueco, value: "V5", color: Colors.babyBlue.toHexString, isRealGrade: 1),
+		Grade(system: .hueco, value: "V6", color: Colors.babyBlue.toHexString, isRealGrade: 1),
 		
-		Grade(system: .hueco, value: "V7", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .hueco, value: nil, color: nil, isRealGrade: false),
-		Grade(system: .hueco, value: "V8", color: Colors.magenta.toHexString, isRealGrade: true),
-		Grade(system: .hueco, value: "V9", color: Colors.magenta.toHexString, isRealGrade: true),
+		Grade(system: .hueco, value: "V7", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .hueco, value: nil, color: nil, isRealGrade: 0),
+		Grade(system: .hueco, value: "V8", color: Colors.magenta.toHexString, isRealGrade: 1),
+		Grade(system: .hueco, value: "V9", color: Colors.magenta.toHexString, isRealGrade: 1),
 		
-		Grade(system: .hueco, value: "V10", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .hueco, value: "V11", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .hueco, value: "V12", color: Colors.mint.toHexString, isRealGrade: true),
+		Grade(system: .hueco, value: "V10", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .hueco, value: "V11", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .hueco, value: "V12", color: Colors.mint.toHexString, isRealGrade: 1),
 		
-		Grade(system: .hueco, value: "V13", color: Colors.orange.toHexString, isRealGrade: true),
-		Grade(system: .hueco, value: "V14", color: Colors.orange.toHexString, isRealGrade: true),
-		Grade(system: .hueco, value: "V15", color: Colors.orange.toHexString, isRealGrade: true),
+		Grade(system: .hueco, value: "V13", color: Colors.orange.toHexString, isRealGrade: 1),
+		Grade(system: .hueco, value: "V14", color: Colors.orange.toHexString, isRealGrade: 1),
+		Grade(system: .hueco, value: "V15", color: Colors.orange.toHexString, isRealGrade: 1),
 		
-		Grade(system: .hueco, value: "V16", color: Colors.hardPurple.toHexString, isRealGrade: true)
+		Grade(system: .hueco, value: "V16", color: Colors.hardPurple.toHexString, isRealGrade: 1)
 	]
 	
 	static let subjective: [Grade] = [
-		Grade(system: .subjective, value: "easy", color: Colors.neonGreen.toHexString, isRealGrade: true),
-		Grade(system: .subjective, value: "medium", color: Colors.purple.toHexString, isRealGrade: true),
-		Grade(system: .subjective, value: "hard", color: Colors.mint.toHexString, isRealGrade: true),
-		Grade(system: .subjective, value: "extreme", color: Colors.orange.toHexString, isRealGrade: true)
+		Grade(system: .subjective, value: "easy", color: Colors.neonGreen.toHexString, isRealGrade: 1),
+		Grade(system: .subjective, value: "medium", color: Colors.purple.toHexString, isRealGrade: 1),
+		Grade(system: .subjective, value: "hard", color: Colors.mint.toHexString, isRealGrade: 1),
+		Grade(system: .subjective, value: "extreme", color: Colors.orange.toHexString, isRealGrade: 1)
 	]
 }
 
@@ -464,7 +466,6 @@ class User: Codable {
 	// TODO: Remove when Alamofire supports Codable
 	var sessionsJSON: [String : Any]? {
 		let encoder = JSONEncoder()
-		encoder.outputFormatting = .prettyPrinted
 		do {
 			let data = try encoder.encode(sessions)
 			let json = try JSONSerialization.jsonObject(with: data, options: [])
@@ -500,10 +501,30 @@ class User: Codable {
 	}
 	
 	func logout() {
-		// Destroy UserDefaults -> isAuthenticated == false
+		// Destroy UserDefaults -> isAuthenticated == 0
 		let appDomain = Bundle.main.bundleIdentifier!
 		UserDefaults.standard.removePersistentDomain(forName: appDomain)
 		sessions = []
+		JsonIO.save(codable: sessions) //To destroy the old file
+	}
+	
+	func updateSessionsWithAPI() {
+		APIController.getSessions { (success, error, sessions) in
+			if success {
+				guard let sessions = sessions else { return }
+				// Download sessions from Server when
+				// no sessions on device
+				// fewer sessions on device than on Server
+				if sessions.count > self.sessions.count {
+					self.sessions = sessions
+				}
+				// Upload sessions from device to Server wehen more sessions are on desvice
+				// Happens when last upload failed
+				if self.sessions.count > sessions.count {
+					APIController.postSessions(completion: nil)
+				}
+			}
+		}
 	}
 }
 
