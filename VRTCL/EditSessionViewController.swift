@@ -121,6 +121,15 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		// Send all sessions to API
 		viewModel.postSessions()
 		viewModel.setSessionToNil()
+		
+		// Turn off location tracking
+		switch viewModel.kind {
+		case .bouldering:
+			AppDelegate.shared.bouleringSessionLocationManager.stopUpdatingLocation()
+		case .sportClimbing:
+			AppDelegate.shared.sportClimbingSessionLocationManager.stopUpdatingLocation()
+		}
+		
 		//TODO: set to normal pop after InputMethodViewController is gone
 		navigationController?.popToRootViewController(animated: true)
 	}
