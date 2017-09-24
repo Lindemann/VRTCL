@@ -22,7 +22,35 @@ extension Droplet {
 		
 		// a simple plaintext example response
         get() { req in
-            return "▲△ VRTCL Server is running ( ◕ ◡ ◕ )"
+			
+//			let user1 = try User.all()[0]
+//			let user2 = try User.all()[1]
+//			let user3 = try User.all()[2]
+//
+//
+//			let friend1 = try Friend(user: user2)
+//			try friend1.save()
+//			let friend2 = try Friend(user: user3)
+//			try friend2.save()
+//
+//			try user1.friends.add(friend1)
+//			try user1.friends.add(friend2)
+//
+//			print(try user1.friends.all().makeJSON())
+//
+//			for u in try User.all() {
+//				if try u.friends.isAttached(friend1) {
+//					print(u.name)
+//				}
+//			}
+//
+//			let users = try User.makeQuery().or({ orGroup in
+//				try orGroup.filter("name", .contains, "user3")
+//				try orGroup.filter("email", .contains, "a@aa.de")
+//			}).all()
+//			print(try users.makeJSON())
+			
+            return "VRTCL Server is running ( ◕ ◡ ◕ )"
         }
 
         // response to requests to /info domain
@@ -150,6 +178,9 @@ extension Droplet {
 			return json
 		}
 		
+		// POST /photoURL
+		// Authorization: Bearer <token from /login>
+		// JSON: {"photoURL" : "https://???"}
 		token.post("photoURL") { req -> ResponseRepresentable in
 			// photURL
 			guard let json = req.json else {
@@ -165,6 +196,110 @@ extension Droplet {
 			
 			let response = Response(status: .ok, body: "photo url saved")
 			return response
+		}
+		
+		// POST /follow
+		// Authorization: Bearer <token from /login>
+		// JSON: {"userID" : "666"}
+		token.post("follow") { req -> ResponseRepresentable in
+			guard let json = req.json else {
+				throw Abort(.badRequest, reason: "No id submitted.")
+			}
+			guard let userID = json["userID"]?.int else {
+				throw Abort(.badRequest, reason: "No id submitted.")
+			}
+			guard let userForID = try User.makeQuery().filter("id", userID).first() else {
+				throw Abort(.badRequest, reason: "No user found for id.")
+			}
+			
+			var friend: Friend
+			if let tmFfriend = try Friend.makeQuery().filter("user_id", userID).first() {
+				friend = tmFfriend
+			} else {
+				friend = try Friend(user: userForID)
+				try friend.save()
+			}
+
+			let user = try req.user()
+			if try user.friends.isAttached(friend) {
+				throw Abort(.badRequest, reason: "Follows user already")
+			} else {
+				try user.friends.add(friend)
+			}
+			
+			let response = Response(status: .ok, body: "Following user successful")
+			return response
+		}
+		
+		// POST /unfollow
+		// Authorization: Bearer <token from /login>
+		// JSON: {"userID" : "666"}
+		token.post("unfollow") { req -> ResponseRepresentable in
+			guard let json = req.json else {
+				throw Abort(.badRequest, reason: "No id submitted.")
+			}
+			guard let userID = json["userID"]?.int else {
+				throw Abort(.badRequest, reason: "No id submitted.")
+			}
+			guard let friend = try Friend.makeQuery().filter("user_id", userID).first() else {
+				throw Abort(.badRequest, reason: "No user found for id.")
+			}
+			
+			let user = try req.user()
+			if try user.friends.isAttached(friend) {
+				try user.friends.remove(friend)
+			} else {
+				throw Abort(.badRequest, reason: "Not following user")
+			}
+			
+			let response = Response(status: .ok, body: "Unfollowing user successful")
+			return response
+		}
+		
+		// GET /allUser
+		// Authorization: Bearer <token from /login>
+		token.get("allUser") { req -> ResponseRepresentable in
+			return try User.all().makeJSON()
+		}
+		
+		// POST /search
+		// Authorization: Bearer <token from /login>
+		// JSON: {"search" : "name or email"}
+		token.post("search") { req -> ResponseRepresentable in
+			
+			guard let json = req.json else {
+				throw Abort(.badRequest, reason: "No id submitted.")
+			}
+			guard let searchTerm = json["search"]?.string else {
+				throw Abort(.badRequest, reason: "No id submitted.")
+			}
+
+			let users = try User.makeQuery().or({ orGroup in
+				try orGroup.filter("name", .contains, searchTerm)
+				try orGroup.filter("email", .contains, searchTerm)
+			}).all()
+			
+			return try users.makeJSON()
+		}
+		
+		// GET /following
+		// Authorization: Bearer <token from /login>
+		token.get("following") { req -> ResponseRepresentable in
+			let user = try req.user()
+			return try user.friends.all().makeJSON()
+		}
+		
+		// GET /followers
+		// Authorization: Bearer <token from /login>
+		token.get("followers") { req -> ResponseRepresentable in
+			return ""
+		}
+		
+		// POST /isFollower
+		// Authorization: Bearer <token from /login>
+		// JSON: {"userID" : "666"}
+		token.post("isFollower") { req -> ResponseRepresentable in
+			return ""
 		}
     }
 	

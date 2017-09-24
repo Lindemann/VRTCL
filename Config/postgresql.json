@@ -3,5 +3,5 @@
 	"user": "postgres",
 	"password": "",
 	"database": "vrtcl",
-	"port": 5434
+	"port": 5432
 }

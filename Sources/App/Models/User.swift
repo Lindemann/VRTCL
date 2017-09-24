@@ -53,6 +53,13 @@ final class User: Model {
         return row
     }
 }
+// MARK: Relations
+
+extension User {
+	var friends: Siblings<User, Friend, Pivot<User, Friend>> {
+		return siblings()
+	}
+}
 
 // MARK: Preparation
 
