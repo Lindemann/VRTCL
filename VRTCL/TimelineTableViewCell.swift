@@ -10,16 +10,22 @@ import UIKit
 
 struct TimelineTableViewCellViewModel {
 	var user = User()
-	var kind = Kind.bouldering
+	var session: Session?
 	
+	internal var kind: Kind? { return session?.kind }
 	internal var photoURL: String? { return user.photoURL }
 	internal var name: String? { return user.name }
-	internal var location = "Berlin, DAV Halle"
-	internal var numberOfClimbs = 0
-	internal var bestEffort = "15.5c"
-	internal var duration = 0
-	internal var climbs: [Climb] = []
-	internal var mood: Mood?
+	internal var location: String { return session?.location?.name ?? "" }
+	internal var numberOfClimbs: Int { return session?.climbs?.count ?? 0 }
+	internal var bestEffort: String {
+		if let session = session, let climb = Statistics.bestEffort(session: session) {
+			return "\(climb.grade?.value ?? "0")"
+		}
+		return "0"
+	}
+	internal var duration: Int { return session?.duration ?? 0 }
+	internal var climbs: [Climb] { return session?.climbs ?? [] }
+	internal var mood: Mood? { return session?.mood }
 	
 	internal var kindBadgeText: String {
 		return kind == .bouldering ? "B" : "SC"
@@ -187,7 +193,7 @@ class TimelineTableViewCell: UITableViewCell {
 		subviews.forEach { $0.removeFromSuperview() }
 		selectionStyle = .none
 		
-		photoButton = PhotoButton(diameter: 80)
+		photoButton = PhotoButton(diameter: 80, mode: .photo)
 		if let photoURL = viewModel.user.photoURL {
 			photoButton.kf.setImage(with: URL(string: photoURL), for: .normal)
 		}

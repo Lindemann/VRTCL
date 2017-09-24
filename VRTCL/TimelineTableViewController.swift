@@ -54,13 +54,9 @@ class TimelineTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: TimelineTableViewCell.nibAndReuseIdentifier, for: indexPath) as! TimelineTableViewCell
 		var viewModel =  TimelineTableViewCellViewModel()
-		viewModel.kind = AppDelegate.shared.user.sessions[indexPath.row].kind
-		viewModel.location = AppDelegate.shared.user.sessions[indexPath.row].location?.name ?? "?"
-		viewModel.numberOfClimbs = AppDelegate.shared.user.sessions[indexPath.row].climbs?.count ?? 0
-		viewModel.bestEffort = "\(Statistics.bestEffort(session: AppDelegate.shared.user.sessions[indexPath.row])?.grade?.value ?? "0")"
-		viewModel.duration = AppDelegate.shared.user.sessions[indexPath.row].duration ?? 0
-		viewModel.mood = AppDelegate.shared.user.sessions[indexPath.row].mood
-		viewModel.climbs = AppDelegate.shared.user.sessions[indexPath.row].climbs ?? []
+		let user = User.shared
+		viewModel.user = user
+		viewModel.session = user.sessions[indexPath.row]
 		cell.viewModel = viewModel
         return cell
     }

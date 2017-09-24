@@ -268,6 +268,11 @@ class FatButton: UIButton {
 
 class PhotoButton: UIButton {
 	
+	enum Mode {
+		case button
+		case photo
+	}
+	
 	override var isHighlighted: Bool {
 		didSet {
 			if isHighlighted {
@@ -278,7 +283,19 @@ class PhotoButton: UIButton {
 		}
 	}
 	
-	init(center: CGPoint = CGPoint.zero, diameter: CGFloat = 80, image: UIImage? = nil) {
+	var mode: Mode {
+		didSet {
+			switch mode {
+			case .button:
+				setTitle("Add Photo", for: .normal)
+			case .photo:
+				setTitle("⊙▂⊙", for: .normal)
+			}
+		}
+	}
+	
+	init(center: CGPoint = CGPoint.zero, diameter: CGFloat = 80, image: UIImage? = nil, mode: Mode = .button) {
+		self.mode = mode
 		super.init(frame: CGRect(x: 0, y: 0, width: diameter, height: diameter))
 		self.center = center
 		widthAnchor.constraint(equalToConstant: frame.size.width).isActive = true
@@ -292,7 +309,7 @@ class PhotoButton: UIButton {
 			imageView?.contentMode = .scaleAspectFill
 		}
 		
-		self.setTitle("Add Photo", for: .normal)
+		defer { self.mode = mode }
 		titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
 		setTitleColor(UIColor.white, for: .normal)
 		backgroundColor = Colors.lightGray
