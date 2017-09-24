@@ -41,6 +41,27 @@ struct APIController {
 		}
 	}
 	
+	static func parse(userDictionary: [String: Any]) -> User? {
+		let user = User()
+		if let name = userDictionary["name"] as? String {
+			user.name = name
+			print("name: \(name)")
+		}
+		if let email = userDictionary["email"] as? String {
+			user.email = email
+			print("email: \(email)")
+		}
+		if let photoURL = userDictionary["photoURL"] as? String {
+			user.photoURL = photoURL
+			print("photoURL: \(photoURL)")
+		}
+		if let id = userDictionary["id"] as? Int {
+			user.id = id
+			print("id: \(id)")
+		}
+		return user
+	}
+	
 	static func user(token: String,  completion: ((Bool, APIError?, User?) -> Void)?) {
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(token)"]
@@ -155,7 +176,35 @@ struct APIController {
 		}
 	}
 	
+	static func getAllUser(completion: ((Bool, APIError?, [User]) -> Void)?) {
+		UIApplication.shared.isNetworkActivityIndicatorVisible = true
+		let user = AppDelegate.shared.user
+		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(user.token ?? "")"]
+		Alamofire.request(baseURL + "allUser", method: .get, headers: tokenHeader).validate().responseString { response in
+			
+			if let usersArray = response.result.value as? [[String: Any]] {
+				let user: [User] = []
+				
+				for user in usersArray {
+					
+				}
+				
+				
+				
+				if let error = response.error {
+					print("💥 .GET allUsers API: \(error)")
+					completion?(true, APIError(error: error, statusCode: response.response?.statusCode), user)
+				}
+			}
+			
 	
+			
+			
+			
+			
+			UIApplication.shared.isNetworkActivityIndicatorVisible = false
+		}
+	}
 	
 	
 	

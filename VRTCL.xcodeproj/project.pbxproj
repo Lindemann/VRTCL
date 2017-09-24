@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1BCE6805AF26CBE304D0279C /* Pods_VRTCL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BFE5C1A514C4197E09425F8 /* Pods_VRTCL.framework */; };
+		8203E1FC1F786882006BF061 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8203E1FB1F786882006BF061 /* FriendsTableViewController.swift */; };
+		8203E1FE1F7868A2006BF061 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8203E1FD1F7868A2006BF061 /* FriendTableViewCell.swift */; };
+		8203E2001F786C6E006BF061 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8203E1FF1F786C6E006BF061 /* User.swift */; };
 		8211D5CF1EDA571900DF3F48 /* Timeline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8211D5CE1EDA571900DF3F48 /* Timeline.storyboard */; };
 		8211D5D11EDA575E00DF3F48 /* Analytics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8211D5D01EDA575E00DF3F48 /* Analytics.storyboard */; };
 		8211D5D31EDA576D00DF3F48 /* Friends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8211D5D21EDA576D00DF3F48 /* Friends.storyboard */; };
@@ -27,7 +30,6 @@
 		829F247D1B0021EB00BDF443 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 829F247B1B0021EB00BDF443 /* Main.storyboard */; };
 		829F247F1B0021EB00BDF443 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829F247E1B0021EB00BDF443 /* Images.xcassets */; };
 		829F24821B0021EB00BDF443 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 829F24801B0021EB00BDF443 /* LaunchScreen.xib */; };
-		82AAC0C51EEF5C9E00B7E6A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AAC0C41EEF5C9E00B7E6A3 /* ViewController.swift */; };
 		82AAC0C71EEF5ED800B7E6A3 /* CircleButtonWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AAC0C61EEF5ED800B7E6A3 /* CircleButtonWithText.swift */; };
 		82B3033F1EB6F7F6001DD730 /* Sessions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82B3033E1EB6F7F6001DD730 /* Sessions.storyboard */; };
 		82B9866E1F0FD1BA001BD4B5 /* TimelineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B9866D1F0FD1BA001BD4B5 /* TimelineTableViewController.swift */; };
@@ -51,6 +53,9 @@
 /* Begin PBXFileReference section */
 		0BFE5C1A514C4197E09425F8 /* Pods_VRTCL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VRTCL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C68448ED67250B46169AAB0 /* Pods-VRTCL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VRTCL.release.xcconfig"; path = "Pods/Target Support Files/Pods-VRTCL/Pods-VRTCL.release.xcconfig"; sourceTree = "<group>"; };
+		8203E1FB1F786882006BF061 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
+		8203E1FD1F7868A2006BF061 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
+		8203E1FF1F786C6E006BF061 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8211D5CE1EDA571900DF3F48 /* Timeline.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Timeline.storyboard; sourceTree = "<group>"; };
 		8211D5D01EDA575E00DF3F48 /* Analytics.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Analytics.storyboard; sourceTree = "<group>"; };
 		8211D5D21EDA576D00DF3F48 /* Friends.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Friends.storyboard; sourceTree = "<group>"; };
@@ -72,7 +77,6 @@
 		829F247C1B0021EB00BDF443 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		829F247E1B0021EB00BDF443 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		829F24811B0021EB00BDF443 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		82AAC0C41EEF5C9E00B7E6A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		82AAC0C61EEF5ED800B7E6A3 /* CircleButtonWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButtonWithText.swift; sourceTree = "<group>"; };
 		82B3033E1EB6F7F6001DD730 /* Sessions.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Sessions.storyboard; sourceTree = "<group>"; };
 		82B9866D1F0FD1BA001BD4B5 /* TimelineTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTableViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +143,8 @@
 			isa = PBXGroup;
 			children = (
 				8211D5D21EDA576D00DF3F48 /* Friends.storyboard */,
+				8203E1FB1F786882006BF061 /* FriendsTableViewController.swift */,
+				8203E1FD1F7868A2006BF061 /* FriendTableViewCell.swift */,
 			);
 			name = Friends;
 			sourceTree = "<group>";
@@ -173,7 +179,6 @@
 				8211D5CD1EDA561A00DF3F48 /* Settings */,
 				829F247B1B0021EB00BDF443 /* Main.storyboard */,
 				82C12A7D1C2480F900D9AC45 /* NavigationController.swift */,
-				82AAC0C41EEF5C9E00B7E6A3 /* ViewController.swift */,
 				82C12A7F1C24811100D9AC45 /* TabBarController.swift */,
 			);
 			name = Tabs;
@@ -182,6 +187,7 @@
 		826960721E9995A30050B663 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
+				8203E1FF1F786C6E006BF061 /* User.swift */,
 				82834E331BD002400006793C /* DataModel.swift */,
 				82C139E61F12C0E70027FB1D /* JsonIO.swift */,
 			);
@@ -413,6 +419,7 @@
 				8227CA611EF5157B00EF236A /* SessionsTableViewCell.swift in Sources */,
 				821812181C2461CF004726DC /* Buttons.swift in Sources */,
 				82DE827A1F4402B800047A77 /* SessionViewModel.swift in Sources */,
+				8203E2001F786C6E006BF061 /* User.swift in Sources */,
 				82430AE31EB3DFD300160D15 /* Extensions.swift in Sources */,
 				82B9866E1F0FD1BA001BD4B5 /* TimelineTableViewController.swift in Sources */,
 				8233F70A1F4CCF7F00508B52 /* PieChartView.swift in Sources */,
@@ -424,11 +431,12 @@
 				82AAC0C71EEF5ED800B7E6A3 /* CircleButtonWithText.swift in Sources */,
 				82E763BB1F3302F9008FC10D /* IBeaconTableViewController.swift in Sources */,
 				82B986701F0FD1FA001BD4B5 /* TimelineTableViewCell.swift in Sources */,
-				82AAC0C51EEF5C9E00B7E6A3 /* ViewController.swift in Sources */,
+				8203E1FE1F7868A2006BF061 /* FriendTableViewCell.swift in Sources */,
 				82DA1CD51F02E15400135394 /* FatTextField.swift in Sources */,
 				82C20C6A1F6F445E00EFD799 /* APIController.swift in Sources */,
 				82C12A821C24827800D9AC45 /* Constants.swift in Sources */,
 				829F24761B0021EB00BDF443 /* AppDelegate.swift in Sources */,
+				8203E1FC1F786882006BF061 /* FriendsTableViewController.swift in Sources */,
 				82E763BD1F351A1C008FC10D /* InputMethodViewController.swift in Sources */,
 				82C139E71F12C0E70027FB1D /* JsonIO.swift in Sources */,
 				82F7C98B1F700C8A00B490E0 /* SignupViewController.swift in Sources */,

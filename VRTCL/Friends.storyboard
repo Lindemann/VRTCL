@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13178.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="sPL-Ib-rst">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="sPL-Ib-rst">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13156.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,31 +23,31 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="QdA-p6-b0K" kind="relationship" relationship="rootViewController" id="GOS-Sr-U8n"/>
+                        <segue destination="rlj-td-Qhj" kind="relationship" relationship="rootViewController" id="iEj-Zd-1wb"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2lB-Oj-3hL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="129.98500749625188"/>
         </scene>
-        <!--Altimeter View Controller-->
-        <scene sceneID="oa0-AP-Urs">
+        <!--Friends Table View Controller-->
+        <scene sceneID="bBB-UX-rnO">
             <objects>
-                <viewController id="QdA-p6-b0K" customClass="AltimeterViewController" customModule="VRTCL" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ceQ-6b-CSU"/>
-                        <viewControllerLayoutGuide type="bottom" id="OKz-CH-JIg"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Y61-PZ-oXc">
+                <tableViewController id="rlj-td-Qhj" customClass="FriendsTableViewController" customModule="VRTCL" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="o8Q-Sq-rAi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="0Yf-j2-EVp"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8wy-8s-wXq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <connections>
+                            <outlet property="dataSource" destination="rlj-td-Qhj" id="epM-RM-3lH"/>
+                            <outlet property="delegate" destination="rlj-td-Qhj" id="dfF-P0-JsN"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="yrD-zt-Smh"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FUJ-nY-5Wv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="888" y="128"/>
+            <point key="canvasLocation" x="945" y="130"/>
         </scene>
     </scenes>
     <resources>

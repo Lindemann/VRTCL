@@ -101,13 +101,13 @@ extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationC
 					UIApplication.shared.isNetworkActivityIndicatorVisible = true
 					cloudinary.createUploader().upload(data: data, uploadPreset: Keys.cloudinaryUploadPreset, params: nil, progress: nil, completionHandler: { (result, error) in
 						if var url = result?.url {
-							url = url.replacingOccurrences(of: "http://", with: "https://")
-							AppDelegate.shared.user.photoURL = url
-							self.photoButton.setImage(smallImage, for: .normal)
+							url = url.replacingOccurrences(of: "http://", with: "https://") // Could Cloudinary not convince to respond with https url
 							UIApplication.shared.isNetworkActivityIndicatorVisible = true
 							APIController.post(photoURL: url, completion: { (success, error) in
 								if success {
 									UserDefaults().set(url, forKey: "photoURL")
+									AppDelegate.shared.user.photoURL = url
+									self.photoButton.setImage(smallImage, for: .normal)
 								} else {
 									APIController.showAlertFor(reason: "Error while updating photo", In: self)
 								}
