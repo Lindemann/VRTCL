@@ -16,16 +16,18 @@ final class User: Model {
     var password: String?
 	
 	// String representation of Sessions JSON from the app
-	// Fluent can't work with JSON directly, therefor it's a String here
-	// Postgres DB saves it as JSON type and allows advanced manipultion
 	var sessions: String?
+	
+	// Profil photo stored on Cloudinary
+	var photoURL: String?
 
     /// Creates a new User
-	init(name: String, email: String, password: String? = nil, sessions: String? = nil) {
+	init(name: String, email: String, password: String? = nil, sessions: String? = nil, photoURL: String? = nil) {
         self.name = name
         self.email = email
         self.password = password
 		self.sessions = sessions
+		self.photoURL = photoURL
     }
 
     // MARK: Row
@@ -36,14 +38,8 @@ final class User: Model {
         name = try row.get("name")
         email = try row.get("email")
         password = try row.get("password")
-		
-		let json = try row.get("sessions") as JSON
-		let bytes = try json.makeBytes()
-		var sessionsString = bytes.makeString()
-		sessionsString = String(sessionsString.dropFirst())
-		sessionsString = String(sessionsString.dropLast())
-//		print(sessionsString)
-		sessions = sessionsString
+		sessions = try row.get("sessions")
+		photoURL = try row.get("photoURL")
     }
 
     // Serializes the Post to the database
@@ -53,6 +49,7 @@ final class User: Model {
         try row.set("email", email)
         try row.set("password", password)
 		try row.set("sessions", sessions)
+		try row.set("photoURL", photoURL)
         return row
     }
 }
@@ -69,6 +66,7 @@ extension User: Preparation {
             builder.string("email")
             builder.string("password")
 			builder.custom("sessions", type: "text", optional: true)
+			builder.string("photoURL", optional: true)
         }
     }
 
@@ -89,7 +87,8 @@ extension User: JSONConvertible {
         try self.init(
             name: json.get("name"),
             email: json.get("email"),
-			sessions: json.get("sessions")
+			sessions: json.get("sessions"),
+			photoURL: json.get("photoURL")
         )
         id = try json.get("id")
     }
@@ -100,6 +99,7 @@ extension User: JSONConvertible {
         try json.set("name", name)
         try json.set("email", email)
 		try json.set("sessions", sessions)
+		try json.set("photoURL", photoURL)
         return json
     }
 }

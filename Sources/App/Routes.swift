@@ -149,6 +149,23 @@ extension Droplet {
 			let json = try JSON(bytes: bytes)
 			return json
 		}
+		
+		token.post("photoURL") { req -> ResponseRepresentable in
+			// photURL
+			guard let json = req.json else {
+				throw Abort(.badRequest, reason: "No photo url was submitted.")
+			}
+			guard let photURL = json["photoURL"]?.string else {
+				throw Abort(.badRequest, reason: "No photo url was submitted.")
+			}
+			// Get user
+			let user = try req.user()
+			user.photoURL = photURL
+			try user.save()
+			
+			let response = Response(status: .ok, body: "photo url saved")
+			return response
+		}
     }
 	
 	
