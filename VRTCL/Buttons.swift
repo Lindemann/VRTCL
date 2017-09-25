@@ -290,6 +290,9 @@ class PhotoButton: UIButton {
 				setTitle("Add Photo", for: .normal)
 			case .photo:
 				setTitle("⊙▂⊙", for: .normal)
+//				setTitleColor(Colors.lightGray, for: .normal)
+//				let colors = [Colors.babyBlue, Colors.hardPurple, Colors.neonGreen, Colors.magenta, Colors.mint, Colors.orange, Colors.mauve, Colors.pink, Colors.watermelon]
+//				backgroundColor = colors[Int(arc4random_uniform(UInt32(colors.count)))]
 			}
 		}
 	}

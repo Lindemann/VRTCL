@@ -33,11 +33,6 @@ class User: Codable {
 		}
 	}
 	
-	var following: [User]? = []
-	var followers: [User]? = []
-	// Checks if user fom Server follows the loged
-	var isFollower: Bool { return false }
-	
 	private let ud_boulderingGradeSystem = "ud_boulderingGradeSystem"
 	private let ud_sportClimbingGradeSystem = "ud_sportClimbingGradeSystem"
 	var boulderingGradeSystem: System? {
@@ -142,5 +137,12 @@ class User: Codable {
 				}
 			}
 		}
+	}
+	
+	var following: [User]? = []
+	var followers: [User]? = []
+	
+	func isFollowing(user: User) -> Bool {
+		return false
 	}
 }

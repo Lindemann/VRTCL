@@ -104,10 +104,12 @@ class TimelineTableViewCell: UITableViewCell {
 			nameLabel.font = Fonts.h3
 			nameLabel.textColor = Colors.lightGray
 			nameLabel.text = viewModel.name
+			nameLabel.numberOfLines = 0
 			addSubview(nameLabel)
 			nameLabel.translatesAutoresizingMaskIntoConstraints = false
 			nameLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
 			nameLabel.topAnchor.constraint(equalTo: photoButton.bottomAnchor, constant: spacing).isActive = true
+			nameLabel.widthAnchor.constraint(equalToConstant: 300).isActive = true
 		}
 	}
 	
