@@ -42,7 +42,7 @@ class TimelineTableViewController: UITableViewController {
     }
 	
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: TimelineTableViewCell.nibAndReuseIdentifier, for: indexPath) as! TimelineTableViewCell
+		let cell = TimelineTableViewCell()
 		var viewModel =  TimelineTableViewCellViewModel()
 		let user = User.shared
 		viewModel.user = user

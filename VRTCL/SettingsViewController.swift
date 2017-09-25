@@ -50,6 +50,7 @@ class SettingsViewController: UIViewController {
 		label.numberOfLines = 0;
 		label.textColor = Colors.lightGray
 		label.text = "\(user.name ?? "")\n\(user.email ?? "")"
+		label.widthAnchor.constraint(equalToConstant: label.frame.size.width).isActive = true
 		
 		let logoutButton = FatButton(color: Colors.purple, title: "Logout")
 		logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)

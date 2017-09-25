@@ -12,8 +12,6 @@ class User: Codable {
 	
 	static let shared = User()
 	var sessions: [Session] = []
-	var following: [User]? = []
-	var followers: [User]? = []
 	var isAuthenticated: Bool { return token != nil }
 	var photoURL: String?
 	var id: Int?
@@ -34,6 +32,11 @@ class User: Codable {
 			fatalError("Error reading password from keychain - \(error)")
 		}
 	}
+	
+	var following: [User]? = []
+	var followers: [User]? = []
+	// Checks if user fom Server follows the loged
+	var isFollower: Bool { return false }
 	
 	private let ud_boulderingGradeSystem = "ud_boulderingGradeSystem"
 	private let ud_sportClimbingGradeSystem = "ud_sportClimbingGradeSystem"

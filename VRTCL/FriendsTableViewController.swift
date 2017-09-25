@@ -68,7 +68,7 @@ class FriendsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FriendTableViewCell.nibAndReuseIdentifier, for: indexPath) as! FriendTableViewCell
+        let cell = FriendTableViewCell()
 		cell.viewModel.user = viewModel.users[indexPath.row]
         return cell
     }
@@ -79,7 +79,6 @@ extension FriendsTableViewController: UISearchBarDelegate, UISearchControllerDel
 	private func setupSearchController() {
 		let searchController = UISearchController(searchResultsController: nil)
 		searchController.delegate = self
-		searchController.obscuresBackgroundDuringPresentation = false
 		navigationItem.searchController = searchController
 		searchController.searchBar.tintColor = Colors.lightGray
 		UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white]
