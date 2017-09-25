@@ -69,7 +69,7 @@ class FriendsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendTableViewCell.nibAndReuseIdentifier, for: indexPath) as! FriendTableViewCell
-
+		cell.viewModel.user = viewModel.users[indexPath.row]
         return cell
     }
 }

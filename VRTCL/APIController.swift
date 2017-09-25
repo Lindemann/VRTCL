@@ -29,7 +29,6 @@ struct APIController {
 		Alamofire.request(baseURL + "login", method: .post, headers: passwordHeader).validate().responseJSON { response in
 			if let dictionary = response.result.value as? [String: Any] {
 				if let token = dictionary["token"] as? String {
-					print("token: \(token)")
 					completion?(true, nil, token)
 				}
 			}
@@ -176,19 +175,15 @@ struct APIController {
 		let user = User()
 		if let name = userDictionary["name"] as? String {
 			user.name = name
-			print("name: \(name)")
 		}
 		if let email = userDictionary["email"] as? String {
 			user.email = email
-			print("email: \(email)")
 		}
 		if let photoURL = userDictionary["photoURL"] as? String {
 			user.photoURL = photoURL
-			print("photoURL: \(photoURL)")
 		}
 		if let id = userDictionary["id"] as? Int {
 			user.id = id
-			print("id: \(id)")
 		}
 		if let sessionsArray = userDictionary["sessions"] as? [Any] {
 			user.sessions = decode(sessionsArray: sessionsArray)

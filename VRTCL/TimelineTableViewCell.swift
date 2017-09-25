@@ -69,9 +69,7 @@ class TimelineTableViewCell: UITableViewCell {
 	static let nibAndReuseIdentifier = String(describing: TimelineTableViewCell.self)
 	
 	var viewModel = TimelineTableViewCellViewModel() {
-		didSet {
-			setup()
-		}
+		didSet { setup() }
 	}
 	
 	private let spacing: CGFloat = 20
@@ -158,37 +156,20 @@ class TimelineTableViewCell: UITableViewCell {
 		}
 	}
 	
-	private var seperator: UIView? {
+	private var seperator: UIView! {
 		didSet {
-			guard  let seperator = seperator else { return }
 			seperator.backgroundColor = Colors.lightGray
 			addSubview(seperator)
 			seperator.translatesAutoresizingMaskIntoConstraints = false
 			seperator.heightAnchor.constraint(equalToConstant: 1).isActive = true
 			seperator.widthAnchor.constraint(equalTo: widthAnchor, constant: -60).isActive = true
 			seperator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-			seperator.topAnchor.constraint(equalTo: topAnchor).isActive = true
-		}
-	}
-	
-	var hasSeperator: Bool = true {
-		didSet {
-			setup()
+			seperator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 		}
 	}
 	
 	var height: CGFloat {
 		return specialTopSpacing + photoButton.frame.height + spacing + nameLabel.frame.height + spacing + performanceButtonGrid.frame.height + spacing + climbsButtonGrid.frame.height + spacing + locationLablel.frame.height + spacing
-	}
-	
-	
-	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		setup()
-	}
-	
-	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
 	}
 	
 	override func setSelected(_ selected: Bool, animated: Bool) {
@@ -210,9 +191,7 @@ class TimelineTableViewCell: UITableViewCell {
 		performanceButtonGrid = viewModel.performanceButtonGrid
 		climbsButtonGrid = viewModel.climbsButtonGrid
 		locationLablel = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 20))
-		if hasSeperator {
-			seperator = UIView()
-		}
+		seperator = UIView()
 		heightAnchor.constraint(equalToConstant: height).isActive = true
     }
 }

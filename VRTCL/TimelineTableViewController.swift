@@ -48,9 +48,6 @@ class TimelineTableViewController: UITableViewController {
 		viewModel.user = user
 		viewModel.session = user.sessions[indexPath.row]
 		cell.viewModel = viewModel
-		if indexPath.row == 0 {
-			cell.hasSeperator = false
-		}
         return cell
     }
 }
