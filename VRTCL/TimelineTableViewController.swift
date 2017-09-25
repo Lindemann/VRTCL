@@ -23,7 +23,6 @@ class TimelineTableViewController: UITableViewController {
 		tableView.estimatedRowHeight = UITableViewAutomaticDimension
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.register(TimelineTableViewCell.self, forCellReuseIdentifier: TimelineTableViewCell.nibAndReuseIdentifier)
-		
 		tableView.separatorStyle = .none
     }
 	
@@ -31,15 +30,6 @@ class TimelineTableViewController: UITableViewController {
 		super.viewWillAppear(animated)
 		tableView.reloadData()
 	}
-	
-	override func viewDidDisappear(_ animated: Bool) {
-		super.viewDidDisappear(animated)
-	}
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
     // MARK: - Table view data source
 
@@ -58,6 +48,9 @@ class TimelineTableViewController: UITableViewController {
 		viewModel.user = user
 		viewModel.session = user.sessions[indexPath.row]
 		cell.viewModel = viewModel
+		if indexPath.row == 0 {
+			cell.hasSeperator = false
+		}
         return cell
     }
 }

@@ -41,49 +41,12 @@ struct APIController {
 		}
 	}
 	
-	static func parse(userDictionary: [String: Any]) -> User? {
-		let user = User()
-		if let name = userDictionary["name"] as? String {
-			user.name = name
-			print("name: \(name)")
-		}
-		if let email = userDictionary["email"] as? String {
-			user.email = email
-			print("email: \(email)")
-		}
-		if let photoURL = userDictionary["photoURL"] as? String {
-			user.photoURL = photoURL
-			print("photoURL: \(photoURL)")
-		}
-		if let id = userDictionary["id"] as? Int {
-			user.id = id
-			print("id: \(id)")
-		}
-		return user
-	}
-	
 	static func user(token: String,  completion: ((Bool, APIError?, User?) -> Void)?) {
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(token)"]
 		Alamofire.request(baseURL + "user", method: .get, headers: tokenHeader).validate().responseJSON { response in
 			if let dictionary = response.result.value as? [String: Any] {
-				let user = User()
-				if let name = dictionary["name"] as? String {
-					user.name = name
-					print("name: \(name)")
-				}
-				if let email = dictionary["email"] as? String {
-					user.email = email
-					print("email: \(email)")
-				}
-				if let photoURL = dictionary["photoURL"] as? String {
-					user.photoURL = photoURL
-					print("photoURL: \(photoURL)")
-				}
-				if let id = dictionary["id"] as? Int {
-					user.id = id
-					print("id: \(id)")
-				}
+				let user = parse(userDictionary: dictionary)
 				completion?(true, nil, user)
 			}
 			if let error = response.error {
@@ -99,19 +62,7 @@ struct APIController {
 		let parameters: Parameters = ["name" : name, "email" : email, "password" : password]
 		Alamofire.request(baseURL + "signup", method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseJSON { response in
 			if let dictionary = response.result.value as? [String: Any] {
-				let user = User()
-				if let name = dictionary["name"] as? String {
-					user.name = name
-					print("name: \(name)")
-				}
-				if let email = dictionary["email"] as? String {
-					user.email = email
-					print("email: \(email)")
-				}
-				if let id = dictionary["id"] as? Int {
-					user.id = id
-					print("id: \(id)")
-				}
+				let user = parse(userDictionary: dictionary)
 				completion?(true, nil, user)
 			}
 			if let error = response.error {
@@ -142,15 +93,8 @@ struct APIController {
 		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(user.token ?? "")"]
 		Alamofire.request(baseURL + "sessions", method: .get, headers: tokenHeader).validate().responseJSON{ response in
 			if let dictionary = response.result.value as? [String: Any] {
-				if let sessionsArray = dictionary["sessions"] {
-					do {
-						let data = try JSONSerialization.data(withJSONObject: sessionsArray, options: [])
-						let decoder = JSONDecoder()
-						let sessions = try decoder.decode([Session].self, from: data)
-						completion?(true, nil, sessions)
-					} catch {
-						print("💥 .GET Sessions: Sessions JSON Serialization \(error)")
-					}
+				if let sessionsArray = dictionary["sessions"] as? [Any] {
+					completion?(true, nil, decode(sessionsArray: sessionsArray))
 				}
 			}
 			if let error = response.error {
@@ -176,32 +120,24 @@ struct APIController {
 		}
 	}
 	
-	static func getAllUser(completion: ((Bool, APIError?, [User]) -> Void)?) {
+	static func getAllUser(completion: ((Bool, APIError?, [User]?) -> Void)?) {
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		let user = AppDelegate.shared.user
 		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(user.token ?? "")"]
-		Alamofire.request(baseURL + "allUser", method: .get, headers: tokenHeader).validate().responseString { response in
-			
+		Alamofire.request(baseURL + "allUser", method: .get, headers: tokenHeader).validate().responseJSON { response in
 			if let usersArray = response.result.value as? [[String: Any]] {
-				let user: [User] = []
-				
-				for user in usersArray {
-					
+				var users: [User] = []
+				for userDictionary in usersArray {
+					if let user = parse(userDictionary: userDictionary) {
+						users.append(user)
+					}
 				}
-				
-				
-				
-				if let error = response.error {
-					print("💥 .GET allUsers API: \(error)")
-					completion?(true, APIError(error: error, statusCode: response.response?.statusCode), user)
-				}
+				completion?(true, nil, users)
 			}
-			
-	
-			
-			
-			
-			
+			if let error = response.error {
+				print("💥 .GET allUsers API: \(error)")
+				completion?(false, APIError(error: error, statusCode: response.response?.statusCode), nil)
+			}
 			UIApplication.shared.isNetworkActivityIndicatorVisible = false
 		}
 	}
@@ -222,14 +158,48 @@ struct APIController {
 	
 	
 	
+	// MARK: Helper
 	
+	private static func decode(sessionsArray: Any) -> [Session] {
+		var sessions: [Session] = []
+		do {
+			let data = try JSONSerialization.data(withJSONObject: sessionsArray, options: [])
+			let decoder = JSONDecoder()
+			sessions = try decoder.decode([Session].self, from: data)
+		} catch {
+			print("💥 Sessions JSON Serialization \(error)")
+		}
+		return sessions
+	}
 	
-	
+	private static func parse(userDictionary: [String: Any]) -> User? {
+		let user = User()
+		if let name = userDictionary["name"] as? String {
+			user.name = name
+			print("name: \(name)")
+		}
+		if let email = userDictionary["email"] as? String {
+			user.email = email
+			print("email: \(email)")
+		}
+		if let photoURL = userDictionary["photoURL"] as? String {
+			user.photoURL = photoURL
+			print("photoURL: \(photoURL)")
+		}
+		if let id = userDictionary["id"] as? Int {
+			user.id = id
+			print("id: \(id)")
+		}
+		if let sessionsArray = userDictionary["sessions"] as? [Any] {
+			user.sessions = decode(sessionsArray: sessionsArray)
+		}
+		return user
+	}
+
 	static func showAlertFor(reason: String, In viewController: UIViewController) {
 		let alertController = UIAlertController(title: reason, message: "", preferredStyle: .alert)
 		let action = UIAlertAction(title: "Ok", style: .default)
 		alertController.addAction(action)
 		viewController.present(alertController, animated: true, completion: nil)
 	}
-	
 }

@@ -8,43 +8,95 @@
 
 import UIKit
 
+internal class FriendsTableViewControllerVieModel {
+	var tableViewController: UITableViewController?
+	
+	lazy var refreshControl: UIRefreshControl = {
+		let refreshControl = UIRefreshControl()
+		refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+		refreshControl.tintColor = UIColor.white
+		return refreshControl
+	}()
+	
+	var users: [User] = []
+	
+	@objc func refresh(sender: UIRefreshControl) {
+		updateUsers()
+	}
+	
+	func updateUsers() {
+		APIController.getAllUser { (success, error, users) in
+			if let users = users {
+				self.users = users
+				self.tableViewController?.tableView.reloadData()
+				self.refreshControl.endRefreshing()
+			}
+		}
+	}
+}
+
 class FriendsTableViewController: UITableViewController {
+	
+	var viewModel = FriendsTableViewControllerVieModel()
+	lazy var searchBar: UISearchBar = UISearchBar()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		navigationItem.title = "Friends"
+		tableView.backgroundColor = Colors.darkGray
+		tableView.estimatedRowHeight = UITableViewAutomaticDimension
+		tableView.rowHeight = UITableViewAutomaticDimension
+		tableView.register(FriendTableViewCell.self, forCellReuseIdentifier: FriendTableViewCell.nibAndReuseIdentifier)
+		tableView.separatorStyle = .none
+		tableView.addSubview(viewModel.refreshControl)
+		setupSearchController()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+		viewModel.tableViewController = self
+		if AppDelegate.shared.friendsChache == nil {
+			viewModel.updateUsers()
+		}
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+	}
+	
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return viewModel.users.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+        let cell = tableView.dequeueReusableCell(withIdentifier: FriendTableViewCell.nibAndReuseIdentifier, for: indexPath) as! FriendTableViewCell
 
         return cell
     }
-    */
-
 }
+
+extension FriendsTableViewController: UISearchBarDelegate, UISearchControllerDelegate {
+	
+	private func setupSearchController() {
+		let searchController = UISearchController(searchResultsController: nil)
+		searchController.delegate = self
+		searchController.obscuresBackgroundDuringPresentation = false
+		navigationItem.searchController = searchController
+		searchController.searchBar.tintColor = Colors.lightGray
+		UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white]
+	}
+	
+	func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+		
+	}
+}
+
+
+
+
+
+
+
+
+
+
+

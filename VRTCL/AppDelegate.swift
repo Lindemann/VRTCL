@@ -34,6 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 	}
 	
+	// Stores the users from FriendsTableViewControllerVieModel to avoid exessiv API action
+	var friendsChache: [User]?
+	
 	weak var initialLocationDelegate: InitialLocationDelegate?
 
 	func applicationDidFinishLaunching(_ application: UIApplication) {

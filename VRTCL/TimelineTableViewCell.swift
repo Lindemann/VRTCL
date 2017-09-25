@@ -158,15 +158,22 @@ class TimelineTableViewCell: UITableViewCell {
 		}
 	}
 	
-	private var seperator: UIView! {
+	private var seperator: UIView? {
 		didSet {
+			guard  let seperator = seperator else { return }
 			seperator.backgroundColor = Colors.lightGray
 			addSubview(seperator)
 			seperator.translatesAutoresizingMaskIntoConstraints = false
 			seperator.heightAnchor.constraint(equalToConstant: 1).isActive = true
 			seperator.widthAnchor.constraint(equalTo: widthAnchor, constant: -60).isActive = true
 			seperator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-			seperator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+			seperator.topAnchor.constraint(equalTo: topAnchor).isActive = true
+		}
+	}
+	
+	var hasSeperator: Bool = true {
+		didSet {
+			setup()
 		}
 	}
 	
@@ -203,7 +210,9 @@ class TimelineTableViewCell: UITableViewCell {
 		performanceButtonGrid = viewModel.performanceButtonGrid
 		climbsButtonGrid = viewModel.climbsButtonGrid
 		locationLablel = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 20))
-		seperator = UIView()
+		if hasSeperator {
+			seperator = UIView()
+		}
 		heightAnchor.constraint(equalToConstant: height).isActive = true
     }
 }
