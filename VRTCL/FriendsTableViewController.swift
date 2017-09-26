@@ -82,6 +82,14 @@ class FriendsTableViewController: UITableViewController {
 		cell.viewModel = friendTableViewCellViewModel
         return cell
     }
+	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let friend = viewModel.users[indexPath.row]
+		let timelineTableViewController = TimelineTableViewController()
+		timelineTableViewController.friend = friend
+		timelineTableViewController.mode = .friend
+		navigationController?.pushViewController(timelineTableViewController, animated: true)
+	}
 }
 
 extension FriendsTableViewController: UISearchBarDelegate, UISearchControllerDelegate {

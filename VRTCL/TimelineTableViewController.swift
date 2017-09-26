@@ -17,14 +17,22 @@ class TimelineTableViewControllerViewModel {
 	}
 	
 	func fetchData() {
+		if mode == .friend {
+			guard let friend = friend else { return }
+			self.timelineDataArray = TimelineBuilder(users: [friend]).timelineDataArray
+			self.timelineTableViewController.tableView.reloadData()
+			self.refreshControl.endRefreshing()
+			return
+		}
 		if mode == .me {
-			self.timelineDataArray = TimelineBuilder(users: []).timelineDataArray
+			self.timelineDataArray = TimelineBuilder(users: [User.shared]).timelineDataArray
 			self.timelineTableViewController.tableView.reloadData()
 			self.refreshControl.endRefreshing()
 			return
 		}
 		APIController.following { (success, error, users) in
-			if success, let users = users {
+			if success, var users = users {
+				users.append(User.shared)
 				self.timelineDataArray = TimelineBuilder(users: users).timelineDataArray
 				self.timelineTableViewController.tableView.reloadData()
 			}
@@ -46,8 +54,10 @@ class TimelineTableViewControllerViewModel {
 	enum Mode {
 		case everyone
 		case me
+		case friend
 	}
 	
+	var friend: User?
 	var mode: Mode = .everyone
 	
 	lazy var segmentedControl: UISegmentedControl = {
@@ -85,7 +95,6 @@ class TimelineTableViewControllerViewModel {
 		
 		var timelineDataArray: [TimelineData] {
 			var timelineDataArray: [TimelineData] = []
-			users.append(User.shared)
 			for user in users {
 				for session in user.sessions {
 					let timelineData = TimelineData(user: user, session: session)
@@ -107,6 +116,13 @@ class TimelineTableViewControllerViewModel {
 class TimelineTableViewController: UITableViewController {
 	
 	var viewModel: TimelineTableViewControllerViewModel!
+	
+	enum Mode {
+		case timeline
+		case friend
+	}
+	var friend: User?
+	var mode: Mode = .timeline
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,12 +132,20 @@ class TimelineTableViewController: UITableViewController {
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.register(TimelineTableViewCell.self, forCellReuseIdentifier: TimelineTableViewCell.nibAndReuseIdentifier)
 		tableView.separatorStyle = .none
+		tableView.allowsSelection = false
 		
 		viewModel = TimelineTableViewControllerViewModel(timelineTableViewController: self)
-		viewModel.fetchData()
-		
 		tableView.addSubview(viewModel.refreshControl)
-		navigationItem.titleView = viewModel.segmentedControl
+		if mode == .friend {
+			if let friend = friend {
+				viewModel.mode = .friend
+				viewModel.friend = friend
+				navigationItem.title = friend.name
+			}
+		} else {
+			navigationItem.titleView = viewModel.segmentedControl
+		}
+		viewModel.fetchData()
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
