@@ -69,7 +69,7 @@ class FriendsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = FriendTableViewCell()
-		let friendTableViewCellViewModel = FriendTableViewCellViewModel(user: viewModel.users[indexPath.row])
+		let friendTableViewCellViewModel = FriendTableViewCellViewModel(user: viewModel.users[indexPath.row], cell: cell)
 		cell.viewModel = friendTableViewCellViewModel
         return cell
     }

@@ -51,3 +51,63 @@ class TimelineTableViewController: UITableViewController {
         return cell
     }
 }
+
+class TimelineBuilder {
+    var users: [User]
+    
+    init(users: [User]) {
+        self.users = users
+    }
+    
+    var sessions: [Session] {
+        var sessions: [Session] = []
+        for user in users {
+            sessions += user.sessions
+        }
+        sessions += User.shared.sessions
+        
+        sessions.sort { (session1, session2) -> Bool in
+            guard let date1 = session1.date, let date2 = session2.date else { return false }
+            if date1 > date2 { return true }
+            return false
+        }
+        
+        return sessions
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
