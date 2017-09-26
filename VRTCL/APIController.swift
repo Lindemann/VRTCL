@@ -124,13 +124,8 @@ struct APIController {
 		let user = AppDelegate.shared.user
 		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(user.token ?? "")"]
 		Alamofire.request(baseURL + "allUser", method: .get, headers: tokenHeader).validate().responseJSON { response in
-			if let usersArray = response.result.value as? [[String: Any]] {
-				var users: [User] = []
-				for userDictionary in usersArray {
-					if let user = parse(userDictionary: userDictionary) {
-						users.append(user)
-					}
-				}
+			if let userArray = response.result.value as? [[String: Any]] {
+				let users = parse(userArray: userArray)
 				completion?(true, nil, users)
 			}
 			if let error = response.error {
@@ -141,23 +136,99 @@ struct APIController {
 		}
 	}
 	
+	static func follow(friend: User, completion: ((Bool, APIError?) -> Void)?) {
+		UIApplication.shared.isNetworkActivityIndicatorVisible = true
+		let user = AppDelegate.shared.user
+		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(user.token ?? "")"]
+		let parameters: Parameters = ["userID" : friend.id ?? 666]
+		Alamofire.request(baseURL + "follow", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: tokenHeader).validate().responseString { response in
+			if let error = response.error {
+				print("💥 .POST follow API: \(error)")
+				completion?(false, APIError(error: error, statusCode: response.response?.statusCode))
+			}
+			completion?(true, nil)
+			UIApplication.shared.isNetworkActivityIndicatorVisible = false
+		}
+	}
 	
+	static func unfollow(friend: User, completion: ((Bool, APIError?) -> Void)?) {
+		UIApplication.shared.isNetworkActivityIndicatorVisible = true
+		let user = AppDelegate.shared.user
+		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(user.token ?? "")"]
+		let parameters: Parameters = ["userID" : friend.id ?? 666]
+		Alamofire.request(baseURL + "unfollow", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: tokenHeader).validate().responseString { response in
+			if let error = response.error {
+				print("💥 .POST unfollow API: \(error)")
+				completion?(false, APIError(error: error, statusCode: response.response?.statusCode))
+			}
+			completion?(true, nil)
+			UIApplication.shared.isNetworkActivityIndicatorVisible = false
+		}
+	}
 	
+	static func followers(completion: ((Bool, APIError?, [User]?) -> Void)?) {
+		UIApplication.shared.isNetworkActivityIndicatorVisible = true
+		let user = AppDelegate.shared.user
+		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(user.token ?? "")"]
+		Alamofire.request(baseURL + "followers", method: .get, headers: tokenHeader).validate().responseJSON { response in
+			if let userArray = response.result.value as? [[String: Any]] {
+				let users = parse(userArray: userArray)
+				completion?(true, nil, users)
+			}
+			if let error = response.error {
+				print("💥 .GET followers API: \(error)")
+				completion?(false, APIError(error: error, statusCode: response.response?.statusCode), nil)
+			}
+			UIApplication.shared.isNetworkActivityIndicatorVisible = false
+		}
+	}
 	
+	static func following(completion: ((Bool, APIError?, [User]?) -> Void)?) {
+		UIApplication.shared.isNetworkActivityIndicatorVisible = true
+		let user = AppDelegate.shared.user
+		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(user.token ?? "")"]
+		Alamofire.request(baseURL + "following", method: .get, headers: tokenHeader).validate().responseJSON { response in
+			if let userArray = response.result.value as? [[String: Any]] {
+				let users = parse(userArray: userArray)
+				completion?(true, nil, users)
+			}
+			if let error = response.error {
+				print("💥 .GET following API: \(error)")
+				completion?(false, APIError(error: error, statusCode: response.response?.statusCode), nil)
+			}
+			UIApplication.shared.isNetworkActivityIndicatorVisible = false
+		}
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	static func search(term: String, completion: ((Bool, APIError?, [User]?) -> Void)?) {
+		UIApplication.shared.isNetworkActivityIndicatorVisible = true
+		let user = AppDelegate.shared.user
+		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(user.token ?? "")"]
+		let parameters: Parameters = ["search" : term]
+		Alamofire.request(baseURL + "search", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: tokenHeader).validate().responseJSON { response in
+			if let userArray = response.result.value as? [[String: Any]] {
+				let users = parse(userArray: userArray)
+				completion?(true, nil, users)
+			}
+			if let error = response.error {
+				print("💥 .GET search API: \(error)")
+				completion?(false, APIError(error: error, statusCode: response.response?.statusCode), nil)
+			}
+			UIApplication.shared.isNetworkActivityIndicatorVisible = false
+		}
+	}
 	
 	// MARK: Helper
+	
+	private static func parse(userArray: [[String: Any]]) -> [User] {
+		var users: [User] = []
+		for userDictionary in userArray {
+			if let user = parse(userDictionary: userDictionary) {
+				users.append(user)
+			}
+		}
+		return users
+	}
 	
 	private static func decode(sessionsArray: Any) -> [Session] {
 		var sessions: [Session] = []

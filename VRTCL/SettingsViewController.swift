@@ -95,7 +95,13 @@ extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationC
 	internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
 		if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
 			
-			if let smallImage = image.resizeTo(max: 300) {
+			if let smallImage = image.scaleImageToSize(newSize: CGSize(width: 200, height: 200)) {
+//                print(image.size)
+//                print(smallImage.size)
+//                let imgData1: Data = UIImageJPEGRepresentation(image, 0)!
+//                print("Size of Image: \(imgData1.count) bytes")
+//                let imgData: Data = UIImageJPEGRepresentation(smallImage, 0)!
+//                print("Size of Image: \(imgData.count) bytes")
 				// Cloudinary
 				if let config = CLDConfiguration(cloudinaryUrl: Keys.cloudinaryURL), let data = UIImagePNGRepresentation(smallImage) as Data? {
 					let cloudinary = CLDCloudinary(configuration: config)

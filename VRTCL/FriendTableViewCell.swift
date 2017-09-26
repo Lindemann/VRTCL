@@ -8,16 +8,30 @@
 
 import UIKit
 
-struct FriendTableViewCellViewModel {
+class FriendTableViewCellViewModel {
 	var user = User()
 	internal var photoURL: String? { return user.photoURL }
 	internal var name: String? { return user.name }
-	internal var followButtonMode: FollowButton.Mode = .follow
+	internal var followButtonMode: FollowButton.Mode  {
+		return isFollowing ? .unfollow : .follow
+	}
+	internal var isFollowing = false
+	
+	init(user: User) {
+		self.user = user
+	}
 }
 
 class FriendTableViewCell: UITableViewCell {
 	
-	var viewModel = FriendTableViewCellViewModel() { didSet { setup() } }
+	var viewModel: FriendTableViewCellViewModel? {
+		didSet {
+			setup()
+			if let viewModel = viewModel {
+				isFollowing(user: viewModel.user)
+			}
+		}
+	}
 	
     static let nibAndReuseIdentifier = String(describing: FriendTableViewCell.self)
 
@@ -29,6 +43,7 @@ class FriendTableViewCell: UITableViewCell {
 	var height: CGFloat { return 220 }
 	
 	private func setup() {
+		guard let viewModel = viewModel else { return }
 		subviews.forEach { $0.removeFromSuperview() }
 		selectionStyle = .none
 		heightAnchor.constraint(equalToConstant: height).isActive = true
@@ -49,7 +64,7 @@ class FriendTableViewCell: UITableViewCell {
 		label.widthAnchor.constraint(equalToConstant: label.frame.size.width).isActive = true
 		
 		let followButton = FollowButton(mode: viewModel.followButtonMode)
-		followButton.addTarget(self, action: #selector(followUser(sender:)), for: .touchUpInside)
+		followButton.addTarget(self, action: #selector(followOrUnfollowUser(sender:)), for: .touchUpInside)
 
 		let stackView = UIStackView(arrangedSubviews: [photoButton, label, followButton])
 		addSubview(stackView)
@@ -84,9 +99,42 @@ class FriendTableViewCell: UITableViewCell {
 extension FriendTableViewCell {
 	
 	// This has no business in the cell class...but YOLO
-	@objc func followUser(sender: TagButton) {
-		viewModel.followButtonMode = .unfollow
-		setup()
+	
+	@objc func followOrUnfollowUser(sender: TagButton) {
+		guard let viewModel = viewModel else { return }
+		if !viewModel.isFollowing {
+			APIController.follow(friend: viewModel.user, completion: { (success, error) in
+				if success {
+					viewModel.isFollowing = true
+					self.setup()
+				}
+			})
+		} else {
+			APIController.unfollow(friend: viewModel.user, completion: { (success, error) in
+				if success {
+					viewModel.isFollowing = false
+					self.setup()
+				}
+			})
+		}
+	}
+	
+	func isFollowing(user: User)  {
+		APIController.following { (success, error, users) in
+			if success {
+				guard let users = users else { return }
+				guard let viewModel = self.viewModel else { return }
+				for friend in users {
+					if user.id == friend.id {
+						viewModel.isFollowing = true
+						self.setup()
+						return
+					}
+				}
+				viewModel.isFollowing = false
+				self.setup()
+			}
+		}
 	}
 }
 
@@ -114,7 +162,7 @@ class FollowButton: TagButton {
 		case unfollow = "unfollow"
 	}
 	
-	var mode: Mode = .follow
+	var mode: Mode = .unfollow
 }
 
 

@@ -308,8 +308,8 @@ class PhotoButton: UIButton {
 		clipsToBounds = true
 		
 		if let image = image {
-			setImage(image, for: UIControlState())
 			imageView?.contentMode = .scaleAspectFill
+            setImage(image, for: UIControlState())
 		}
 		
 		defer { self.mode = mode }

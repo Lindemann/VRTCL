@@ -78,36 +78,62 @@ extension CLLocation {
 }
 
 extension UIImage {
-	func resized(withPercentage percentage: CGFloat) -> UIImage? {
-		let canvasSize = CGSize(width: size.width * percentage, height: size.height * percentage)
-		UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
-		defer { UIGraphicsEndImageContext() }
-		draw(in: CGRect(origin: .zero, size: canvasSize))
-		return UIGraphicsGetImageFromCurrentImageContext()
-	}
-	
-	func resized(toWidth width: CGFloat) -> UIImage? {
-		let canvasSize = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
-		UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
-		defer { UIGraphicsEndImageContext() }
-		draw(in: CGRect(origin: .zero, size: canvasSize))
-		return UIGraphicsGetImageFromCurrentImageContext()
-	}
-	
-	func resized(toHeight height: CGFloat) -> UIImage? {
-		let canvasSize = CGSize(width: CGFloat(ceil(height/size.height * size.width)), height: height)
-		UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
-		defer { UIGraphicsEndImageContext() }
-		draw(in: CGRect(origin: .zero, size: canvasSize))
-		return UIGraphicsGetImageFromCurrentImageContext()
-	}
-	
-	func resizeTo(max: CGFloat) -> UIImage? {
-		if size.width < max || size.height < max { return self }
-		if size.width > size.height {
-			return resized(toHeight: max)
-		} else {
-			return resized(toWidth: max)
-		}
-	}
+    // Source: https://gist.github.com/tomasbasham/10533743
+    /// Scales an image to fit within a bounds with a size governed by the passed size. Also keeps the aspect ratio.
+    /// Switch MIN to MAX for aspect fill instead of fit.
+    ///
+    /// - parameter newSize: newSize the size of the bounds the image must fit within.
+    ///
+    /// - returns: a new scaled image.
+    func scaleImageToSize(newSize: CGSize) -> UIImage? {
+        var scaledImageRect = CGRect.zero
+        
+        let aspectWidth = newSize.width/size.width
+        let aspectheight = newSize.height/size.height
+        
+        let aspectRatio = max(aspectWidth, aspectheight)
+        
+        scaledImageRect.size.width = size.width * aspectRatio;
+        scaledImageRect.size.height = size.height * aspectRatio;
+        scaledImageRect.origin.x = (newSize.width - scaledImageRect.size.width) / 2.0;
+        scaledImageRect.origin.y = (newSize.height - scaledImageRect.size.height) / 2.0;
+        
+        UIGraphicsBeginImageContext(newSize)
+        draw(in: scaledImageRect)
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return scaledImage ?? nil
+    }
 }
+
+//extension UIImage {
+//
+//    func scaleImage(newSize: CGSize) -> UIImage? {
+//
+//        let horizontalRatio = newSize.width / size.width
+//        let verticalRatio = newSize.height / size.height
+//
+//        let ratio = max(horizontalRatio, verticalRatio)
+//        let newSize = CGSize(width: size.width * ratio, height: size.height * ratio)
+//        var newImage: UIImage
+//
+//        if #available(iOS 10.0, *) {
+//            let renderFormat = UIGraphicsImageRendererFormat.default()
+//            renderFormat.opaque = false
+//            let renderer = UIGraphicsImageRenderer(size: CGSize(width: newSize.width, height: newSize.height), format: renderFormat)
+//            newImage = renderer.image {
+//                (context) in
+//                draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+//            }
+//        } else {
+//            UIGraphicsBeginImageContextWithOptions(CGSize(width: newSize.width, height: newSize.height), false, 0)
+//            draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+//            newImage = UIGraphicsGetImageFromCurrentImageContext()!
+//            UIGraphicsEndImageContext()
+//        }
+//
+//        return newImage
+//    }
+//}
+

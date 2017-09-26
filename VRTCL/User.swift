@@ -141,8 +141,29 @@ class User: Codable {
 	
 	var following: [User]? = []
 	var followers: [User]? = []
-	
-	func isFollowing(user: User) -> Bool {
-		return false
-	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
