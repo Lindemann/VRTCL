@@ -20,6 +20,25 @@ internal class FriendsTableViewControllerVieModel {
 	
 	var users: [User] = []
 	
+	private func swapFriendToTop() {
+		APIController.following { (success, error, friends) in
+			if success {
+				guard let friends = friends else { return }
+				for friend in friends {
+					for (index, user) in self.users.enumerated() {
+						if friend == user {
+							user.isFriend = true
+							let tmp = self.users.remove(at: index)
+							self.users.insert(tmp, at: 0)
+							self.tableViewController?.tableView.reloadData()
+						}
+					}
+				}
+			}
+			self.refreshControl.endRefreshing()
+		}
+	}
+	
 	@objc func refresh(sender: UIRefreshControl) {
 		updateUsers()
 	}
@@ -28,9 +47,8 @@ internal class FriendsTableViewControllerVieModel {
 		APIController.getAllUser { (success, error, users) in
 			if let users = users {
 				self.users = users
-				self.romoveLogedInUser()
-				self.tableViewController?.tableView.reloadData()
-				self.refreshControl.endRefreshing()
+				self.romoveLogedInUser() // API returns all users including logged in user
+				self.swapFriendToTop()
 			}
 		}
 	}
@@ -51,7 +69,7 @@ class FriendsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		navigationItem.title = "Friends"
+		navigationItem.title = "Find Friends"
 		tableView.backgroundColor = Colors.darkGray
 		tableView.estimatedRowHeight = UITableViewAutomaticDimension
 		tableView.rowHeight = UITableViewAutomaticDimension

@@ -14,9 +14,8 @@ class FriendTableViewCellViewModel {
 	internal var photoURL: String? { return user.photoURL }
 	internal var name: String? { return user.name }
 	internal var followButtonMode: FollowButton.Mode  {
-		return isFollowing ? .unfollow : .follow
+		return user.isFriend ? .unfollow : .follow
 	}
-	internal var isFollowing = false
 	
 	init(user: User, cell: FriendTableViewCell) {
 		self.user = user
@@ -24,51 +23,27 @@ class FriendTableViewCellViewModel {
 	}
 	
 	@objc func followOrUnfollowUser(sender: TagButton) {
-		if !self.isFollowing {
+		if !self.user.isFriend {
 			APIController.follow(friend: user, completion: { (success, error) in
 				if success {
-					self.isFollowing = true
+					self.user.isFriend = true
 					self.cell.setup()
 				}
 			})
 		} else {
 			APIController.unfollow(friend: user, completion: { (success, error) in
 				if success {
-					self.isFollowing = false
+					self.user.isFriend = false
 					self.cell.setup()
 				}
 			})
-		}
-	}
-	
-	func isFollowing(user: User)  {
-		APIController.following { (success, error, users) in
-			if success {
-				guard let users = users else { return }
-				for friend in users {
-					if user.id == friend.id {
-						self.isFollowing = true
-						self.cell.setup()
-						return
-					}
-				}
-				self.isFollowing = false
-				self.cell.setup()
-			}
 		}
 	}
 }
 
 class FriendTableViewCell: UITableViewCell {
 	
-	var viewModel: FriendTableViewCellViewModel? {
-		didSet {
-			setup()
-			if let viewModel = viewModel {
-				viewModel.isFollowing(user: viewModel.user)
-			}
-		}
-	}
+	var viewModel: FriendTableViewCellViewModel? { didSet { setup() } }
 	
     static let nibAndReuseIdentifier = String(describing: FriendTableViewCell.self)
 

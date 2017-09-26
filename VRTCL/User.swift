@@ -15,6 +15,7 @@ class User: Codable, Equatable {
 	var isAuthenticated: Bool { return token != nil }
 	var following: [User]? = []
 	var followers: [User]? = []
+	var isFriend: Bool = false
 	var photoURL: String?
 	var id: Int?
 	var name: String?
