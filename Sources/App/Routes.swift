@@ -162,17 +162,6 @@ extension Droplet {
 			return response
 		}
 		
-		// GET /sessions
-		// Authorization: Bearer <token from /login>
-		token.get("sessions") { req in
-			let user = try req.user()
-			var json = try user.makeJSON()
-			json = try json.get("sessions") as JSON
-			var sessionJSON = JSON()
-			try sessionJSON.set("sessions", json)
-			return sessionJSON
-		}
-		
 		// POST /photoURL
 		// Authorization: Bearer <token from /login>
 		// JSON: {"photoURL" : "https://???"}

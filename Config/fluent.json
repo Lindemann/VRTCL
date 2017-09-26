@@ -29,5 +29,5 @@
     "defaultPageSize": 10,
 
     "//": "If true, all queries will be logged.",
-    "log": true
+    "log": false
 }
