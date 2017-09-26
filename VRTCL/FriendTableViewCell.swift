@@ -140,7 +140,7 @@ class FollowButton: TagButton {
 		var color = Colors.lightGray
 		switch mode {
 		case .follow:
-			color = Colors.lightGray
+			color = Colors.mint
 		case .unfollow:
 			color = Colors.watermelon
 		}

@@ -8,13 +8,71 @@
 
 import UIKit
 
-struct TimelineTableViewControllerViewModel {
+class TimelineTableViewControllerViewModel {
+	var timelineTableViewController: TimelineTableViewController
+	var timelineDataArray: [TimelineData] = []
 	
+	init(timelineTableViewController: TimelineTableViewController) {
+		self.timelineTableViewController = timelineTableViewController
+	}
+	
+	func fetchData() {
+		APIController.following { (success, error, users) in
+			if success, let users = users, users.count > 0 {
+				self.timelineDataArray = TimelineBuilder(users: users).timelineDataArray
+				self.timelineTableViewController.tableView.reloadData()
+			}
+			self.refreshControl.endRefreshing()
+		}
+	}
+	
+	lazy var refreshControl: UIRefreshControl = {
+		let refreshControl = UIRefreshControl()
+		refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+		refreshControl.tintColor = UIColor.white
+		return refreshControl
+	}()
+	
+	@objc func refresh(sender: UIRefreshControl) {
+		fetchData()
+	}
+	
+	struct TimelineData {
+		let user: User
+		let session: Session
+	}
+	
+	class TimelineBuilder {
+		var users: [User]
+		
+		init(users: [User]) {
+			self.users = users
+		}
+		
+		var timelineDataArray: [TimelineData] {
+			var timelineDataArray: [TimelineData] = []
+			users.append(User.shared)
+			for user in users {
+				for session in user.sessions {
+					let timelineData = TimelineData(user: user, session: session)
+					timelineDataArray.append(timelineData)
+				}
+			}
+			
+			timelineDataArray.sort { (timelineDataA, timelineDataB) -> Bool in
+				guard let dateA = timelineDataA.session.date, let dateB = timelineDataB.session.date else { return false }
+				if dateA > dateB { return true }
+				return false
+			}
+			
+			return timelineDataArray
+		}
+	}
 }
 
 class TimelineTableViewController: UITableViewController {
 	
-	let viewModel = TimelineTableViewControllerViewModel()
+	var viewModel: TimelineTableViewControllerViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +82,10 @@ class TimelineTableViewController: UITableViewController {
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.register(TimelineTableViewCell.self, forCellReuseIdentifier: TimelineTableViewCell.nibAndReuseIdentifier)
 		tableView.separatorStyle = .none
+		
+		viewModel = TimelineTableViewControllerViewModel(timelineTableViewController: self)
+		viewModel.fetchData()
+		tableView.addSubview(viewModel.refreshControl)
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -38,44 +100,19 @@ class TimelineTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return AppDelegate.shared.user.sessions.count
+        return viewModel.timelineDataArray.count
     }
 	
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = TimelineTableViewCell()
-		var viewModel =  TimelineTableViewCellViewModel()
-		let user = User.shared
-		viewModel.user = user
-		viewModel.session = user.sessions[indexPath.row]
-		cell.viewModel = viewModel
+		let timelineData = viewModel.timelineDataArray[indexPath.row]
+		var timelineViewModel =  TimelineTableViewCellViewModel()
+		timelineViewModel.user = timelineData.user
+		timelineViewModel.session = timelineData.session
+		cell.viewModel = timelineViewModel
         return cell
     }
 }
-
-class TimelineBuilder {
-    var users: [User]
-    
-    init(users: [User]) {
-        self.users = users
-    }
-    
-    var sessions: [Session] {
-        var sessions: [Session] = []
-        for user in users {
-            sessions += user.sessions
-        }
-        sessions += User.shared.sessions
-        
-        sessions.sort { (session1, session2) -> Bool in
-            guard let date1 = session1.date, let date2 = session2.date else { return false }
-            if date1 > date2 { return true }
-            return false
-        }
-        
-        return sessions
-    }
-}
-
 
 
 
