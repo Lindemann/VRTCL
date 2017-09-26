@@ -20,7 +20,7 @@ internal class FriendsTableViewControllerVieModel {
 	
 	var users: [User] = []
 	
-	private func swapFriendToTop() {
+	func swapFriendToTop() {
 		APIController.following { (success, error, friends) in
 			if success {
 				guard let friends = friends else { return }
@@ -49,11 +49,12 @@ internal class FriendsTableViewControllerVieModel {
 				self.users = users
 				self.romoveLogedInUser() // API returns all users including logged in user
 				self.swapFriendToTop()
+				self.tableViewController?.tableView.reloadData()
 			}
 		}
 	}
 	
-	private func romoveLogedInUser() {
+	func romoveLogedInUser() {
 		for (index, user) in users.enumerated() {
 			if User.shared == user {
 				users.remove(at: index)
@@ -65,7 +66,6 @@ internal class FriendsTableViewControllerVieModel {
 class FriendsTableViewController: UITableViewController {
 	
 	var viewModel = FriendsTableViewControllerVieModel()
-	lazy var searchBar: UISearchBar = UISearchBar()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,18 +110,37 @@ class FriendsTableViewController: UITableViewController {
 	}
 }
 
-extension FriendsTableViewController: UISearchBarDelegate, UISearchControllerDelegate {
+extension FriendsTableViewController: UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
 	
-	private func setupSearchController() {
-		let searchController = UISearchController(searchResultsController: nil)
-		searchController.delegate = self
-		navigationItem.searchController = searchController
-		searchController.searchBar.tintColor = Colors.lightGray
-		UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white]
+	func updateSearchResults(for searchController: UISearchController) {
 	}
 	
-	func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-		
+	func willDismissSearchController(_ searchController: UISearchController) {
+		viewModel.updateUsers()
+	}
+	
+	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+		APIController.search(term: searchBar.text ?? "") { (success, error, users) in
+			if success {
+				guard let users = users else { return }
+				self.viewModel.users = users
+				self.tableView.reloadData()
+				self.viewModel.romoveLogedInUser()
+				self.viewModel.swapFriendToTop()
+			}
+		}
+	}
+
+	private func setupSearchController() {
+		let searchController = UISearchController(searchResultsController: nil)
+		navigationItem.searchController = searchController
+		searchController.obscuresBackgroundDuringPresentation = false
+		definesPresentationContext = true
+		searchController.searchResultsUpdater = self
+		searchController.delegate = self
+		searchController.searchBar.delegate = self
+		searchController.searchBar.tintColor = Colors.lightGray
+		UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white]
 	}
 }
 
