@@ -165,17 +165,12 @@ extension Droplet {
 		// GET /sessions
 		// Authorization: Bearer <token from /login>
 		token.get("sessions") { req in
-			// Get user
 			let user = try req.user()
-			// String -> JSON
-			guard let sessionsString = user.sessions else {
-				var json = JSON()
-				try json.set("sessions", [])
-				return json
-			}
-			let bytes = sessionsString.makeBytes()
-			let json = try JSON(bytes: bytes)
-			return json
+			var json = try user.makeJSON()
+			json = try json.get("sessions") as JSON
+			var sessionJSON = JSON()
+			try sessionJSON.set("sessions", json)
+			return sessionJSON
 		}
 		
 		// POST /photoURL
@@ -319,76 +314,5 @@ extension Droplet {
 			
 			return try users.makeJSON()
 		}
-		
-		// POST /isFollower
-		// Authorization: Bearer <token from /login>
-		// JSON: {"userID" : 666}
-		token.post("isFollower") { req -> ResponseRepresentable in
-			
-			guard let json = req.json else {
-				throw Abort(.badRequest, reason: "No id submitted.")
-			}
-			guard let userID = json["userID"]?.int else {
-				throw Abort(.badRequest, reason: "No id submitted.")
-			}
-			
-			guard let userForID = try User.makeQuery().filter("id", userID).first() else {
-				throw Abort(.badRequest, reason: "No user found for id.")
-			}
-			
-			let user = try req.user()
-			// User -> Friend
-			var friend: Friend
-			if let tmpFfriend = try Friend.makeQuery().filter("user_id", user.id).first() {
-				friend = tmpFfriend
-			} else {
-				friend = try Friend(user: user)
-				try friend.save()
-			}
-			
-			if try userForID.friends.isAttached(friend) {
-				return Response(status: .ok, body: "true")
-			}
-		
-			return Response(status: .ok, body: "false")
-		}
     }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

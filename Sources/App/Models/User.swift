@@ -105,8 +105,19 @@ extension User: JSONConvertible {
         try json.set("id", id)
         try json.set("name", name)
         try json.set("email", email)
-		try json.set("sessions", sessions)
 		try json.set("photoURL", photoURL)
+		
+		// LOL
+		// gets the session string -> transforms to json
+		// -> gets rid of additinal sessions key
+		if let sessionsString = sessions {
+			let bytes = sessionsString.makeBytes()
+			var sessionJson = try JSON(bytes: bytes)
+			sessionJson = try sessionJson.get("sessions") as JSON
+			try json.set("sessions", sessionJson)
+		} else {
+			try json.set("sessions", [])
+		}
         return json
     }
 }
