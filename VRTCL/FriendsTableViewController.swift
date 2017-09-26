@@ -28,8 +28,17 @@ internal class FriendsTableViewControllerVieModel {
 		APIController.getAllUser { (success, error, users) in
 			if let users = users {
 				self.users = users
+				self.romoveLogedInUser()
 				self.tableViewController?.tableView.reloadData()
 				self.refreshControl.endRefreshing()
+			}
+		}
+	}
+	
+	private func romoveLogedInUser() {
+		for (index, user) in users.enumerated() {
+			if User.shared == user {
+				users.remove(at: index)
 			}
 		}
 	}

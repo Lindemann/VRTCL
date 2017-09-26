@@ -38,6 +38,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var friendsChache: [User]?
 	
 	weak var initialLocationDelegate: InitialLocationDelegate?
+	
+	var dateFormatter: DateFormatter = {
+		var dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
+		dateFormatter.timeStyle = .none
+		return dateFormatter
+	}()
 
 	func applicationDidFinishLaunching(_ application: UIApplication) {
 		// Setup user data from UserDefaults

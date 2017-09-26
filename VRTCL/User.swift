@@ -8,11 +8,13 @@
 
 import Foundation
 
-class User: Codable {
+class User: Codable, Equatable {
 	
 	static let shared = User()
 	var sessions: [Session] = []
 	var isAuthenticated: Bool { return token != nil }
+	var following: [User]? = []
+	var followers: [User]? = []
 	var photoURL: String?
 	var id: Int?
 	var name: String?
@@ -139,11 +141,10 @@ class User: Codable {
 		}
 	}
 	
-	var following: [User]? = []
-	var followers: [User]? = []
+	static func == (left: User, right: User) -> Bool {
+		return left.id == right.id
+	}
 }
-
-
 
 
 

@@ -26,6 +26,7 @@ struct TimelineTableViewCellViewModel {
 	internal var duration: Int { return session?.duration ?? 0 }
 	internal var climbs: [Climb] { return session?.climbs ?? [] }
 	internal var mood: Mood? { return session?.mood }
+	internal var date: String { return AppDelegate.shared.dateFormatter.string(from: session?.date ?? Date()) }
 	
 	internal var kindBadgeText: String {
 		return kind == .bouldering ? "B" : "SC"
@@ -150,7 +151,7 @@ class TimelineTableViewCell: UITableViewCell {
 			locationLablel.textAlignment = .center
 			locationLablel.font = Fonts.text
 			locationLablel.textColor = Colors.lightGray
-			locationLablel.text = "⚑ \(viewModel.location)"
+			locationLablel.text = "⚑ \(viewModel.location), \(viewModel.date)"
 			addSubview(locationLablel)
 			locationLablel.translatesAutoresizingMaskIntoConstraints = false
 			locationLablel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true

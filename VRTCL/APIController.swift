@@ -90,7 +90,7 @@ struct APIController {
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		let user = AppDelegate.shared.user
 		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(user.token ?? "")"]
-		Alamofire.request(baseURL + "sessions", method: .get, headers: tokenHeader).validate().responseJSON{ response in
+		Alamofire.request(baseURL + "user", method: .get, headers: tokenHeader).validate().responseJSON{ response in
 			if let dictionary = response.result.value as? [String: Any] {
 				if let sessionsArray = dictionary["sessions"] as? [Any] {
 					completion?(true, nil, decode(sessionsArray: sessionsArray))

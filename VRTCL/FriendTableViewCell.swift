@@ -77,13 +77,10 @@ class FriendTableViewCell: UITableViewCell {
 		backgroundColor = selected ? Colors.darkGray.lighter(by: 10) : UIColor.clear
     }
 	
-	var height: CGFloat { return 220 }
-	
 	func setup() {
 		guard let viewModel = viewModel else { return }
 		subviews.forEach { $0.removeFromSuperview() }
 		selectionStyle = .none
-		heightAnchor.constraint(equalToConstant: height).isActive = true
 		seperator = UIView()
 
 		let photoButton = PhotoButton(diameter: 80, mode: .photo)
@@ -118,6 +115,8 @@ class FriendTableViewCell: UITableViewCell {
 		arrow.translatesAutoresizingMaskIntoConstraints = false
 		arrow.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 		arrow.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
+		
+		heightAnchor.constraint(equalTo: stackView.heightAnchor, constant: 60).isActive = true
 	}
 	
 	private var seperator: UIView! {

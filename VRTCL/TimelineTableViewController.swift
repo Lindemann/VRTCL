@@ -17,8 +17,14 @@ class TimelineTableViewControllerViewModel {
 	}
 	
 	func fetchData() {
+		if mode == .me {
+			self.timelineDataArray = TimelineBuilder(users: []).timelineDataArray
+			self.timelineTableViewController.tableView.reloadData()
+			self.refreshControl.endRefreshing()
+			return
+		}
 		APIController.following { (success, error, users) in
-			if success, let users = users, users.count > 0 {
+			if success, let users = users {
 				self.timelineDataArray = TimelineBuilder(users: users).timelineDataArray
 				self.timelineTableViewController.tableView.reloadData()
 			}
@@ -35,6 +41,34 @@ class TimelineTableViewControllerViewModel {
 	
 	@objc func refresh(sender: UIRefreshControl) {
 		fetchData()
+	}
+	
+	enum Mode {
+		case everyone
+		case me
+	}
+	
+	var mode: Mode = .everyone
+	
+	lazy var segmentedControl: UISegmentedControl = {
+		let segmentedControl = UISegmentedControl(items: ["Everyone", "Me"])
+		segmentedControl.selectedSegmentIndex = 0
+		segmentedControl.tintColor = Colors.lightGray
+		segmentedControl.addTarget(self, action: #selector(changeKind(sender:)), for: .valueChanged)
+		segmentedControl.setWidth(120, forSegmentAt: 0)
+		segmentedControl.setWidth(120, forSegmentAt: 1)
+		return segmentedControl
+	} ()
+	
+	@objc private func changeKind(sender: UISegmentedControl) {
+		switch sender.selectedSegmentIndex {
+		case 0:
+			mode = .everyone
+			fetchData()
+		default:
+			mode = .me
+			fetchData()
+		}
 	}
 	
 	struct TimelineData {
@@ -85,12 +119,14 @@ class TimelineTableViewController: UITableViewController {
 		
 		viewModel = TimelineTableViewControllerViewModel(timelineTableViewController: self)
 		viewModel.fetchData()
+		
 		tableView.addSubview(viewModel.refreshControl)
+		navigationItem.titleView = viewModel.segmentedControl
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		tableView.reloadData()
+		viewModel.fetchData()
 	}
 
     // MARK: - Table view data source
