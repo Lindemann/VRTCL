@@ -22,34 +22,6 @@ extension Droplet {
 		
 		// a simple plaintext example response
         get() { req in
-			
-//			let user1 = try User.all()[0]
-//			let user2 = try User.all()[1]
-//			let user3 = try User.all()[2]
-//
-//
-//			let friend1 = try Friend(user: user2)
-//			try friend1.save()
-//			let friend2 = try Friend(user: user3)
-//			try friend2.save()
-//
-//			try user1.friends.add(friend1)
-//			try user1.friends.add(friend2)
-//
-//			print(try user1.friends.all().makeJSON())
-//
-//			for u in try User.all() {
-//				if try u.friends.isAttached(friend1) {
-//					print(u.name)
-//				}
-//			}
-//
-//			let users = try User.makeQuery().or({ orGroup in
-//				try orGroup.filter("name", .contains, "user3")
-//				try orGroup.filter("email", .contains, "a@aa.de")
-//			}).all()
-//			print(try users.makeJSON())
-			
             return "VRTCL Server is running ( ◕ ◡ ◕ )"
         }
 
@@ -261,6 +233,8 @@ extension Droplet {
 			let users = try User.makeQuery().or({ orGroup in
 				try orGroup.filter("name", .contains, searchTerm)
 				try orGroup.filter("email", .contains, searchTerm)
+				try orGroup.filter(raw: "name ILIKE '%\(searchTerm)%'")
+				try orGroup.filter(raw: "email ILIKE '%\(searchTerm)%'")
 			}).all()
 			
 			return try users.makeJSON()
