@@ -122,16 +122,19 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		viewModel.postSessions()
 		viewModel.setSessionToNil()
 		
-		// Turn off location tracking
+		turnOfLocationTracking()
+
+		//TODO: set to normal pop after InputMethodViewController is gone
+		navigationController?.popToRootViewController(animated: true)
+	}
+	
+	private func turnOfLocationTracking() {
 		switch viewModel.kind {
 		case .bouldering:
 			AppDelegate.shared.bouleringSessionLocationManager.stopUpdatingLocation()
 		case .sportClimbing:
 			AppDelegate.shared.sportClimbingSessionLocationManager.stopUpdatingLocation()
 		}
-		
-		//TODO: set to normal pop after InputMethodViewController is gone
-		navigationController?.popToRootViewController(animated: true)
 	}
 }
 
@@ -337,7 +340,10 @@ extension EditSessionViewController: DurationViewDelegate {
 		}
 		let DeleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] action in
 			self?.viewModel.setSessionToNil()
-			self?.navigationController?.popViewController(animated: true)
+//			self?.navigationController?.popViewController(animated: true)
+			self?.turnOfLocationTracking()
+			//TODO: set to normal pop after InputMethodViewController is gone
+			self?.navigationController?.popToRootViewController(animated: true)
 		}
 		alertController.addAction(DeleteAction)
 		alertController.addAction(cancelAction)
