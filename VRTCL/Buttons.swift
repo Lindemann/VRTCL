@@ -140,6 +140,7 @@ class CircleButton: Button {
 		self.frame = CGRect(x: center.x - diameter/2, y: center.y - diameter/2, width: diameter, height: diameter)
 		self.text = text
 		self.color = color
+		self.tintColor = color
 		self.presentingViewBackgroundColor = presentingViewBackgroundColor
 		self.image = image
 		self.initialAppearanceMode = appearanceMode
@@ -156,29 +157,38 @@ class CircleButton: Button {
 	}
 	
 	func setup() {
-		setTitle(text, for: UIControlState())
-		titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-		
 		layer.cornerRadius = 0.5 * bounds.size.width
 		layer.borderWidth = 2
 		layer.borderColor = self.color?.cgColor ?? UIColor.green.cgColor
 		
+		setTitle(text, for: UIControlState())
+		titleLabel?.font = UIFont.systemFont(ofSize: 80, weight: .medium)
 		titleLabel?.adjustsFontSizeToFitWidth = true
 		titleLabel?.textAlignment = .center
 		titleLabel?.baselineAdjustment = .alignCenters
+
+		// Adjusting the inset percentage basesd on character count
+		// since uikit only calculates the label width to fit the button we ignore the height
 		var inset: CGFloat = 0
-		// Adjusting the label size for small Buttons
-		if let count = titleLabel?.text?.characters.count, frame.width <= 30 {
+		if let count = titleLabel?.text?.characters.count {
 			switch count {
 			case 1:
-				inset = 11
+				inset = frame.size.width * 0.35
+				if titleLabel?.text == "1" { inset = frame.size.width * 0.38 } // 1 looks way to big
 			case 2:
-				inset = 7
+				inset = frame.size.width * 0.25
+			case 3:
+				inset = frame.size.width * 0.15
+			case 4:
+				inset = frame.size.width * 0.05
+			case 5:
+				inset = frame.size.width * 0.05 // text like 5.15c behaves strange
 			default:
 				inset = 0
 			}
 		}
-		titleEdgeInsets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
+		// top and buttom has no influence
+		titleEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
 		
 		if let image = image {
 			imageView?.contentMode = .scaleAspectFit

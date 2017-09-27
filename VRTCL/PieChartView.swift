@@ -59,7 +59,7 @@ class PieChartView: UIView {
         let percentageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: containerView.frame.width, height: containerView.frame.height))
         percentageLabel.center = containerView.center
         percentageLabel.text = "\(Int(percentage))%"
-        percentageLabel.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+        percentageLabel.font = UIFont.systemFont(ofSize: 21, weight: .medium)
         percentageLabel.textAlignment = .center
         percentageLabel.textColor = Colors.lightGray
         containerView.addSubview(percentageLabel)
