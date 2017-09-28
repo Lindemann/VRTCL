@@ -119,11 +119,11 @@ struct APIController {
 		}
 	}
 	
-	static func getAllUser(completion: ((Bool, APIError?, [User]?) -> Void)?) {
+	static func getAllUsers(completion: ((Bool, APIError?, [User]?) -> Void)?) {
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		let user = AppDelegate.shared.user
 		let tokenHeader: HTTPHeaders = ["Authorization": "Bearer \(user.token ?? "")"]
-		Alamofire.request(baseURL + "allUser", method: .get, headers: tokenHeader).validate().responseJSON { response in
+		Alamofire.request(baseURL + "allUsers", method: .get, headers: tokenHeader).validate().responseJSON { response in
 			if let userArray = response.result.value as? [[String: Any]] {
 				let users = parse(userArray: userArray)
 				completion?(true, nil, users)

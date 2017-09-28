@@ -44,7 +44,7 @@ internal class FriendsTableViewControllerVieModel {
 	}
 	
 	func updateUsers() {
-		APIController.getAllUser { (success, error, users) in
+		APIController.getAllUsers { (success, error, users) in
 			if let users = users {
 				self.users = users
 				self.romoveLogedInUser() // API returns all users including logged in user
