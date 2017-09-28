@@ -33,7 +33,7 @@ extension Droplet {
 
         // create a new user
         //
-        // POST /users
+        // POST /signup
         // <json containing new user information>
         post("signup") { req in
             // require that the request body be json
@@ -106,7 +106,7 @@ extension Droplet {
         // simply returns a greeting to the user that has been authed
         // using the token middleware.
         //
-        // GET /me
+        // GET /user
         // Authorization: Bearer <token from /login>
         token.get("user") { req in
             let user = try req.user()
@@ -212,9 +212,9 @@ extension Droplet {
 			return response
 		}
 		
-		// GET /allUser
+		// GET /allUsers
 		// Authorization: Bearer <token from /login>
-		token.get("allUser") { req -> ResponseRepresentable in
+		token.get("allUsers") { req -> ResponseRepresentable in
 			return try User.all().makeJSON()
 		}
 		
