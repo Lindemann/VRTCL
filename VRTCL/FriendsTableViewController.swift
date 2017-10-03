@@ -77,15 +77,15 @@ class FriendsTableViewController: UITableViewController {
 		tableView.separatorStyle = .none
 		tableView.addSubview(viewModel.refreshControl)
 		setupSearchController()
-
-		viewModel.tableViewController = self
-		if AppDelegate.shared.friendsChache == nil {
-			viewModel.updateUsers()
-		}
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		
+		viewModel.tableViewController = self
+		if AppDelegate.shared.friendsChache == nil {
+			viewModel.updateUsers()
+		}
 	}
 	
     // MARK: - Table view data source
@@ -127,6 +127,8 @@ extension FriendsTableViewController: UISearchControllerDelegate, UISearchResult
 				self.tableView.reloadData()
 				self.viewModel.romoveLogedInUser()
 				self.viewModel.swapFriendToTop()
+				// TODO: Hot Fix...rethink later!
+				self.tableView.reloadData()
 			}
 		}
 	}

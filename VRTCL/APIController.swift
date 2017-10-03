@@ -16,11 +16,13 @@ struct APIError {
 
 struct APIController {
 	
-	#if (arch(i386) || arch(x86_64)) && os(iOS) //Simulator
-		static let baseURL = "http://localhost:8080/"
-	#else //Device
-		static let baseURL = "https://vrtcl.herokuapp.com/"
-	#endif
+//	#if (arch(i386) || arch(x86_64)) && os(iOS) //Simulator
+//		static let baseURL = "http://localhost:8080/"
+//	#else //Device
+//		static let baseURL = "https://vrtcl.herokuapp.com/"
+//	#endif
+	
+	static let baseURL = "https://vrtcl.herokuapp.com/"
 	
 	static func login(email: String, password: String, completion: ((Bool, APIError?, String?) -> Void)?) {
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
