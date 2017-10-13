@@ -16,13 +16,11 @@ struct APIError {
 
 struct APIController {
 	
-//	#if (arch(i386) || arch(x86_64)) && os(iOS) //Simulator
-//		static let baseURL = "http://localhost:8080/"
-//	#else //Device
-//		static let baseURL = "https://vrtcl.herokuapp.com/"
-//	#endif
-	
-	static let baseURL = "https://vrtcl.herokuapp.com/"
+	#if (arch(i386) || arch(x86_64)) && os(iOS) //Simulator
+		static let baseURL = "http://localhost:8080/"
+	#else //Device
+		static let baseURL = "https://vrtcl.herokuapp.com/"
+	#endif
 	
 	static func login(email: String, password: String, completion: ((Bool, APIError?, String?) -> Void)?) {
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -265,7 +263,7 @@ struct APIController {
 	}
 
 	static func showAlertFor(reason: String, In viewController: UIViewController) {
-		let alertController = UIAlertController(title: reason, message: "", preferredStyle: .alert)
+		let alertController = UIAlertController(title: reason, message: "(╯°□°)╯︵ ┻━┻", preferredStyle: .alert)
 		let action = UIAlertAction(title: "Ok", style: .default)
 		alertController.addAction(action)
 		viewController.present(alertController, animated: true, completion: nil)

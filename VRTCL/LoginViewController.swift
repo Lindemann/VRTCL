@@ -18,8 +18,8 @@ class LoginViewController: UIViewController {
 	var viewModel = LoginViewControllerViewModel()
 	
 	var stackView: UIStackView!
-	lazy var centerConstraint = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-	lazy var centerConstraintWithConstant = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -80)
+	lazy var centerConstraint = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: self.navigationController?.navigationBar.frame.size.height ?? 0)
+	lazy var centerConstraintWithConstant = stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100)
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +30,10 @@ class LoginViewController: UIViewController {
     }
 	
 	private func setup() {
+		
+		let icon = #imageLiteral(resourceName: "icon80x80")
+		let iconImageView = UIImageView(image: icon)
+		
 		let emailTextField = FatTextField(origin: CGPoint.zero)
 		emailTextField.placeholder = "Email"
 		emailTextField.tag = 0
@@ -59,7 +63,7 @@ class LoginViewController: UIViewController {
 		let signupButton = FatButton(color: Colors.lightGray, title: "Sign up", hasArrow: true)
 		signupButton.addTarget(self, action: #selector(signup), for: .touchUpInside)
 		
-		stackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, loginButton, signupButton, forgotPasswordButton])
+		stackView = UIStackView(arrangedSubviews: [iconImageView, emailTextField, passwordTextField, loginButton, signupButton, forgotPasswordButton])
 		view.addSubview(stackView)
 		stackView.spacing = 30
 		stackView.axis = .vertical
@@ -70,6 +74,11 @@ class LoginViewController: UIViewController {
 		
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
 		view.addGestureRecognizer(tapGestureRecognizer)
+		
+		// Set bigger space between icon and textfiled on iPhone 7/8 plus
+		if view.frame.size.height > 700 {
+			stackView.setCustomSpacing(60, after: iconImageView)
+		}
 	}
 }
 
@@ -121,9 +130,7 @@ extension LoginViewController: UITextFieldDelegate {
 	}
 	
 	func textFieldDidBeginEditing(_ textField: UITextField) {
-		if textField.tag == 1 {
-			slideUp()
-		}
+		slideUp()
 	}
 }
 
