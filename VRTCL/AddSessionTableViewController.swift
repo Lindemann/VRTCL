@@ -178,13 +178,9 @@ extension AddSessionTableViewController: SessionsButtonTableviewCellDelegate {
 	}
 	
 	private func pushViewControllerWith(session: Session) {
-		// TODO: Remove InputMethodViewController
-//		let editSessionTableViewController = EditSessionViewController()
-//		editSessionTableViewController.viewModel.session = session
-//		navigationController?.pushViewController(editSessionTableViewController, animated: true)
-		let inputMethodViewController = InputMethodViewController()
-		inputMethodViewController.viewModel.session = session
-		navigationController?.pushViewController(inputMethodViewController, animated: true)
+		let editSessionTableViewController = EditSessionViewController()
+		editSessionTableViewController.viewModel.session = session
+		navigationController?.pushViewController(editSessionTableViewController, animated: true)
 	}
 }
 

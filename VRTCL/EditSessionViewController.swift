@@ -81,11 +81,10 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		}
 	}
 	
-	// TODO: Uncomment this!
-//	override func willMove(toParentViewController parent: UIViewController?) {
-//		super.willMove(toParentViewController: parent)
-//		self.navigationController?.navigationBar.barTintColor = Colors.bar
-//	}
+	override func willMove(toParentViewController parent: UIViewController?) {
+		super.willMove(toParentViewController: parent)
+		self.navigationController?.navigationBar.barTintColor = Colors.bar
+	}
 	
 	// MARK: Table view data source + delegate
 	
@@ -124,8 +123,7 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		
 		turnOfLocationTracking()
 
-		//TODO: set to normal pop after InputMethodViewController is gone
-		navigationController?.popToRootViewController(animated: true)
+		navigationController?.popViewController(animated: true)
 	}
 	
 	private func turnOfLocationTracking() {
@@ -340,10 +338,8 @@ extension EditSessionViewController: DurationViewDelegate {
 		}
 		let DeleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] action in
 			self?.viewModel.setSessionToNil()
-//			self?.navigationController?.popViewController(animated: true)
 			self?.turnOfLocationTracking()
-			//TODO: set to normal pop after InputMethodViewController is gone
-			self?.navigationController?.popToRootViewController(animated: true)
+			self?.navigationController?.popViewController(animated: true)
 		}
 		alertController.addAction(DeleteAction)
 		alertController.addAction(cancelAction)
