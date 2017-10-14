@@ -51,11 +51,14 @@ internal class Button: UIButton {
 	// initialAppearanceMode is used to reset the original setting after highlighting
 	internal var initialAppearanceMode: AppearanceMode?
 	
+	// To deactivate the animation on initial button setup where appearanceMode is called
+	// Is only not 0 when button was touched
+	internal var animationDuration: TimeInterval = 0
+	
 	var appearanceMode: AppearanceMode? {
 		didSet {
-			let duration = 0.1
 			if appearanceMode == .outlined {
-				UIView.animate(withDuration: duration) { [weak self] in
+				UIView.animate(withDuration: animationDuration) { [weak self] in
 					self?.setTitleColor(self?.color, for: UIControlState())
 					self?.backgroundColor = UIColor.clear
 					self?.layer.borderColor = self?.color?.cgColor ?? UIColor.green.cgColor
@@ -63,7 +66,7 @@ internal class Button: UIButton {
 				}
 			}
 			if appearanceMode == .filled {
-				UIView.animate(withDuration: duration) { [weak self] in
+				UIView.animate(withDuration: animationDuration) { [weak self] in
 					self?.setTitleColor(self?.presentingViewBackgroundColor, for: UIControlState())
 					self?.backgroundColor = self?.color
 					self?.imageView?.tintColor = self?.presentingViewBackgroundColor
@@ -93,6 +96,7 @@ internal class Button: UIButton {
 	}
 	
 	@objc private func wasTouched() {
+		animationDuration = 0.2
 		isSelected = isSelected ? false : true
 	}
 }
@@ -111,10 +115,6 @@ class TagButton: Button {
 		self.color = color
 		self.presentingViewBackgroundColor = presentingViewBackgroundColor
 		self.initialAppearanceMode = appearanceMode
-		defer {
-			self.appearanceMode = appearanceMode
-			self.interactionMode = interactionMode
-		}
 		
 		setTitle(text, for: .normal)
 		titleLabel?.font = font
@@ -122,11 +122,43 @@ class TagButton: Button {
 		layer.cornerRadius = 14
 		layer.borderWidth = 2
 		layer.borderColor = color.cgColor
+		
+		defer {
+			self.appearanceMode = appearanceMode
+			self.interactionMode = interactionMode
+		}
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
+}
+
+class FollowButton: TagButton {
+	
+	init(mode: Mode) {
+		
+		var color = Colors.lightGray
+		switch mode {
+		case .follow:
+			color = Colors.mint
+		case .unfollow:
+			color = Colors.watermelon
+		}
+		super.init(text: mode.rawValue, color: color, interactionMode: .highlightable)
+		defer { self.mode = mode }
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	enum Mode: String {
+		case follow = "follow"
+		case unfollow = "unfollow"
+	}
+	
+	var mode: Mode = .unfollow
 }
 
 class CircleButton: Button {

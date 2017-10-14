@@ -106,34 +106,3 @@ extension UIImage {
         return scaledImage ?? nil
     }
 }
-
-//extension UIImage {
-//
-//    func scaleImage(newSize: CGSize) -> UIImage? {
-//
-//        let horizontalRatio = newSize.width / size.width
-//        let verticalRatio = newSize.height / size.height
-//
-//        let ratio = max(horizontalRatio, verticalRatio)
-//        let newSize = CGSize(width: size.width * ratio, height: size.height * ratio)
-//        var newImage: UIImage
-//
-//        if #available(iOS 10.0, *) {
-//            let renderFormat = UIGraphicsImageRendererFormat.default()
-//            renderFormat.opaque = false
-//            let renderer = UIGraphicsImageRenderer(size: CGSize(width: newSize.width, height: newSize.height), format: renderFormat)
-//            newImage = renderer.image {
-//                (context) in
-//                draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-//            }
-//        } else {
-//            UIGraphicsBeginImageContextWithOptions(CGSize(width: newSize.width, height: newSize.height), false, 0)
-//            draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-//            newImage = UIGraphicsGetImageFromCurrentImageContext()!
-//            UIGraphicsEndImageContext()
-//        }
-//
-//        return newImage
-//    }
-//}
-

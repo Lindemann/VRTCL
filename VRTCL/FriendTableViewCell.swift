@@ -107,34 +107,6 @@ class FriendTableViewCell: UITableViewCell {
 	}
 }
 
-class FollowButton: TagButton {
-	
-	init(mode: Mode) {
-		
-		var color = Colors.lightGray
-		switch mode {
-		case .follow:
-			color = Colors.mint
-		case .unfollow:
-			color = Colors.watermelon
-		}
-		super.init(text: mode.rawValue, color: color, interactionMode: .highlightable)
-		defer { self.mode = mode }
-	}
-	
-	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-	
-	enum Mode: String {
-		case follow = "follow"
-		case unfollow = "unfollow"
-	}
-	
-	var mode: Mode = .unfollow
-}
-
-
 
 
 

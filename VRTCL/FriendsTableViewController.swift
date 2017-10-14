@@ -30,11 +30,11 @@ internal class FriendsTableViewControllerVieModel {
 							user.isFriend = true
 							let tmp = self.users.remove(at: index)
 							self.users.insert(tmp, at: 0)
-							self.tableViewController?.tableView.reloadData()
 						}
 					}
 				}
 			}
+			self.tableViewController?.tableView.reloadData()
 			self.refreshControl.endRefreshing()
 		}
 	}
@@ -47,13 +47,13 @@ internal class FriendsTableViewControllerVieModel {
 		APIController.getAllUsers { (success, error, users) in
 			if let users = users {
 				self.users = users
-				self.romoveLogedInUser() // API returns all users including logged in user
+				self.romoveLogedInUser()
 				self.swapFriendToTop()
-				self.tableViewController?.tableView.reloadData()
 			}
 		}
 	}
 	
+	// API returns all users including logged in user
 	func romoveLogedInUser() {
 		for (index, user) in users.enumerated() {
 			if User.shared == user {
@@ -73,7 +73,7 @@ class FriendsTableViewController: UITableViewController {
 		tableView.backgroundColor = Colors.darkGray
 		tableView.estimatedRowHeight = UITableViewAutomaticDimension
 		tableView.rowHeight = UITableViewAutomaticDimension
-		tableView.register(FriendTableViewCell.self, forCellReuseIdentifier: FriendTableViewCell.nibAndReuseIdentifier)
+//		tableView.register(FriendTableViewCell.self, forCellReuseIdentifier: FriendTableViewCell.nibAndReuseIdentifier)
 		tableView.separatorStyle = .none
 		tableView.addSubview(viewModel.refreshControl)
 		setupSearchController()
@@ -112,8 +112,7 @@ class FriendsTableViewController: UITableViewController {
 
 extension FriendsTableViewController: UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
 	
-	func updateSearchResults(for searchController: UISearchController) {
-	}
+	func updateSearchResults(for searchController: UISearchController) { }
 	
 	func willDismissSearchController(_ searchController: UISearchController) {
 		viewModel.updateUsers()
@@ -124,10 +123,8 @@ extension FriendsTableViewController: UISearchControllerDelegate, UISearchResult
 			if success {
 				guard let users = users else { return }
 				self.viewModel.users = users
-				self.tableView.reloadData()
 				self.viewModel.romoveLogedInUser()
 				self.viewModel.swapFriendToTop()
-				// TODO: Hot Fix...rethink later!
 				self.tableView.reloadData()
 			}
 		}
