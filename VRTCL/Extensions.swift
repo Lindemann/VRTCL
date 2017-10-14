@@ -68,7 +68,12 @@ extension CLLocation {
 				completion(nil, error)
 				return
 			}
-			let string = "\(placemark.locality ?? ""), \(placemark.subLocality ?? "")"
+			var string = ""
+			if let subLocality = placemark.subLocality {
+				string = "\(placemark.locality ?? ""), \(subLocality)"
+			} else {
+				string = "\(placemark.locality ?? "")"
+			}
 			completion(string, error)
 //			if let areasOfInterest = placemark.areasOfInterest?[1] {
 //				print(areasOfInterest)
