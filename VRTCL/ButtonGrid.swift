@@ -43,7 +43,9 @@ class ButtonGrid: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 		self.itemsPerRow = itemsPerRow
 		self.spaceing = spaceing
 		self.items = items
-		super.init(frame: CGRect(origin: origin, size: size(itemsPerRow: itemsPerRow, spaceing: spaceing, items: items)))
+		super.init(frame: CGRect.zero)
+		self.frame = CGRect(origin: origin, size: size(itemsPerRow: itemsPerRow, spaceing: spaceing, items: items))
+//		super.init(frame: CGRect(origin: origin, size: size(itemsPerRow: itemsPerRow, spaceing: spaceing, items: items)))
 		setupCollectionView()
 		defer {
 			self.items = items

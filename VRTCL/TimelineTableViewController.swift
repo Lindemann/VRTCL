@@ -30,13 +30,20 @@ class TimelineTableViewControllerViewModel {
 			self.refreshControl.endRefreshing()
 			return
 		}
-		APIController.following { (success, error, users) in
-			if success, var users = users {
-				users.append(User.shared)
-				self.timelineDataArray = TimelineBuilder(users: users).timelineDataArray
-				self.timelineTableViewController.tableView.reloadData()
+		if mode == .everyone {
+			// To remove the .me user data before the request was successfull
+			self.timelineDataArray = TimelineBuilder(users: everyone).timelineDataArray
+			self.timelineTableViewController.tableView.reloadData()
+			
+			APIController.following { (success, error, users) in
+				if success, let users = users {
+					self.everyone = users
+					self.everyone.append(User.shared)
+					self.timelineDataArray = TimelineBuilder(users: self.everyone).timelineDataArray
+					self.timelineTableViewController.tableView.reloadData()
+				}
+				self.refreshControl.endRefreshing()
 			}
-			self.refreshControl.endRefreshing()
 		}
 	}
 	
@@ -58,6 +65,8 @@ class TimelineTableViewControllerViewModel {
 	}
 	
 	var friend: User?
+	var everyone: [User] = []
+	
 	var mode: Mode = .everyone
 	
 	lazy var segmentedControl: UISegmentedControl = {
@@ -118,8 +127,8 @@ class TimelineTableViewController: UITableViewController {
 	var viewModel: TimelineTableViewControllerViewModel!
 	
 	enum Mode {
-		case timeline
-		case friend
+		case timeline // for the timeline tab
+		case friend // friend detail in friends tab
 	}
 	var friend: User?
 	var mode: Mode = .timeline

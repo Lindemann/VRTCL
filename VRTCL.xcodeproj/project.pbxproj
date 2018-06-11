@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1BCE6805AF26CBE304D0279C /* Pods_VRTCL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BFE5C1A514C4197E09425F8 /* Pods_VRTCL.framework */; };
+		3F4F289F71D4EFE85706F3B1 /* Pods_VRTCL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90607365AECCEA6F619AD235 /* Pods_VRTCL.framework */; };
 		8203E1FC1F786882006BF061 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8203E1FB1F786882006BF061 /* FriendsTableViewController.swift */; };
 		8203E1FE1F7868A2006BF061 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8203E1FD1F7868A2006BF061 /* FriendTableViewCell.swift */; };
 		8203E2001F786C6E006BF061 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8203E1FF1F786C6E006BF061 /* User.swift */; };
@@ -48,8 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0BFE5C1A514C4197E09425F8 /* Pods_VRTCL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VRTCL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3C68448ED67250B46169AAB0 /* Pods-VRTCL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VRTCL.release.xcconfig"; path = "Pods/Target Support Files/Pods-VRTCL/Pods-VRTCL.release.xcconfig"; sourceTree = "<group>"; };
+		11548FC4C7368AB9F99898D7 /* Pods-VRTCL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VRTCL.release.xcconfig"; path = "Pods/Target Support Files/Pods-VRTCL/Pods-VRTCL.release.xcconfig"; sourceTree = "<group>"; };
 		8203E1FB1F786882006BF061 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		8203E1FD1F7868A2006BF061 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
 		8203E1FF1F786C6E006BF061 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -89,7 +88,8 @@
 		82F7C98A1F700C8A00B490E0 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		82F7C98C1F7043A400B490E0 /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
 		82F7C9901F714F7200B490E0 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		A15E55CEF4005197D304EF55 /* Pods-VRTCL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VRTCL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VRTCL/Pods-VRTCL.debug.xcconfig"; sourceTree = "<group>"; };
+		90607365AECCEA6F619AD235 /* Pods_VRTCL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VRTCL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7ED03A3FE2C40947A8DF312 /* Pods-VRTCL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VRTCL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VRTCL/Pods-VRTCL.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,18 +97,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BCE6805AF26CBE304D0279C /* Pods_VRTCL.framework in Frameworks */,
+				3F4F289F71D4EFE85706F3B1 /* Pods_VRTCL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		769C827A37309D5C202D449B /* Pods */ = {
+		43A5DA5CBEAC7753FEB2889A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A15E55CEF4005197D304EF55 /* Pods-VRTCL.debug.xcconfig */,
-				3C68448ED67250B46169AAB0 /* Pods-VRTCL.release.xcconfig */,
+				C7ED03A3FE2C40947A8DF312 /* Pods-VRTCL.debug.xcconfig */,
+				11548FC4C7368AB9F99898D7 /* Pods-VRTCL.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -204,8 +204,8 @@
 			children = (
 				829F24721B0021EB00BDF443 /* VRTCL */,
 				829F24711B0021EB00BDF443 /* Products */,
-				769C827A37309D5C202D449B /* Pods */,
-				E2A50A2325129DDFE5272BB6 /* Frameworks */,
+				43A5DA5CBEAC7753FEB2889A /* Pods */,
+				E9B3D1D6646365E90333817F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -264,10 +264,10 @@
 			name = API;
 			sourceTree = "<group>";
 		};
-		E2A50A2325129DDFE5272BB6 /* Frameworks */ = {
+		E9B3D1D6646365E90333817F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0BFE5C1A514C4197E09425F8 /* Pods_VRTCL.framework */,
+				90607365AECCEA6F619AD235 /* Pods_VRTCL.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -279,12 +279,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 829F24911B0021EB00BDF443 /* Build configuration list for PBXNativeTarget "VRTCL" */;
 			buildPhases = (
-				BE02F8D243402FB5AF01C28F /* [CP] Check Pods Manifest.lock */,
+				C2757E5B4A186D305FBD7C60 /* [CP] Check Pods Manifest.lock */,
 				829F246C1B0021EB00BDF443 /* Sources */,
 				829F246D1B0021EB00BDF443 /* Frameworks */,
 				829F246E1B0021EB00BDF443 /* Resources */,
-				49642F15BAEF0B4C97E7E0DA /* [CP] Embed Pods Frameworks */,
-				7F52B1BD190194F68B660459 /* [CP] Copy Pods Resources */,
+				E12579D629BC0E743D26DD78 /* [CP] Embed Pods Frameworks */,
+				95DACC2A06568CD3D3249592 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -354,22 +354,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		49642F15BAEF0B4C97E7E0DA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VRTCL/Pods-VRTCL-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7F52B1BD190194F68B660459 /* [CP] Copy Pods Resources */ = {
+		95DACC2A06568CD3D3249592 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -384,7 +369,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VRTCL/Pods-VRTCL-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BE02F8D243402FB5AF01C28F /* [CP] Check Pods Manifest.lock */ = {
+		C2757E5B4A186D305FBD7C60 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -397,6 +382,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E12579D629BC0E743D26DD78 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VRTCL/Pods-VRTCL-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -563,7 +563,7 @@
 		};
 		829F24921B0021EB00BDF443 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A15E55CEF4005197D304EF55 /* Pods-VRTCL.debug.xcconfig */;
+			baseConfigurationReference = C7ED03A3FE2C40947A8DF312 /* Pods-VRTCL.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -582,7 +582,7 @@
 		};
 		829F24931B0021EB00BDF443 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3C68448ED67250B46169AAB0 /* Pods-VRTCL.release.xcconfig */;
+			baseConfigurationReference = 11548FC4C7368AB9F99898D7 /* Pods-VRTCL.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
