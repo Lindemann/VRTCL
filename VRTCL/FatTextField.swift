@@ -15,7 +15,7 @@ class FatTextField: UITextField {
 	override var placeholder: String? {
 		didSet {
 			if let placeholder = placeholder {
-				attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedStringKey.foregroundColor: Colors.lightGray.darker(by: 20)])
+				attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: Colors.lightGray.darker(by: 20)])
 			}
 		}
 	}

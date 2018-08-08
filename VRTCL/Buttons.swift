@@ -59,7 +59,7 @@ internal class Button: UIButton {
 		didSet {
 			if appearanceMode == .outlined {
 				UIView.animate(withDuration: animationDuration) { [weak self] in
-					self?.setTitleColor(self?.color, for: UIControlState())
+					self?.setTitleColor(self?.color, for: UIControl.State())
 					self?.backgroundColor = UIColor.clear
 					self?.layer.borderColor = self?.color?.cgColor ?? UIColor.green.cgColor
 					self?.imageView?.tintColor = self?.color
@@ -67,7 +67,7 @@ internal class Button: UIButton {
 			}
 			if appearanceMode == .filled {
 				UIView.animate(withDuration: animationDuration) { [weak self] in
-					self?.setTitleColor(self?.presentingViewBackgroundColor, for: UIControlState())
+					self?.setTitleColor(self?.presentingViewBackgroundColor, for: UIControl.State())
 					self?.backgroundColor = self?.color
 					self?.imageView?.tintColor = self?.presentingViewBackgroundColor
 				}
@@ -108,7 +108,7 @@ class TagButton: Button {
 		let font = UIFont.systemFont(ofSize: 16, weight: .medium)
 		let insets: CGFloat = 14
 		
-		let stringSize = nsString.size(withAttributes: [NSAttributedStringKey.font: font])
+		let stringSize = nsString.size(withAttributes: [NSAttributedString.Key.font: font])
 		let frame = CGRect(x: origin.x, y: origin.y, width: stringSize.width + insets * 2, height: 30)
 		
 		super.init(frame: frame)
@@ -193,7 +193,7 @@ class CircleButton: Button {
 		layer.borderWidth = 2
 		layer.borderColor = self.color?.cgColor ?? UIColor.green.cgColor
 		
-		setTitle(text, for: UIControlState())
+		setTitle(text, for: UIControl.State())
 		titleLabel?.font = UIFont.systemFont(ofSize: 80, weight: .medium)
 		titleLabel?.adjustsFontSizeToFitWidth = true
 		titleLabel?.textAlignment = .center
@@ -202,7 +202,7 @@ class CircleButton: Button {
 		// Adjusting the inset percentage basesd on character count
 		// since uikit only calculates the label width to fit the button we ignore the height
 		var inset: CGFloat = 0
-		if let count = titleLabel?.text?.characters.count {
+		if let count = titleLabel?.text?.count {
 			switch count {
 			case 1:
 				inset = frame.size.width * 0.35
@@ -227,7 +227,7 @@ class CircleButton: Button {
 			// TODO: Fix me with small images
 			let inset: CGFloat = 8 // Ugly AF...shriks the image for the small face button
 			imageEdgeInsets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
-			setImage(image.withRenderingMode(.alwaysTemplate), for: UIControlState())
+			setImage(image.withRenderingMode(.alwaysTemplate), for: UIControl.State())
 			adjustsImageWhenHighlighted = false
 		}
 	}
@@ -351,7 +351,7 @@ class PhotoButton: UIButton {
 		
 		if let image = image {
 			imageView?.contentMode = .scaleAspectFill
-            setImage(image, for: UIControlState())
+            setImage(image, for: UIControl.State())
 		}
 		
 		defer { self.mode = mode }

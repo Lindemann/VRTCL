@@ -16,7 +16,7 @@ struct APIError {
 
 struct APIController {
 	
-	#if (arch(i386) || arch(x86_64)) && os(iOS) //Simulator
+	#if targetEnvironment(simulator) //Simulator
 		static let baseURL = "http://localhost:8080/"
 	#else //Device
 		static let baseURL = "https://vrtcl.herokuapp.com/"

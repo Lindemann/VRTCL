@@ -52,7 +52,7 @@ class PieChartView: UIView {
         foregroundShapeLayer.fillColor = UIColor.clear.cgColor
         foregroundShapeLayer.strokeColor = color.cgColor
         foregroundShapeLayer.lineWidth = lineWidth
-        foregroundShapeLayer.lineCap = kCALineCapRound
+        foregroundShapeLayer.lineCap = CAShapeLayerLineCap.round
         containerView.layer.addSublayer(foregroundShapeLayer)
 
         // Percentage Label

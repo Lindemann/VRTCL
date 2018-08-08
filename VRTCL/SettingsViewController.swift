@@ -6,12 +6,11 @@
 //  Copyright © 2017 Lindemann. All rights reserved.
 //
 
-import Cloudinary
 import UIKit
 import Kingfisher
 
 internal struct SettingsViewControllerViewModel {
-
+	
 }
 
 class SettingsViewController: UIViewController {
@@ -92,43 +91,56 @@ extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationC
 		dismiss(animated: true, completion: nil)
 	}
 	
-	internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-		if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-			
-			if let smallImage = image.scaleImageToSize(newSize: CGSize(width: 300, height: 300)) {
-				
-//                print(image.size)
-//                print(smallImage.size)
-//                let imgData1: Data = UIImageJPEGRepresentation(image, 0)!
-//                print("Size of Image: \(imgData1.count) bytes")
-//                let imgData: Data = UIImageJPEGRepresentation(smallImage, 0)!
-//                print("Size of Image: \(imgData.count) bytes")
-				
-				// Cloudinary
-				if let config = CLDConfiguration(cloudinaryUrl: Keys.cloudinaryURL), let data = UIImagePNGRepresentation(smallImage) as Data? {
-					let cloudinary = CLDCloudinary(configuration: config)
-					UIApplication.shared.isNetworkActivityIndicatorVisible = true
-					cloudinary.createUploader().upload(data: data, uploadPreset: Keys.cloudinaryUploadPreset, params: nil, progress: nil, completionHandler: { (result, error) in
-						if var url = result?.url {
-							url = url.replacingOccurrences(of: "http://", with: "https://") // Could Cloudinary not convince to respond with https url
-							UIApplication.shared.isNetworkActivityIndicatorVisible = true
-							APIController.post(photoURL: url, completion: { (success, error) in
-								if success {
-									UserDefaults().set(url, forKey: "photoURL")
-									AppDelegate.shared.user.photoURL = url
-									self.photoButton.setImage(smallImage, for: .normal)
-								} else {
-									APIController.showAlertFor(reason: "Error while updating photo", In: self)
-								}
-								UIApplication.shared.isNetworkActivityIndicatorVisible = false
-							})
-						}
-						UIApplication.shared.isNetworkActivityIndicatorVisible = false
-					})
-				}
-			}
-
-		}
+	internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//		// Local variable inserted by Swift 4.2 migrator.
+//		let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+//		
+//		if let image = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
+//			
+//			if let smallImage = image.scaleImageToSize(newSize: CGSize(width: 300, height: 300)) {
+//				
+//				//                print(image.size)
+//				//                print(smallImage.size)
+//				//                let imgData1: Data = UIImageJPEGRepresentation(image, 0)!
+//				//                print("Size of Image: \(imgData1.count) bytes")
+//				//                let imgData: Data = UIImageJPEGRepresentation(smallImage, 0)!
+//				//                print("Size of Image: \(imgData.count) bytes")
+//				
+//				// Cloudinary
+//				if let config = CLDConfiguration(cloudinaryUrl: Keys.cloudinaryURL), let data = smallImage.pngData() as Data? {
+//					let cloudinary = CLDCloudinary(configuration: config)
+//					UIApplication.shared.isNetworkActivityIndicatorVisible = true
+//					cloudinary.createUploader().upload(data: data, uploadPreset: Keys.cloudinaryUploadPreset, params: nil, progress: nil, completionHandler: { (result, error) in
+//						if var url = result?.url {
+//							url = url.replacingOccurrences(of: "http://", with: "https://") // Could Cloudinary not convince to respond with https url
+//							UIApplication.shared.isNetworkActivityIndicatorVisible = true
+//							APIController.post(photoURL: url, completion: { (success, error) in
+//								if success {
+//									UserDefaults().set(url, forKey: "photoURL")
+//									AppDelegate.shared.user.photoURL = url
+//									self.photoButton.setImage(smallImage, for: .normal)
+//								} else {
+//									APIController.showAlertFor(reason: "Error while updating photo", In: self)
+//								}
+//								UIApplication.shared.isNetworkActivityIndicatorVisible = false
+//							})
+//						}
+//						UIApplication.shared.isNetworkActivityIndicatorVisible = false
+//					})
+//				}
+//			}
+//			
+//		}
 		dismiss(animated: true, completion: nil)
 	}
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }

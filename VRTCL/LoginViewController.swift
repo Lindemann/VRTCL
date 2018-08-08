@@ -107,7 +107,7 @@ extension LoginViewController: UITextFieldDelegate {
 	
 	func textFieldDidEndEditing(_ textField: UITextField) {
 		slideDown()
-		if let count = textField.text?.characters.count, count > 0 {
+		if let count = textField.text?.count, count > 0 {
 			switch textField.tag {
 			case 0:
 				viewModel.email = textField.text

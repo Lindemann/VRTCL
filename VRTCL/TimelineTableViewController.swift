@@ -137,8 +137,8 @@ class TimelineTableViewController: UITableViewController {
         super.viewDidLoad()
 		
 		tableView.backgroundColor = Colors.darkGray
-		tableView.estimatedRowHeight = UITableViewAutomaticDimension
-		tableView.rowHeight = UITableViewAutomaticDimension
+		tableView.estimatedRowHeight = UITableView.automaticDimension
+		tableView.rowHeight = UITableView.automaticDimension
 		tableView.register(TimelineTableViewCell.self, forCellReuseIdentifier: TimelineTableViewCell.nibAndReuseIdentifier)
 		tableView.separatorStyle = .none
 		tableView.allowsSelection = false

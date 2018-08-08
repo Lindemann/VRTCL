@@ -81,8 +81,8 @@ class EditSessionViewController: UIViewController, UITableViewDelegate, UITableV
 		}
 	}
 	
-	override func willMove(toParentViewController parent: UIViewController?) {
-		super.willMove(toParentViewController: parent)
+	override func willMove(toParent parent: UIViewController?) {
+		super.willMove(toParent: parent)
 		self.navigationController?.navigationBar.barTintColor = Colors.bar
 	}
 	
@@ -374,7 +374,7 @@ extension EditSessionViewController: UITextFieldDelegate {
 	}
 	
 	func textFieldDidEndEditing(_ textField: UITextField) {
-		if let count = textField.text?.characters.count, count > 0 {
+		if let count = textField.text?.count, count > 0 {
 			viewModel.session.location?.name = textField.text
 		}
 	}
